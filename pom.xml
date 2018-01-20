@@ -21,19 +21,24 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-	  <dependency>
-	    <groupId>com.pi4j</groupId>
-	    <artifactId>pi4j-core</artifactId>
-	   <version>1.1</version>
+	<dependency>
+	  <groupId>com.pi4j</groupId>
+	  <artifactId>pi4j-core</artifactId>
+	  <version>1.1</version>
 	</dependency>
-  
     <dependency>
-      <groupId>com.kauailabs.navx.frc</groupId>
-      <artifactId>navx_frc</artifactId>
-      <version>[3.0,3.1]</version>
+      <groupId>edu.wpi.first.wpilibj</groupId>
+      <artifactId>wpilibj-java</artifactId>
+      <version>2018.2.2</version>
     </dependency>
   </dependencies>
   <repositories>
+    
+    <repository>
+      <id>wpilib-maven</id>
+      <name>WPILib Maven Repository</name>
+      <url>http://first.wpi.edu/FRC/roborio/maven/release</url>
+    </repository>
     
     <repository>
       <id>kauailabs-maven</id>
