@@ -26,6 +26,11 @@
 	  <artifactId>pi4j-core</artifactId>
 	  <version>1.1</version>
 	</dependency>
+	<dependency>
+      <groupId>com.kauailabs.navx.frc</groupId>
+      <artifactId>navx_frc</artifactId>
+      <version>[3.0,3.1]</version>
+    </dependency>
     <dependency>
       <groupId>edu.wpi.first.wpilibj</groupId>
       <artifactId>wpilibj-java</artifactId>
