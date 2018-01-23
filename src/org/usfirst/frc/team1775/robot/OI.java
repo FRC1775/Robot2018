@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team1775.robot.commands.ExampleCommand;
 import org.usfirst.frc.team1775.robot.commands.SetServo;
+import org.usfirst.frc.team1775.robot.commands.JoystickServo;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -41,8 +42,6 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 	
 	public void init(){
-	    Joystick driver = new Joystick(0);
-	    JoystickButton button = new JoystickButton(driver, 1);
-	    button.whileHeld(new SetServo());
+	    myJoystick = new Joystick(0);
 	}
 }
