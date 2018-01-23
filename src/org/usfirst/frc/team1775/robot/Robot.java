@@ -21,6 +21,7 @@ import org.usfirst.frc.team1775.robot.subsystems.ExampleSubsystem;
 public class Robot extends IterativeRobot {
 
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+	public static final MotorSubsystem motorSubsystem = new MotorSubsystem();
 	public static OI oi;
 
 	Command autonomousCommand;

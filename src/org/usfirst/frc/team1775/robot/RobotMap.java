@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1775.robot;
 
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.PWM;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -20,8 +21,10 @@ public class RobotMap {
 	// public static int rangefinderModule = 1;
 	
 	public static Servo servo;
+	public static Talon motorController;
 	
 	public static void init() {
-	    servo = new Servo(0);
+	    //servo = new Servo(0);
+	    motorController = new Talon(0);
 	}
 }

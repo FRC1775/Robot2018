@@ -42,7 +42,7 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 	
 	public static Joystick myJoystick;
-	public void init(){
+	public void init() {
 	   myJoystick = new Joystick(0);
 	}
 }
