@@ -17,7 +17,7 @@ public class SetServo extends Command {
     
     @Override
     protected void execute() {
-        RobotMap.servo.set(angle);
+  //      RobotMap.servo.set(angle);
         if(angle <= 0.5) {
             angle += 0.01;
         }

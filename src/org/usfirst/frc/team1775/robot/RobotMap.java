@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1775.robot;
 
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.PWM;
 
 /**
@@ -20,11 +21,12 @@ public class RobotMap {
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
 	
-	public static Servo servo;
+	//public static Servo servo;
 	public static Talon motorController;
 	
 	public static void init() {
 	    //servo = new Servo(0);
-	    motorController = new Talon(0);
+	    motorController = new Talon(1);
+	    motorController.enableDeadbandElimination(true);
 	}
 }

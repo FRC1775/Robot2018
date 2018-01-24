@@ -23,7 +23,7 @@ public class JoystickServo extends Command {
         double xServo = xVal * 90 + 90;
         double yServo = yVal * 90 + 90;
         
-        RobotMap.servo.setAngle(xServo);
+//        RobotMap.servo.setAngle(xServo);
     }
     
     @Override
