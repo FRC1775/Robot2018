@@ -9,10 +9,10 @@ public double inputJoystick;
 public double atAngle;    
 
 protected void execute(){
-inputJoystick = driver.getX();
-atAngle = 90(inputJoystick)+90;
+// inputJoystick = OI.driver.getX();
+// atAngle = 90 * (inputJoystick) + 90;
 
-RobotMap.servo.setAngle(atAngle);
+// RobotMap.servo.setAngle(atAngle);
 }   
 
 protected boolean isFinished(){

@@ -41,17 +41,9 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 	
 	public void init(){
-<<<<<<< HEAD
 	    //Joystick driver = new Joystick(0);
 	    ///JoystickButton button = new JoystickButton(driver,1);
 	    ///button.whileHeld(new SetServo());
 	    Joystick myJoystick = new Joystick (0);
-	
-	    
-=======
-	    Joystick driver = new Joystick(0);
-	    JoystickButton button = new JoystickButton(driver, 1);
-	    button.whileHeld(new SetServo());
->>>>>>> master
 	}
 }
