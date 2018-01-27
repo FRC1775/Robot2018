@@ -98,8 +98,14 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+<<<<<<< HEAD
 			oi.init();
 			RobotMap.init();
+=======
+			
+		oi.init();
+		RobotMap.init();
+>>>>>>> master
 	}
 
 	/**
