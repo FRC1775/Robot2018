@@ -24,9 +24,7 @@ public class RobotMap {
 	public static Servo servo;
 	
 	public static void init() {
-	    servo = new Servo(0);
+	    // servo = new Servo(0);
 	    motorController = new Talon(0);
-	
-	
 	}
 }

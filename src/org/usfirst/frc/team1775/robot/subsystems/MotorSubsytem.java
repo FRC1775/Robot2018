@@ -11,7 +11,7 @@ public class MotorSubsytem extends Subsystem{
     protected void initDefaultCommand() {
         setDefaultCommand(new SetMotorSpeed());
         // TODO Auto-generated method stub
-        
+        public void setSpeed(double speed)
     }
     
     
