@@ -40,16 +40,9 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 	
-<<<<<<< HEAD
 	public void init () {
 //	    driver = new Joystick(0);
 //	    JoystickButton button = new JoystickButton(driver, 1);
 //	    button.whileHeld(new SetServo());
-=======
-	public void init(){
-	    Joystick driver = new Joystick(0);
-	    JoystickButton button = new JoystickButton(driver, 1);
-	    button.whileHeld(new SetServo());
->>>>>>> master
 	}
 }

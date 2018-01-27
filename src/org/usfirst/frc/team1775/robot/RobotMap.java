@@ -21,18 +21,12 @@ public class RobotMap {
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
-<<<<<<< HEAD
 	public static Servo servo;
 	
 	public static void init() {
 	    servo = new Servo(0);
 	    motorController = new Talon(0);
-=======
 	
-	public static Servo servo;
 	
-	public static void init() {
-	    servo = new Servo(0);
->>>>>>> master
 	}
 }
