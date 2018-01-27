@@ -2,17 +2,26 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>Robot2018</groupId>
-  <artifactId>blah</artifactId>
+  <groupId>org.usfirst.frc.team1775</groupId>
+  <artifactId>Robot2018</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>blah</name>
+  <name>Robot2018</name>
   <url>http://maven.apache.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+  
+  <build>
+    <sourceDirectory>/projects/Robot2018/src</sourceDirectory>
+    <testSourceDirectory>/projects/Robot2018/test</testSourceDirectory>
+    <outputDirectory>/projects/Robot2018/target/classes</outputDirectory>
+    <testOutputDirectory>/projects/Robot2018/target/test-classes</testOutputDirectory>
+  </build>
 
   <dependencies>
     <dependency>
@@ -37,8 +46,8 @@
       <version>2018.2.2</version>
     </dependency>
   </dependencies>
+
   <repositories>
-    
     <repository>
       <id>wpilib-maven</id>
       <name>WPILib Maven Repository</name>
@@ -51,4 +60,5 @@
       <url>http://www.kauailabs.com/maven2</url>
     </repository>
   </repositories>
+
 </project>
