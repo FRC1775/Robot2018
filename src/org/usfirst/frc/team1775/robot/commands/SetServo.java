@@ -1,10 +1,12 @@
 package org.usfirst.frc.team1775.robot.commands;
 
+import org.usfirst.frc.team1775.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SetServo extends Command {
     private double angle; 
-    private boolean is Finished;
+    private boolean isFinished;
     
     @Override
 	protected void execute() {

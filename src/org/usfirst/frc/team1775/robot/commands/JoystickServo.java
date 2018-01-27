@@ -1,14 +1,14 @@
 package org.usfirst.frc.team1775.robot.commands;
 
-import org.usfirst.frc.team1775.robot.IO;
-import org.usfirst.frc.teamq775.robot.Robot;
+import org.usfirst.frc.team1775.robot.OI;
+import org.usfirst.frc.team1775.robot.Robot;
 import org.usfirst.frc.team1775.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.Joystick
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wip.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Servo;
 
-public class JotstickServo extends Command {
+public class JoystickServo extends Command {
     
     public JoystickServo() {
         requires(Robot.exampleSubsystem);
@@ -26,6 +26,7 @@ public class JotstickServo extends Command {
     
     @Override
     protected boolean isFinished() {
+		return false;
         
     }
 } 
