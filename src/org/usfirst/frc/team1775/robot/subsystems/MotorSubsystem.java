@@ -8,8 +8,15 @@ public class MotorSubsystem extends Subsystem{
     
     @Override
     protected void initDefaultCommand(){
-        setDefaultCommand(new SetMotorSpeed());
+        setDefaultCommand(new Drive());
         
-        
+    }
+    
+    public void setSpeed(double speed){
+        RobotMap.motorController.set(speed);
+    }
+    
+    public void drive (double moveValue, double rotateValue){
+        RobotMap.driveTrain.arcadeDrive()
     }
 }
