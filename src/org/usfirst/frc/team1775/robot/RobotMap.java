@@ -23,10 +23,16 @@ public class RobotMap {
 	
 	//public static Servo servo;
 	public static Talon motorController;
+	public static Talon secondMotorController;
+	public static RobotDrive driver;
 	
 	public static void init() {
 	    //servo = new Servo(0);
 	    motorController = new Talon(1);
 	    motorController.enableDeadbandElimination(true);
+	    
+	    secondMotorController = new Talon(2);
+	    
+	    driver = new RobotDrive(motorController,secondMotorController);
 	}
 }

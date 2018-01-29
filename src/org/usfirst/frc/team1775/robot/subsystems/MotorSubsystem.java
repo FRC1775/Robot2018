@@ -10,6 +10,10 @@ public class MotorSubsystem extends Subsystem {
     
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
-		setDefaultCommand(new SetMotorSpeed());
+		setDefaultCommand(new Drive());
+	}
+	
+	public void drive (double moveValue, double rotateValue) {
+	    driver.arcadeDrive(moveValue, rotateValue);
 	}
 }

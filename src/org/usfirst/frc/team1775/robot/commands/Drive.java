@@ -8,16 +8,17 @@ import org.usfirst.frc.team1775.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.PWM;
 
-public class SetMotorSpeed extends Command {
+public class Drive extends Command {
 
-	public SetMotorSpeed() {
+	public Drive() {
 		requires(Robot.motorSubsystem);
 	}
 
 	@Override
 	protected void execute() {
 		double yVal = OI.leftJoystick.getY();
-		this.setSpeed(yVal);
+		double xVal = OI.rightJoystick.getX();
+		this.drive(yVal, xVal);
 	}
 
 	public void setSpeed(double speed) {
