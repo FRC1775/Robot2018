@@ -1,5 +1,8 @@
 package org.usfirst.frc.team1775.robot;
 
+import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Talon;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -22,4 +25,15 @@ public class RobotMap {
 	public static void init() {
 	    servo = new Servo(0);
 	}
+	public static Talon motorController;
+	
+	public static void init(){
+	    servo = new Servo(0);
+	    motorController = new Talon(0);
+	    MotorController = new Talon(1);
+	}
+	public static robotDrive driveTrain(motorController,MotorController){
+	    
+	}
+	
 }
