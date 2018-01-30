@@ -1,7 +1,10 @@
 package org.usfirst.frc.team1775.robot;
 
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.drive.RobotDriveBase.MotorType;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -22,18 +25,20 @@ public class RobotMap {
 	
 	public static Servo servo;
 	
-	public static void init() {
-	    servo = new Servo(0);
-	}
+	//public static void init() {
+	//    servo = new Servo(0);
+	//}
 	public static Talon motorController;
+	public static Talon motorController2;
+	public static DifferentialDrive Drive;
 	
 	public static void init(){
-	    servo = new Servo(0);
-	    motorController = new Talon(0);
-	    MotorController = new Talon(1);
+	    motorController = new Talon(1);
+	    motorController.setInverted(true);
+	    motorController2 = new Talon(2);
+	    motorController2.setInverted(true);
+	    Drive = new DifferentialDrive(motorController, motorController2);
 	}
-	public static robotDrive driveTrain(motorController,MotorController){
-	    
-	}
+	
 	
 }

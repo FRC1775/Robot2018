@@ -47,14 +47,12 @@ public class OI {
 	//}
 //}
 public static Joystick myjoystick;
-public static Joystick myjoystick2;
 public void init(){
 	    //Joystick driver = new Joystick(0);
        // double valueX;
         //valueX = driver.getX();
        // System.out.println (valueX);
-        myJoystick = new Joystick(0);
-        myJoystick2 = new Joystick(0);
+        myjoystick = new Joystick(0);
         
 	}
 }
