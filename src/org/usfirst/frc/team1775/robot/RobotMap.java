@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1775.robot;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -15,6 +16,7 @@ public class RobotMap {
     public static Talon motorController;
     public static Talon motorController2;
     public static DifferentialDrive drive;
+    public static Encoder driveEncoder;
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
 	// public static int leftMotor = 1;
@@ -31,6 +33,10 @@ public class RobotMap {
 	    motorController = new Talon(1);
 	    motorController2 = new Talon(2);
 	    drive = new DifferentialDrive(motorController, motorController2);
-    }
+    
+	    driveEncoder = new Encoder(3, 2, false, Encoder.EncodingType.k1X);
+		double distancePerPulse = ((3.19*Math.PI)/250.0);
+		driveEncoder.setDistancePerPulse(distancePerPulse);
+	}
   
 }

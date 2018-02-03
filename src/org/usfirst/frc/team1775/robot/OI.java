@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+import org.usfirst.frc.team1775.robot.commands.DriveDistance;
 import org.usfirst.frc.team1775.robot.commands.ExampleCommand;
 import org.usfirst.frc.team1775.robot.commands.SetServo;
 
@@ -42,7 +43,7 @@ public class OI {
 	public static Joystick myJoystick;
 	public void init () {
 	    myJoystick = new Joystick(0);
-//	    JoystickButton button = new JoystickButton(driver, 1);
-//	    button.whileHeld(new SetServo());
+	    JoystickButton button = new JoystickButton(myJoystick, 1);
+	    button.whenPressed(new DriveDistance(30));
 	}
 }
