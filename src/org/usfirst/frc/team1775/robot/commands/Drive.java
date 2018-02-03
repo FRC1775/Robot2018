@@ -16,9 +16,9 @@ public class Drive extends Command {
 
 	@Override
 	protected void execute() {
-		double yVal = OI.leftJoystick.getY();
-		double xVal = OI.rightJoystick.getX();
-		this.drive(yVal, xVal);
+		double yVal = OI.myJoystik.getRawAxis(1);
+		double xVal = OI.myJoystick.getRawAxis(4);
+		Robot.motorSubsystem.drive(yVal, xVal);
 	}
 
 	public void setSpeed(double speed) {
