@@ -1,13 +1,22 @@
-package org.usfirst.frc.team1775.robot.commands;
+package org.usfirst.frc.team1775.robot.commands; 
+import org.usfirst.frc.team1775.robot.OI;
+import org.usfirst.frc.team1775.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SetMotorSpeed extends Command{
-    public void execute(){
-        
-    
+   public SetMotorSpeed(){
+     requires(Robot.motorSubsystem);   
+   }
+   public void execute (){
+        double yVal = OI.myJoystick.getY();
+     // Robot.motorSubsystem.setSpeed(yVal);
+   
     }
-    
-    protected boolean isFinished(){
+
+    @Override
+    protected boolean isFinished() {
+        // TODO Auto-generated method stub
         return false;
     }
 }

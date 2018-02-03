@@ -1,21 +1,32 @@
 package org.usfirst.frc.team1775.robot.commands;
 
+import org.usfirst.frc.team1775.robot.OI;
+import org.usfirst.frc.team1775.robot.Robot;
+import org.usfirst.frc.team1775.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Servo;
 
 public class JoystickServo extends Command {
-
-public double inputJoystick;
-public double atAngle;    
-
-protected void execute(){
-// inputJoystick = OI.driver.getX();
-// atAngle = 90 * (inputJoystick) + 90;
-
-// RobotMap.servo.setAngle(atAngle);
-}   
-
-protected boolean isFinished(){
-return false;
-}
-}
+    
+    public JoystickServo() {
+        requires(Robot.exampleSubsystem);
+        
+    }
+    @Override
+    protected void execute() {
+        double xVal = OI.myJoystick.getX();
+        double yVal = OI.myJoystick.getY();
+        
+        
+        double xServo = xVal * 90 + 90;
+        double yServo = xVal * 90 + 90;    
+    }
+    
+    @Override
+    protected boolean isFinished() {
+		return false;
+        
+    }
+} 
