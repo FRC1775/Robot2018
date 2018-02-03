@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.Talon;
  */
 public class RobotMap {
     public static Talon motorController;
+    public static Talon motorController2;
+    public static DifferentialDrive drive;
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
 	// public static int leftMotor = 1;
@@ -26,5 +28,8 @@ public class RobotMap {
 	public static void init() {
 	    // servo = new Servo(0);
 	    motorController = new Talon(0);
-	}
+	    motorController2 = new Talon(1);
+	    Drive = new DifferentialDrive(motorController, motorController2)
+    }
+  
 }
