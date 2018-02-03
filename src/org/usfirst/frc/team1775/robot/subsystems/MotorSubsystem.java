@@ -1,8 +1,9 @@
 package org.usfirst.frc.team1775.robot.subsystems;
 
 import org.usfirst.frc.team1775.robot.commands.SetMotorSpeed;
-
+import org.usfirst.frc.team1775.robot;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.usfirst.frc.team1775.robot.commands.drive;
 
 public class MotorSubsystem extends Subsystem{
     
@@ -12,8 +13,8 @@ public class MotorSubsystem extends Subsystem{
         
     }
     
-    public void setSpeed(double speed){
-        RobotMap.motorController.set(speed);
+    public void drive(double xSpeed, double zRotation){
+        RobotMap.drive.arcadeDrive(xSpeed,zrotation);
     }
     
     public void drive (double moveValue, double rotateValue){
