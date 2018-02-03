@@ -2,6 +2,7 @@ package org.usfirst.frc.team1775.robot;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 
 /**
@@ -27,9 +28,9 @@ public class RobotMap {
 	
 	public static void init() {
 	    // servo = new Servo(0);
-	    motorController = new Talon(0);
-	    motorController2 = new Talon(1);
-	    Drive = new DifferentialDrive(motorController, motorController2)
+	    motorController = new Talon(1);
+	    motorController2 = new Talon(2);
+	    drive = new DifferentialDrive(motorController, motorController2);
     }
   
 }

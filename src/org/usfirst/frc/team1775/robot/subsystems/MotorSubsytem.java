@@ -14,8 +14,8 @@ public class MotorSubsytem extends Subsystem{
         setDefaultCommand(new Drive());
         // TODO Auto-generated method stub
     }
-    public void setSpeed(double xSpeed, double zRotation) {
-        RobotMap.drive.arcadeDRive(xSpeed, zRotation);
+    public void drive(double xSpeed, double zRotation) {
+        RobotMap.drive.arcadeDrive(-xSpeed, zRotation, true);
     }
     
 }

@@ -26,7 +26,7 @@ public class Robot extends IterativeRobot {
     
     public static MotorSubsytem motorSubsystem = new MotorSubsytem();
     
-	Command autonomousCommand;
+    Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
 	/**
