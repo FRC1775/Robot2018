@@ -33,6 +33,6 @@ public class RobotMap {
 	    
 	    secondMotorController = new Talon(2);
 	    
-	    driver = new RobotDrive(motorController,secondMotorController);
+	    driver = new DifferentialDrive(motorController,secondMotorController);
 	}
 }

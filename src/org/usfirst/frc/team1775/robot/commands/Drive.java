@@ -21,10 +21,10 @@ public class Drive extends Command {
 		Robot.motorSubsystem.drive(yVal, xVal);
 	}
 
-	public void setSpeed(double speed) {
-		System.out.println(speed);
-		RobotMap.motorController.set(speed);
-	}
+   /* public void setSpeed(double speed) {
+	*	System.out.println(speed);
+	*	RobotMap.motorController.set(speed);
+   }*/
 
 	@Override
 	protected boolean isFinished() {

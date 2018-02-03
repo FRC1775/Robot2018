@@ -16,6 +16,8 @@ public class MotorSubsystem extends Subsystem {
 	}
 	
 	public void drive (double xSpeed, double zRotation) {
-	    driver.arcadeDrive(moveValue, rotateValue);
+	    RobotMap.driver.arcadeDrive(-xSpeed, zRotation, true);
+	    // the "true" as the third parameter makes a "ramp up" on the speed,
+	    // so the driving is less jerky
 	}
 }
