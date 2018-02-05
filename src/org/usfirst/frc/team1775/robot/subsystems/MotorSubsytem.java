@@ -11,11 +11,15 @@ public class MotorSubsytem extends Subsystem{
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new Drive());
+        setDefaultCommand(
+            new Drive()
+        );
         // TODO Auto-generated method stub
     }
     public void drive(double xSpeed, double zRotation) {
-        RobotMap.drive.arcadeDrive(-xSpeed, zRotation, true);
+        RobotMap.drive.arcadeDrive(
+            -xSpeed, zRotation, true
+        );
     }
     
 }
