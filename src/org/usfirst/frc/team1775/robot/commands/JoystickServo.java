@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.Servo;
 
 public class JoystickServo extends Command {
-	
-	public JoystickServo() {
+    
+    public JoystickServo() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.exampleSubsystem);
 	}
