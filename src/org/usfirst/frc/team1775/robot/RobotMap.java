@@ -1,17 +1,7 @@
 package org.usfirst.frc.team1775.robot;
 
-<<<<<<< HEAD
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.drive.RobotDriveBase.MotorType;
-=======
-import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-
->>>>>>> master
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -20,27 +10,9 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * floating around.
  */
 public class RobotMap {
-    public static Talon motorController;
-    public static Talon motorController2;
-    public static DifferentialDrive drive;
-	// For example to map the left and right motors, you could define the
-	// following variables to use with your drivetrain subsystem.
-	// public static int leftMotor = 1;
-	// public static int rightMotor = 2;
-
-	// If you are using multiple modules, make sure to define both the port
-	// number and the module. For example you with a rangefinder:
-	// public static int rangefinderPort = 1;
-	// public static int rangefinderModule = 1;
-	public static Servo servo;
-	
-<<<<<<< HEAD
-	//public static void init() {
-	//    servo = new Servo(0);
-	//}
 	public static Talon motorController;
 	public static Talon motorController2;
-	public static DifferentialDrive Drive;
+	public static DifferentialDrive drive;
 	public static Talon motorController3;
 	public static Talon motorController4;
 	
@@ -51,17 +23,6 @@ public class RobotMap {
 	    motorController2.setInverted(true);
 	    motorController3 = new Talon(3);
 	    motorController4 = new Talon(4);
-	    Drive = new DifferentialDrive(motorController, motorController2);
-	}
-	
-	
-=======
-	public static void init() {
-	    // servo = new Servo(0);
-	    motorController = new Talon(1);
-	    motorController2 = new Talon(2);
 	    drive = new DifferentialDrive(motorController, motorController2);
-    }
-  
->>>>>>> master
+	}
 }
