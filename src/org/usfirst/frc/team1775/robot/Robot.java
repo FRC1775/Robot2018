@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1775.robot.commands.ExampleCommand;
 import org.usfirst.frc.team1775.robot.subsystems.ExampleSubsystem;
-import org.usfirst.frc.team1775.robot.subsystems.MotorSubsytem;
+import org.usfirst.frc.team1775.robot.subsystems.MotorSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,6 +22,7 @@ import org.usfirst.frc.team1775.robot.subsystems.MotorSubsytem;
 public class Robot extends IterativeRobot {
 
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+	public static final MotorSubsystem motorSubsystem = new MotorSubsystem();
 	public static OI oi;
     
     public static MotorSubsytem motorSubsystem = new MotorSubsytem();
@@ -101,8 +102,8 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 			
-			oi.init();
-			RobotMap.init();
+		oi.init();
+		RobotMap.init();
 	}
 
 	/**

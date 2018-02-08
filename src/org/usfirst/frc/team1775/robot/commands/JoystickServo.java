@@ -11,22 +11,23 @@ import edu.wpi.first.wpilibj.Servo;
 public class JoystickServo extends Command {
     
     public JoystickServo() {
-        requires(Robot.exampleSubsystem);
-        
-    }
+		// Use requires() here to declare subsystem dependencies
+		requires(Robot.exampleSubsystem);
+	}
+	
     @Override
     protected void execute() {
         double xVal = OI.myJoystick.getX();
         double yVal = OI.myJoystick.getY();
         
-        
         double xServo = xVal * 90 + 90;
-        double yServo = xVal * 90 + 90;    
+        double yServo = yVal * 90 + 90;
+        
+//        RobotMap.servo.setAngle(xServo);
     }
     
     @Override
     protected boolean isFinished() {
-		return false;
-        
+        return false;
     }
-} 
+}
