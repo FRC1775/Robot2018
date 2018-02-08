@@ -31,12 +31,16 @@ public class RobotMap {
 	public static Talon motorController;
 	public static Talon motorController2;
 	public static DifferentialDrive Drive;
+	public static Talon motorController3;
+	public static Talon motorController4;
 	
 	public static void init(){
 	    motorController = new Talon(1);
 	    motorController.setInverted(true);
 	    motorController2 = new Talon(2);
 	    motorController2.setInverted(true);
+	    motorController3 = new Talon(3);
+	    motorController4 = new Talon(4);
 	    Drive = new DifferentialDrive(motorController, motorController2);
 	}
 	
