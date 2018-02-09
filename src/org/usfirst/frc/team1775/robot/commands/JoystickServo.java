@@ -8,7 +8,7 @@ public class JoystickServo extends Command {
     
     public JoystickServo() {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.exampleSubsystem);
+		//requires(Robot.exampleSubsystem);
 	}
 	
     @Override

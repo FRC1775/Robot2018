@@ -17,6 +17,9 @@ public class RobotMap {
     public static Talon motorController2;
     public static Talon intakeController;
     public static Talon intakeController2;
+    public static Talon liftController;
+    public static Talon liftController2;
+    
     public static DifferentialDrive drive;
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
@@ -36,6 +39,8 @@ public class RobotMap {
 	    motorController2 = new Talon(2);
 	    intakeController = new Talon(3);
 	    intakeController2 = new Talon(4);
+	    liftController = new Talon(5);
+	    liftController2 = new Talon(6);
 	    drive = new DifferentialDrive(motorController, motorController2);
 	    
     }

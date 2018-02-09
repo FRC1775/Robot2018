@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1775.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.IntakeSubsystem;
+import org.usfirst.frc.team1775.robot.subsystems.LiftSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.MotorSubsystem;
 
 /**
@@ -21,11 +22,12 @@ import org.usfirst.frc.team1775.robot.subsystems.MotorSubsystem;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+	//public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static final MotorSubsystem motorSubsystem = new MotorSubsystem();
 	public static OI oi;
     
     public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+    public static final LiftSubsystem liftSubsystem = new LiftSubsystem();
     
     Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
