@@ -11,7 +11,7 @@ public class Intake extends Command{
     	requires(Robot.intakeSubsystem);
     }
     public void execute() {
-    double yVal2 = OI.myjoystick.getRawAxis(1);
+    double yVal2 = OI.myJoystick2.getRawAxis(1);
     Robot.intakeSubsystem.setSpeed(yVal2);
 }
 	@Override

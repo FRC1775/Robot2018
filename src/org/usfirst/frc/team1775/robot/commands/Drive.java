@@ -11,8 +11,8 @@ public class Drive extends Command{
     	requires(Robot.motorSubsystem);
     }
     public void execute() {
-    double yVal2 = OI.myjoystick.getRawAxis(1);
-    double xVal2 = OI.myjoystick.getRawAxis(4);
+    double yVal2 = OI.myJoystick.getRawAxis(1);
+    double xVal2 = OI.myJoystick.getRawAxis(4);
     Robot.motorSubsystem.drive(yVal2,xVal2);
 }
 	@Override
