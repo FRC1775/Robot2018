@@ -1,12 +1,10 @@
 package org.usfirst.frc.team1775.robot.subsystems;
 
 import org.usfirst.frc.team1775.robot.RobotMap;
-import org.usfirst.frc.team1775.robot.commands.Drive;
-import org.usfirst.frc.team1775.robot.commands.SetMotorSpeed;
-
+import org.usfirst.frc.team1775.robot.commands.Intake;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class IntakeSubsytem extends Subsystem{
+public class IntakeSubsystem extends Subsystem{
     
 
     @Override
@@ -15,9 +13,9 @@ public class IntakeSubsytem extends Subsystem{
         // TODO Auto-generated method stub
     }
     
-    protected void setSpeed(double yVal) {
-        RobotMap.intakeCotnroller.set(yVal);
-        RobotMap.intakeCotnroller2.set(yVal);
+    public void setSpeed(double yVal) {
+        RobotMap.intakeController.set(yVal);
+        RobotMap.intakeController2.set(yVal);
     }
     
 }

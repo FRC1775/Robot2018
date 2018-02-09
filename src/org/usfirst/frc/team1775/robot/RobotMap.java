@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1775.robot;
 
-import edu.wpi.first.wpilibj.Servo;
+//import edu.wpi.first.wpilibj.RobotDrive;
+//import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -27,15 +28,13 @@ public class RobotMap {
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
 	//public static Servo servo;
-	public static Talon motorController;
-	public static Talon MotorController2;
-	public static RobotDrive driver;
+	//public static RobotDrive driver;
 	
 	public static void init() {
 	    //servo = new Servo(0);
 	    motorController = new Talon(1);
 	    motorController2 = new Talon(2);
-	    intakeCotnroller = new Talon(3);
+	    intakeController = new Talon(3);
 	    intakeController2 = new Talon(4);
 	    drive = new DifferentialDrive(motorController, motorController2);
 	    

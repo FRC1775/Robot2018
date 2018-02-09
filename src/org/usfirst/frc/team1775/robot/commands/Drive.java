@@ -4,9 +4,6 @@ import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc.team1775.robot.OI;
 import org.usfirst.frc.team1775.robot.Robot;
-import org.usfirst.frc.team1775.robot.RobotMap;
-
-import edu.wpi.first.wpilibj.command.Command;
 
 public class Drive extends Command {
     public Drive(){

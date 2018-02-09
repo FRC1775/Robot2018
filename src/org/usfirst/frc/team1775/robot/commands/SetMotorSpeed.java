@@ -16,7 +16,7 @@ public class SetMotorSpeed extends Command {
 
 	@Override
 	protected void execute() {
-		double yVal = OI.leftJoystick.getY();
+		double yVal = OI.myJoystick.getY();
 		this.setSpeed(yVal);
 	}
 

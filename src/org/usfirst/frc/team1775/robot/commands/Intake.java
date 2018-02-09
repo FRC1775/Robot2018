@@ -4,7 +4,7 @@ import org.usfirst.frc.team1775.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Drive extends Command {
+public class Intake extends Command {
     public Intake(){
         requires(Robot.intakeSubsystem);
     }

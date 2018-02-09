@@ -1,8 +1,7 @@
 package org.usfirst.frc.team1775.robot.subsystems;
 
-import org.usfirst.frc.team1775.robot.commands.SetMotorSpeed;
 import org.usfirst.frc.team1775.robot.commands.Drive;
-import org.usfirst.frc.team1775.robot.commands.RobotMap;
+import org.usfirst.frc.team1775.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -16,7 +15,7 @@ public class MotorSubsystem extends Subsystem {
 	}
 	
 	public void drive (double xSpeed, double zRotation) {
-	    RobotMap.driver.arcadeDrive(-xSpeed, zRotation, true);
+	    RobotMap.drive.arcadeDrive(-xSpeed, zRotation, true);
 	    // the "true" as the third parameter makes a "ramp up" on the speed,
 	    // so the driving is less jerky
 	}
