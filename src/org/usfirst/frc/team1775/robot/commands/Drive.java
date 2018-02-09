@@ -1,8 +1,9 @@
 package org.usfirst.frc.team1775.robot.commands;
-import org.usfirst.frc.team1775.robot.OI;
-import org.usfirst.frc.team1775.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+
+import org.usfirst.frc.team1775.robot.OI;
+import org.usfirst.frc.team1775.robot.Robot;
 
 public class Drive extends Command {
     public Drive(){

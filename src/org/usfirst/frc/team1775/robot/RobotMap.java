@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1775.robot;
 
-import edu.wpi.first.wpilibj.Servo;
+//import edu.wpi.first.wpilibj.RobotDrive;
+//import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -14,6 +15,11 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 public class RobotMap {
     public static Talon motorController;
     public static Talon motorController2;
+    public static Talon intakeController;
+    public static Talon intakeController2;
+    public static Talon liftController;
+    public static Talon liftController2;
+    
     public static DifferentialDrive drive;
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
@@ -24,13 +30,19 @@ public class RobotMap {
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
-	public static Servo servo;
+	//public static Servo servo;
+	//public static RobotDrive driver;
 	
 	public static void init() {
-	    // servo = new Servo(0);
+	    //servo = new Servo(0);
 	    motorController = new Talon(1);
 	    motorController2 = new Talon(2);
+	    intakeController = new Talon(3);
+	    intakeController2 = new Talon(4);
+	    liftController = new Talon(5);
+	    liftController2 = new Talon(6);
 	    drive = new DifferentialDrive(motorController, motorController2);
+	    
     }
   
 }

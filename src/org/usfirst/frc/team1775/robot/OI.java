@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team1775.robot.commands.ExampleCommand;
 import org.usfirst.frc.team1775.robot.commands.SetServo;
+import org.usfirst.frc.team1775.robot.commands.JoystickServo;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -39,10 +40,19 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
+
+/**
+ * This class is the glue that binds the controls on the physical operator
+ * interface to the commands and command groups that allow control of the robot.
+ */
+
 	public static Joystick myJoystick;
+	public static Joystick subsystemsJoystick;
+	
 	public void init () {
 	    myJoystick = new Joystick(0);
-//	    JoystickButton button = new JoystickButton(driver, 1);
-//	    button.whileHeld(new SetServo());
+	    subsystemsJoystick = new Joystick(1);
+	  //  JoystickButton button = new JoystickButton(drive, 1);
+	   // button.whileHeld(new SetServo());
 	}
 }
