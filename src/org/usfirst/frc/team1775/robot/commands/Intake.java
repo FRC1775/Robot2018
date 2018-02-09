@@ -1,5 +1,8 @@
 package org.usfirst.frc.team1775.robot.commands;
 
+import org.usfirst.frc.team1775.robot.Robot;
+import org.usfirst.frc.team1775.robot.RobotMap;
+
 public class Intake extends Command{
     public Intake(){
         requires(Robot.IntakeSubsystem);
@@ -11,7 +14,6 @@ public class Intake extends Command{
         Robot.IntakeSubsystem.setSpeed(xVal);
     }
     
-    @Override
     protected boolean isFinished() {
         return false;
     }
