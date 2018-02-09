@@ -23,6 +23,7 @@ public class RobotMap {
 	    motorController2.setInverted(true);
 	    motorController3 = new Talon(3);
 	    motorController4 = new Talon(4);
+	    motorController4.setInverted(true);
 	    drive = new DifferentialDrive(motorController, motorController2);
 	}
 }
