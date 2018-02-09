@@ -48,6 +48,7 @@ public void init(){
         //valueX = driver.getX();
        // System.out.println (valueX);
         myJoystick = new Joystick(0);
+        myJoystick2 = new Joystick(1);
         
 	}
 }

@@ -15,6 +15,8 @@ public class RobotMap {
 	public static DifferentialDrive drive;
 	public static Talon motorController3;
 	public static Talon motorController4;
+	public static Talon motorController5;
+	public static Talon motorController6;
 	
 	public static void init(){
 	    motorController = new Talon(1);
@@ -24,6 +26,8 @@ public class RobotMap {
 	    motorController3 = new Talon(3);
 	    motorController4 = new Talon(4);
 	    motorController4.setInverted(true);
+	    motorController5 = new Talon(5);
+	    motorController6 = new Talon(6);
 	    drive = new DifferentialDrive(motorController, motorController2);
 	}
 }
