@@ -47,9 +47,11 @@ public class OI {
  */
 
 	public static Joystick myJoystick;
+	public static Joystick subsystemsJoystick;
 	
 	public void init () {
 	    myJoystick = new Joystick(0);
+	    subsystemsJoystick = new Joystick(1);
 	  //  JoystickButton button = new JoystickButton(drive, 1);
 	   // button.whileHeld(new SetServo());
 	}
