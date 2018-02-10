@@ -10,7 +10,7 @@ public class Lift extends Command {
 	}
 
 	public void execute() {
-		double yVal2 = OI.myJoystick2.getRawAxis(3);
+		double yVal2 = OI.mechanismJoystick.getRawAxis(3);
 		Robot.liftSubsystem.setSpeed(yVal2);
 	}
 

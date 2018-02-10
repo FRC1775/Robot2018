@@ -23,7 +23,7 @@ import org.usfirst.frc.team1775.robot.subsystems.LiftSubsystem;
 public class Robot extends IterativeRobot {
 
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-	public static final MotorSubsystem motorSubsystem = new MotorSubsystem();
+	public static MotorSubsystem motorSubsystem;
 	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 	public static final LiftSubsystem liftSubsystem = new LiftSubsystem();
 	public static OI oi;
@@ -39,7 +39,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		RobotMap.init();
-		motorSubsystem = new MotorSubsytem();
+		motorSubsystem = new MotorSubsystem();
 			// choosetype name = new type(arguments);r.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);

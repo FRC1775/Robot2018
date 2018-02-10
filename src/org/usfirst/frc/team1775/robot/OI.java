@@ -10,13 +10,13 @@ import org.usfirst.frc.team1775.robot.commands.DriveDistance;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	public static Joystick myJoystick;
-	public static Joystick myJoystick2;
+	public static Joystick driverJoystick;
+	public static Joystick mechanismJoystick;
 
 	public void init() {
-		myJoystick = new Joystick(0);
-		myJoystick2 = new Joystick(1);
-		JoystickButton aButton = new JoystickButton(myJoystick, 1);
+		driverJoystick = new Joystick(0);
+		mechanismJoystick = new Joystick(1);
+		JoystickButton aButton = new JoystickButton(driverJoystick, 1);
 		aButton.whenPressed(new DriveDistance(30));
 	}
 }

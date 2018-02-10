@@ -12,6 +12,6 @@ public class LiftSubsystem extends Subsystem {
 
 	public void setSpeed(double speed) {
 		RobotMap.liftMotorController1.set(speed);
-		RobotMap.liftMotorController2.set(speed);
+		//RobotMap.liftMotorController2.set(speed * 0.05);
 	}
 }
