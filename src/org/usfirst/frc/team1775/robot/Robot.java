@@ -38,6 +38,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+		RobotMap.init();
+		motorSubsystem = new MotorSubsytem();
 			// choosetype name = new type(arguments);r.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
@@ -103,7 +105,6 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 			
 			oi.init();
-			RobotMap.init();
 	}
 
 	/**
