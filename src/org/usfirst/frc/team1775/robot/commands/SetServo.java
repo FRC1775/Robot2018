@@ -12,10 +12,10 @@ public class SetServo extends Command {
 	    angle += 0.01;
 	    if (angle <= 0.5) {
 	    } 
-}
+    }
 
-@Override
+    @Override
 	protected boolean isFinished() {
-	return isFinished; 
+    	return isFinished; 
 	}
 }

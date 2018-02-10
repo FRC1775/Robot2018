@@ -6,7 +6,6 @@ import org.usfirst.frc.team1775.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class JoystickServo extends Command {
-    
     public JoystickServo() {
         requires(Robot.exampleSubsystem);
         

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * floating around.
  */
 public class RobotMap {
+	public static Encoder driveEncoder;
 	public static Talon leftDriveMotorController;
 	public static Talon rightDriveMotorController;
 	public static DifferentialDrive drive;
@@ -20,6 +21,10 @@ public class RobotMap {
 	public static Talon liftMotorController2;
 	
 	public static void init(){
+		driveEncoder = new Encoder(3, 2, false, Encoder.EncodingType.k1X);
+		double distancePerPulse = ((3.19*Math.PI)/250.0);
+		driveEncoder.setDistancePerPulse(distancePerPulse);
+		
 	    leftDriveMotorController = new Talon(1);
 	    leftDriveMotorController.setInverted(true);
 	    rightDriveMotorController = new Talon(2);
