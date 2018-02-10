@@ -10,24 +10,24 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * floating around.
  */
 public class RobotMap {
-	public static Talon motorController;
-	public static Talon motorController2;
+	public static Talon leftDriveMotorController;
+	public static Talon rightDriveMotorController;
 	public static DifferentialDrive drive;
-	public static Talon motorController3;
-	public static Talon motorController4;
-	public static Talon motorController5;
-	public static Talon motorController6;
+	public static Talon intakeMotorController1;
+	public static Talon intakeMotorController2;
+	public static Talon liftMotorController1;
+	public static Talon liftMotorController2;
 	
 	public static void init(){
-	    motorController = new Talon(1);
-	    motorController.setInverted(true);
-	    motorController2 = new Talon(2);
-	    motorController2.setInverted(true);
-	    motorController3 = new Talon(3);
-	    motorController4 = new Talon(4);
-	    motorController4.setInverted(true);
-	    motorController5 = new Talon(5);
-	    motorController6 = new Talon(6);
-	    drive = new DifferentialDrive(motorController, motorController2);
+	    leftDriveMotorController = new Talon(1);
+	    leftDriveMotorController.setInverted(true);
+	    rightDriveMotorController = new Talon(2);
+	    rightDriveMotorController.setInverted(true);
+	    intakeMotorController1 = new Talon(3);
+	    intakeMotorController2 = new Talon(4);
+	    intakeMotorController2.setInverted(true);
+	    liftMotorController1 = new Talon(5);
+	    liftMotorController2 = new Talon(6);
+	    drive = new DifferentialDrive(leftDriveMotorController, rightDriveMotorController);
 	}
 }

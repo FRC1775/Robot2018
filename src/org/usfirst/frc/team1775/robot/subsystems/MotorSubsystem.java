@@ -11,7 +11,7 @@ public class MotorSubsystem extends Subsystem{
     
     }
     public void setSpeed(double speed){
-        RobotMap.motorController.set(speed);
+        RobotMap.leftDriveMotorController.set(speed);
     }
     public void drive(double moveValue, double rotateValue){
     RobotMap.drive.arcadeDrive(moveValue,rotateValue*-1);

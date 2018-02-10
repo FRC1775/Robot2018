@@ -5,14 +5,14 @@ import org.usfirst.frc.team1775.robot.Robot;
 import org.usfirst.frc.team1775.robot.OI;
 
 
-public class Intake extends Command{
+public class Lift extends Command{
 	
-    public Intake () {
-    	requires(Robot.intakeSubsystem);
+    public Lift () {
+    	requires(Robot.liftSubsystem);
     }
     public void execute() {
     double yVal2 = OI.myJoystick2.getRawAxis(3);
-    Robot.LiftSubsystem.setSpeed(yVal2);
+    Robot.liftSubsystem.setSpeed(yVal2);
 }
 	@Override
 	protected boolean isFinished() {

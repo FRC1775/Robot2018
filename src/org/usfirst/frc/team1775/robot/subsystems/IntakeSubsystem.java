@@ -12,8 +12,8 @@ public class IntakeSubsystem extends Subsystem{
     
     }
     public void setSpeed(double speed){
-        RobotMap.motorController3.set(speed);
-        RobotMap.motorController4.set(speed);
+        RobotMap.intakeMotorController1.set(speed);
+        RobotMap.intakeMotorController2.set(speed);
     }
     
 }
