@@ -1,7 +1,5 @@
 package org.usfirst.frc.team1775.robot.commands;
 
-import org.usfirst.frc.team1775.robot.RobotMap;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SetServo extends Command {
@@ -10,7 +8,7 @@ public class SetServo extends Command {
     
     @Override
 	protected void execute() {
-	    RobotMap.servo.set(angle);
+	    //RobotMap.servo.set(angle);
 	    angle += 0.01;
 	    if (angle <= 0.5) {
 	    } 
