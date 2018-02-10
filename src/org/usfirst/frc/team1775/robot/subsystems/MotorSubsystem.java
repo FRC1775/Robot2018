@@ -15,7 +15,6 @@ public class MotorSubsystem extends Subsystem {
 	private static DriveMode driveMode = DriveMode.Regular;
 
 	double driveToDistancePidResult = 0;
-	double driveToDistanceTargetDistance = 0;
 
 	private PIDController driveToDistancePidController = new PIDController(0, 0, 0, (PIDSource) RobotMap.driveEncoder,
 			(value) -> {
@@ -49,7 +48,6 @@ public class MotorSubsystem extends Subsystem {
 
 		RobotMap.driveEncoder.reset();
 
-		driveToDistanceTargetDistance = distance;
 		driveToDistancePidController.setPID(0.35, 0, 2.3);
 		driveToDistancePidController.setInputRange(-100, 100);
 		driveToDistancePidController.setContinuous(true);
@@ -57,7 +55,7 @@ public class MotorSubsystem extends Subsystem {
 		driveToDistancePidController.setAbsoluteTolerance(0.5);
 		driveToDistancePidController.setToleranceBuffer(20);
 
-		driveToDistancePidController.setSetpoint(driveToDistanceTargetDistance);
+		driveToDistancePidController.setSetpoint(distance);
 		driveToDistancePidController.enable();
 	}
 
