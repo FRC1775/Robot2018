@@ -9,10 +9,10 @@ public class DriveDistance extends Command {
 
 	public DriveDistance(double distance) {
 		requires(Robot.motorSubsystem);
-		
+
 		this.distance = distance;
 	}
-	
+
 	@Override
 	protected void initialize() {
 		Robot.motorSubsystem.setDriveDistance(distance);
@@ -27,7 +27,7 @@ public class DriveDistance extends Command {
 	protected void interrupted() {
 		Robot.motorSubsystem.stop();
 	}
-	
+
 	@Override
 	protected boolean isFinished() {
 		return Robot.motorSubsystem.isFinished();

@@ -12,11 +12,11 @@ import org.usfirst.frc.team1775.robot.commands.DriveDistance;
 public class OI {
 	public static Joystick myJoystick;
 	public static Joystick myJoystick2;
-	
+
 	public void init() {
-        myJoystick = new Joystick(0);
-        myJoystick2 = new Joystick(1);
-        JoystickButton aButton = new JoystickButton(myJoystick, 1);
-        aButton.whenPressed(new DriveDistance(30));
+		myJoystick = new Joystick(0);
+		myJoystick2 = new Joystick(1);
+		JoystickButton aButton = new JoystickButton(myJoystick, 1);
+		aButton.whenPressed(new DriveDistance(30));
 	}
 }
