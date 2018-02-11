@@ -3,6 +3,7 @@ package org.usfirst.frc.team1775.robot;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -29,16 +30,14 @@ public class RobotMap {
 		driveEncoder.setDistancePerPulse(distancePerPulse);
 		
 		gyro = new AHRS(SPI.Port.kMXP);
+		gyro.reset();
 		
-	    leftDriveMotorController = new Talon(1);
-	    leftDriveMotorController.setInverted(true);
-	    rightDriveMotorController = new Talon(2);
-	    rightDriveMotorController.setInverted(true);
+	    leftDriveMotorController = new Talon(0);
+	    rightDriveMotorController = new Talon(1);
 	    intakeMotorController1 = new Talon(3);
 	    intakeMotorController2 = new Talon(4);
 	    intakeMotorController2.setInverted(true);
 	    liftMotorController1 = new Talon(5);
-	    liftMotorController1.
 	    drive = new DifferentialDrive(leftDriveMotorController, rightDriveMotorController);
 	}
 }

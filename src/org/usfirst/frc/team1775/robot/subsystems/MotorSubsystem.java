@@ -6,6 +6,7 @@ import org.usfirst.frc.team1775.robot.commands.Drive;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class MotorSubsystem extends Subsystem {
 	private enum DriveMode {
@@ -24,8 +25,9 @@ public class MotorSubsystem extends Subsystem {
 	
 	private PIDController rotateToAnglePidController = new PIDController(0 ,0 ,0 ,(PIDSource) RobotMap.gyro,
 			(value) ->  {
+				SmartDashboard.putNumber("PID Output", -value);
 				rotateToAnglePidResult = value;
-			}, 0.02);
+			});
 
 	@Override
 	protected void initDefaultCommand() {
@@ -34,14 +36,19 @@ public class MotorSubsystem extends Subsystem {
 	}
 
 	public void drive(double moveValue, double rotateValue) {
-		RobotMap.drive.arcadeDrive(moveValue, rotateValue * -1);
+		rotateToAnglePidController.disable();
+		SmartDashboard.putNumber("Angle", RobotMap.gyro.getAngle());
+		RobotMap.drive.arcadeDrive(-moveValue, rotateValue, true);
 	}
 
 	public void driveDistance() {
+		rotateToAnglePidController.disable();
 		RobotMap.drive.arcadeDrive(driveToDistancePidResult, 0, false);
 	}
 	
 	public void rotateAngle() {
+		rotateToAnglePidController.enable();
+		SmartDashboard.putNumber("Angle", RobotMap.gyro.getAngle());
 		RobotMap.drive.arcadeDrive(0, rotateToAnglePidResult);
 	}
 
@@ -75,17 +82,16 @@ public class MotorSubsystem extends Subsystem {
 	public void setRotateAngle(double angle) {
 		setDriveMode(DriveMode.RotateToAngle);
 
-		RobotMap.driveEncoder.reset();
+		RobotMap.gyro.reset();
+		RobotMap.gyro.zeroYaw();
 
-		driveToDistancePidController.setPID(0.35, 0, 2.3);
-		driveToDistancePidController.setInputRange(-100, 100);
-		driveToDistancePidController.setContinuous(true);
-		driveToDistancePidController.setOutputRange(-0.8, 0.8);
-		driveToDistancePidController.setAbsoluteTolerance(1);
-		driveToDistancePidController.setToleranceBuffer(40);
+		rotateToAnglePidController.setPID(0.02, 0, 0);
+		rotateToAnglePidController.setInputRange(-180, 180);
+		rotateToAnglePidController.setOutputRange(-0.8, 0.8);
+		rotateToAnglePidController.setAbsoluteTolerance(2);
 
-		driveToDistancePidController.setSetpoint(angle);
-		driveToDistancePidController.enable();
+		rotateToAnglePidController.setSetpoint(angle);
+		rotateToAnglePidController.enable();
 	}
 
 	public void stop() {
