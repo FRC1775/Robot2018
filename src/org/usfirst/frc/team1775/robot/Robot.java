@@ -43,6 +43,7 @@ public class Robot extends IterativeRobot {
 			// choosetype name = new type(arguments);r.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putData(motorSubsystem);
 	}
 
 	/**
@@ -116,13 +117,5 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-	}
-
-	/**
-	 * This function is called periodically during test mode
-	 */
-	@Override
-	public void testPeriodic() {
-		LiveWindow.run();
 	}
 }

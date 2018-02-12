@@ -6,6 +6,7 @@ import org.usfirst.frc.team1775.robot.commands.Drive;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class MotorSubsystem extends Subsystem {
@@ -25,8 +26,7 @@ public class MotorSubsystem extends Subsystem {
 	
 	private PIDController rotateToAnglePidController = new PIDController(0 ,0 ,0 ,(PIDSource) RobotMap.gyro,
 			(value) ->  {
-				SmartDashboard.putNumber("PID Output", -value);
-				rotateToAnglePidResult = value;
+				RobotMap.drive.arcadeDrive(0, value);
 			});
 
 	@Override
@@ -49,7 +49,6 @@ public class MotorSubsystem extends Subsystem {
 	public void rotateAngle() {
 		rotateToAnglePidController.enable();
 		SmartDashboard.putNumber("Angle", RobotMap.gyro.getAngle());
-		RobotMap.drive.arcadeDrive(0, rotateToAnglePidResult);
 	}
 
 	public boolean isFinished() {
@@ -103,5 +102,16 @@ public class MotorSubsystem extends Subsystem {
 			return;
 
 		driveMode = mode;
+	}
+	
+	@Override
+	public void initSendable(SendableBuilder builder) {
+		builder.addDoubleProperty("navx/angle", () -> { return RobotMap.gyro.getAngle(); }, null);
+		builder.addBooleanProperty("resetGyro", () -> { return false; }, (value) -> {
+			if (value) {
+				RobotMap.gyro.reset();
+				RobotMap.gyro.zeroYaw();
+			}
+		});
 	}
 }
