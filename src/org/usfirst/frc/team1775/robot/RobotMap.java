@@ -1,7 +1,10 @@
 package org.usfirst.frc.team1775.robot;
 
+import java.lang.invoke.SwitchPoint;
+
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Talon;
@@ -21,7 +24,8 @@ public class RobotMap {
 	public static Talon intakeMotorController1;
 	public static Talon intakeMotorController2;
 	public static Talon liftMotorController1;
-	public static Talon liftMotorController2;
+	public static DigitalInput liftBottomLimitSwitch;
+	public static DigitalInput liftTopLimitSwitch;
 	public static AHRS gyro;
 	
 	public static void init(){
@@ -38,6 +42,9 @@ public class RobotMap {
 	    intakeMotorController2 = new Talon(4);
 	    intakeMotorController2.setInverted(true);
 	    liftMotorController1 = new Talon(5);
+	    liftMotorController1.setInverted(true);
+	    liftBottomLimitSwitch = new DigitalInput(0);
+	    liftTopLimitSwitch = new DigitalInput(1);
 	    drive = new DifferentialDrive(leftDriveMotorController, rightDriveMotorController);
 	}
 }
