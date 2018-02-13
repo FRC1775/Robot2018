@@ -34,7 +34,7 @@ public class PixySPI {
 	private ArrayDeque<Byte> outBuf = new ArrayDeque<>(); // Future use for sending commands to Pixy.
 	private ArrayList<int[]> blocks = new ArrayList<int[]>();
 	private boolean skipStart = false;
-	private int debug = 0; // 0 - none, 1 - SmartDashboard, 2 - log to console/file 
+	private int debug = 2; // 0 - none, 1 - SmartDashboard, 2 - log to console/file 
 
 	private static final Logger logger =
 			Logger.getLogger(PixySPI.class.getName());
@@ -63,7 +63,7 @@ public class PixySPI {
 
 		// Uncomment this to see just the raw output from the Pixy. You will need to restart the robot code
 		// to kill this.
-		//rawComms();
+//		rawComms();
 
 		int numBlocks = getBlocks(1000);
 

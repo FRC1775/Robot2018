@@ -6,7 +6,7 @@ import org.usfirst.frc.team1775.robot.commands.SetMotorSpeed;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class MotorSubsytem extends Subsystem{
+public class MotorSubsystem extends Subsystem{
     
 
     @Override
@@ -18,4 +18,6 @@ public class MotorSubsytem extends Subsystem{
         RobotMap.drive.arcadeDrive(-xSpeed, zRotation, true);
     }
     
+    public void setRotateAngle(double ang) {}
+    public void rotateAngle() {}
 }

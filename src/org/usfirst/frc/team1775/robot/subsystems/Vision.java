@@ -22,9 +22,12 @@ public class Vision extends Subsystem {
 	String print;
 	public HashMap<Integer, ArrayList<PixyPacket>> packets = new HashMap<Integer, ArrayList<PixyPacket>>();
 
-	public Vision(){
+	public Vision() {
 		// Open a pipeline to a Pixy camera.
 		pixy1 = new PixySPI(new SPI(port), packets, new PixyException(print));
+		System.out.println("Pixy Vision here, y'all.");
+
+		
 	}
 
 
