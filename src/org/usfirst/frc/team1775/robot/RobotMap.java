@@ -4,9 +4,11 @@ import java.lang.invoke.SwitchPoint;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -27,6 +29,8 @@ public class RobotMap {
 	public static DigitalInput liftBottomLimitSwitch;
 	public static DigitalInput liftTopLimitSwitch;
 	public static AHRS gyro;
+	public static Compressor compressor;
+	public static Solenoid solenoid;
 	
 	public static void init(){
 		driveEncoder = new Encoder(3, 2, false, Encoder.EncodingType.k1X);
@@ -35,6 +39,9 @@ public class RobotMap {
 		
 		gyro = new AHRS(SPI.Port.kMXP);
 		gyro.reset();
+		
+		compressor = new Compressor();
+		solenoid = new Solenoid(0);
 		
 	    leftDriveMotorController = new Talon(0);
 	    rightDriveMotorController = new Talon(1);

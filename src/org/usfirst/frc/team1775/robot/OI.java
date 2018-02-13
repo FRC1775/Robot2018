@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team1775.robot.commands.DriveDistance;
 import org.usfirst.frc.team1775.robot.commands.RotateToAngle;
+import org.usfirst.frc.team1775.robot.commands.Solenoid;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -22,5 +23,8 @@ public class OI {
 		
 		JoystickButton bButton = new JoystickButton(driverJoystick, 2);
 		bButton.whenPressed(new RotateToAngle(40));
+		
+		JoystickButton xButton = new JoystickButton(driverJoystick, 3);
+		xButton.whileHeld(new Solenoid());
 	}
 }
