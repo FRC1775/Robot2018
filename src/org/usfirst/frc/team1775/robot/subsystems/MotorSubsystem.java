@@ -28,6 +28,10 @@ public class MotorSubsystem extends Subsystem {
 			(value) ->  {
 				RobotMap.drive.arcadeDrive(0, value);
 			});
+	
+	public MotorSubsystem() {
+		addChild(rotateToAnglePidController);
+	}
 
 	@Override
 	protected void initDefaultCommand() {

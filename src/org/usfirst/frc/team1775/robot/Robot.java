@@ -44,6 +44,7 @@ public class Robot extends IterativeRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData(motorSubsystem);
+		LiveWindow.add(motorSubsystem);
 	}
 
 	/**
