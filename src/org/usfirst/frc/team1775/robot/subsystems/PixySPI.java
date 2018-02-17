@@ -242,6 +242,7 @@ public class PixySPI {
 		word = (int) (readBuf.getShort() & 0xffff);
 
 		if(debug >= 1) {SmartDashboard.putString("Pixy: getWord: word: ", Integer.toHexString(word));}
+		if(debug >= 2) {logger.log(Level.INFO, "Pixy: getWord: word: ", Integer.toHexString(word));}
 
 		// Clear the buffers, not needed, but nice to know they are cleaned out.
 		writeBuf.clear();
