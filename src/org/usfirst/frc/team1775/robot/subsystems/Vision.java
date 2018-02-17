@@ -46,21 +46,6 @@ public class Vision extends Subsystem {
 			e.printStackTrace();
 		}
 		
-		SmartDashboard.putNumber("Pixy Vision: packets size: ", packets.size());
-
-		for(int i = 1; i <= PixySPI.PIXY_SIG_COUNT ; i++) {
-			SmartDashboard.putString("Pixy Vision: Signature: ", Integer.toString(i));
-
-			SmartDashboard.putNumber("Pixy Vision: packet: " + Integer.toString(i) + ": size: ", packets.get(i).size());
-			
-			// Loop through the packets for this signature.
-			for(int j=0; j < packets.get(i).size(); j++) {
-				SmartDashboard.putNumber("Pixy Vision: " + Integer.toString(i) + ": X: ", packets.get(i).get(j).X);
-				SmartDashboard.putNumber("Pixy Vision: " + Integer.toString(i) + ": Y: ", packets.get(i).get(j).Y);
-				SmartDashboard.putNumber("Pixy Vision: " + Integer.toString(i) + ": Width: ", packets.get(i).get(j).Width);
-				SmartDashboard.putNumber("Pixy Vision: " + Integer.toString(i) + ": Height: ", packets.get(i).get(j).Height);
-			}
-		}
 	}
 }
 

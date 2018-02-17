@@ -59,18 +59,20 @@ public class PixySPI {
 
 	//This method gathers data, then parses that data, and assigns the ints to global variables
 	public int readPackets() throws PixyException { //The signature should be which number object in 
-		if(debug >= 1) {SmartDashboard.putNumber("readPackets: count: ", readPackets++);}
-
+	//	if(debug >= 1) {SmartDashboard.putNumber("readPackets: count: ", readPackets++);}
+		if(debug >= 2) {logger.log(Level.INFO, "readPackets: count: {0}", readPackets++);}
+		
 		// Uncomment this to see just the raw output from the Pixy. You will need to restart the robot code
 		// to kill this.
-//		rawComms();
+		//rawComms();
 
 		int numBlocks = getBlocks(1000);
 
 		// Clear out and initialize ArrayList for PixyPackets.
 		packets.clear();
 
-		for(int i=1; i<=PIXY_SIG_COUNT; i++) {
+		//for(int i=1; i<=PIXY_SIG_COUNT; i++) {
+		for(int i=1; i<=2; i++) {
 			packets.put(i, new ArrayList<PixyPacket>());
 		}
 
@@ -88,11 +90,6 @@ public class PixySPI {
 				packet.Width = blocks.get(i)[3];
 				packet.Height = blocks.get(i)[4];
 
-				if(debug >= 1) {SmartDashboard.putString("Pixy readPackets: Signature: " + Integer.toString(signature), Integer.toString(signature));}
-				if(debug >= 1) {SmartDashboard.putString("Pixy readPackets: " + Integer.toString(signature) + ": X: ", Integer.toString(packet.X));}
-				if(debug >= 1) {SmartDashboard.putString("Pixy readPackets: " + Integer.toString(signature) + ": Y: ", Integer.toString(packet.Y));}
-				if(debug >= 1) {SmartDashboard.putString("Pixy readPackets: " + Integer.toString(signature) + ": Width: ", Integer.toString(packet.Width));}
-				if(debug >= 1) {SmartDashboard.putString("Pixy readPackets: " + Integer.toString(signature) + ": Height: ", Integer.toString(packet.Height));}
 				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: Signature: " + Integer.toString(signature), Integer.toString(signature));}
 				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: " + Integer.toString(signature) + ": X: ", Integer.toString(packet.X));}
 				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: " + Integer.toString(signature) + ": Y: ", Integer.toString(packet.Y));}
@@ -101,7 +98,6 @@ public class PixySPI {
 
 				// Add the current PixyPacket to the correct location for the signature.
 				packets.get(signature).add(packet);
-				if(debug >= 1) {SmartDashboard.putNumber("Pixy readPackets: packets size: ", packets.get(signature).size());}
 			}
 		}
 
@@ -212,8 +208,6 @@ public class PixySPI {
 		String readString = null;
 		String writeString = null;
 
-		if(debug >= 1) {SmartDashboard.putNumber("getWord: count: ", getWord++);}
-
 		if (outBuf.size() > 0) {
 			writeBuf.put(PIXY_SYNC_BYTE_DATA);
 		}
@@ -270,20 +264,15 @@ public class PixySPI {
 		while(true) {
 			int w = getWord();
 			if(debug >= 2) {logger.log(Level.INFO, "Pixy: getStart: w: {0}", Integer.toHexString(w));}
-			if(debug >= 1) {
-				SmartDashboard.putString("Pixy: getStart: w", Integer.toHexString(w));
-				SmartDashboard.putNumber("getStart: loop count: ", count++);
-			}
+
 			if ((w == 0x00) && (lastw == 0x00)) {
 				// Could delay a bit to give time for next data block, but to get accurate time would tie up cpu.
 				// So might as well return and let caller call this getStart again.
 				if(debug >= 2) {logger.log(Level.INFO, "Pixy: getStart: {0}", "no pixy data received");}
-				if(debug >= 1) {SmartDashboard.putString("Pixy: getStart", "no pixy data received");}
 				return(false);
 			}
 			else if (((int) w == PIXY_START_WORD) && ((int) lastw == PIXY_START_WORD)) {
 				if(debug >= 2) {logger.log(Level.INFO, "Pixy: getStart: {0}", "found start");}
-				if(debug >= 1) {SmartDashboard.putString("Pixy: getStart", "found start");}
 				return(true);
 			}
 
