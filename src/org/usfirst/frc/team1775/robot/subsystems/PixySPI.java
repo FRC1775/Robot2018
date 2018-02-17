@@ -16,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+import org.usfirst.frc.team1775.robot.SingleLineFormatter;
+
 public class PixySPI {
 	PixyPacket values = null;
 	SPI pixy = null;
@@ -183,7 +185,7 @@ public class PixySPI {
 			// The top of the loop should pull the other one.
 			int w = getWord();
 
-			if(debug >= 1) {logger.log(Level.INFO, "Pixy: getBlocks: w: ", w);}
+			//if(debug >= 1) {logger.log(Level.INFO, "Pixy: getBlocks: w: ", w);}
 
 			if (w != PIXY_START_WORD) {
 				if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks: {0}", "w != PIXY_START_WORD");}
@@ -321,7 +323,7 @@ public class PixySPI {
 			writeString = bbToString(writeBuf);
 			if(debug >= 2) {logger.log(Level.INFO, "Pixy: rawComms: write sync: {0}", writeString);}
 			ret = pixy.transaction(writeBuf, readBuf, 2);
-			//readBuf.flip();
+			readBuf.flip();
 			readString = bbToString(readBuf);
 			if(debug >= 2) {logger.log(Level.INFO, "Pixy: rawComms: read sync: {0}", readString);}
 			readBuf.rewind();
