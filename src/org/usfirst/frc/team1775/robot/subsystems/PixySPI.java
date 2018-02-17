@@ -39,6 +39,7 @@ public class PixySPI {
 	private static final Logger logger =
 			Logger.getLogger(PixySPI.class.getName());
 
+
 	long getWord = 0;
 	long getStart = 0;
 	long getBlock = 0;
@@ -52,33 +53,31 @@ public class PixySPI {
 		// Set some SPI parameters.
 		pixy.setMSBFirst();
 		pixy.setChipSelectActiveLow();
-		pixy.setClockRate(1000);
-		pixy.setSampleDataOnFalling();
+		pixy.setClockRate(1000000);
+		pixy.setSampleDataOnRising();
 		pixy.setClockActiveLow();
 	}
 
 	//This method gathers data, then parses that data, and assigns the ints to global variables
 	public int readPackets() throws PixyException { //The signature should be which number object in 
-	//	if(debug >= 1) {SmartDashboard.putNumber("readPackets: count: ", readPackets++);}
-		if(debug >= 2) {logger.log(Level.INFO, "readPackets: count: {0}", readPackets++);}
-		
+		if(debug >= 1) {SmartDashboard.putNumber("readPackets: count: ", readPackets++);}
+
 		// Uncomment this to see just the raw output from the Pixy. You will need to restart the robot code
 		// to kill this.
-		//rawComms();
+//		rawComms();
 
 		int numBlocks = getBlocks(1000);
 
 		// Clear out and initialize ArrayList for PixyPackets.
 		packets.clear();
 
-		//for(int i=1; i<=PIXY_SIG_COUNT; i++) {
-		for(int i=1; i<=2; i++) {
+		for(int i=1; i<=PIXY_SIG_COUNT; i++) {
 			packets.put(i, new ArrayList<PixyPacket>());
 		}
 
 		// Put the found blocks into the correct spot in the return Hashmap<ArrayList<int[]>>.
 		if(numBlocks > 0) {
-			if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: blocks detected: {0}", Integer.toString(numBlocks));}
+			//if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: blocks detected: {0}", Integer.toString(numBlocks));}
 			if(debug >= 1) {SmartDashboard.putString("Pixy readPackets: blocks detected: ", Integer.toString(numBlocks));}
 
 			for(int i=0; i < numBlocks; i++) {
@@ -90,14 +89,20 @@ public class PixySPI {
 				packet.Width = blocks.get(i)[3];
 				packet.Height = blocks.get(i)[4];
 
-				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: Signature: " + Integer.toString(signature), Integer.toString(signature));}
-				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: " + Integer.toString(signature) + ": X: ", Integer.toString(packet.X));}
-				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: " + Integer.toString(signature) + ": Y: ", Integer.toString(packet.Y));}
-				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: " + Integer.toString(signature) + ": Width: ", Integer.toString(packet.Width));}
-				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: " + Integer.toString(signature) + ": Height: ", Integer.toString(packet.Height));}
+				if(debug >= 1) {SmartDashboard.putString("Pixy readPackets: Signature: " + Integer.toString(signature), Integer.toString(signature));}
+				if(debug >= 1) {SmartDashboard.putString("Pixy readPackets: " + Integer.toString(signature) + ": X: ", Integer.toString(packet.X));}
+				if(debug >= 1) {SmartDashboard.putString("Pixy readPackets: " + Integer.toString(signature) + ": Y: ", Integer.toString(packet.Y));}
+				if(debug >= 1) {SmartDashboard.putString("Pixy readPackets: " + Integer.toString(signature) + ": Width: ", Integer.toString(packet.Width));}
+				if(debug >= 1) {SmartDashboard.putString("Pixy readPackets: " + Integer.toString(signature) + ": Height: ", Integer.toString(packet.Height));}
+//				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: Signature: " + Integer.toString(signature), Integer.toString(signature));}
+//				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: " + Integer.toString(signature) + ": X: ", Integer.toString(packet.X));}
+//				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: " + Integer.toString(signature) + ": Y: ", Integer.toString(packet.Y));}
+//				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: " + Integer.toString(signature) + ": Width: ", Integer.toString(packet.Width));}
+//				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: " + Integer.toString(signature) + ": Height: ", Integer.toString(packet.Height));}
 
 				// Add the current PixyPacket to the correct location for the signature.
 				packets.get(signature).add(packet);
+				if(debug >= 1) {SmartDashboard.putNumber("Pixy readPackets: packets size: ", packets.get(signature).size());}
 			}
 		}
 
@@ -137,13 +142,13 @@ public class PixySPI {
 			// in which case return the current set of blocks found and set the flag
 			// to skip looking for the beginning of the next block since we already found it.
 			if(checksum == PIXY_START_WORD) {
-				if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks: {0}", "checksum == PIXY_START_WORD");}
+				//if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks: {0}", "checksum == PIXY_START_WORD");}
 				skipStart = true;
 				return(blocks.size());
 			}
 			// See if we received a empty buffer, if so, assume end of comms for now and return what we have.
 			else if (checksum == 0) {
-				if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks: {0}", "checksum == 0");}
+				//if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks: {0}", "checksum == 0");}
 				return(blocks.size());
 			}
 
@@ -156,24 +161,24 @@ public class PixySPI {
 				// intsToHex doesn't work yet. Unable to test and fix at the moment.
 				// It will show up in the log and SmartDashboard with no data.
 				// That does NOT inherently mean anything is wrong with core code.
-				if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks: block: {0}", intsToHex(block));}
+			//	if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks: block: {0}", intsToHex(block));}
 				if(debug >= 1) {SmartDashboard.putString("Pixy: getBlocks: block", intsToHex(block));}
 			}
 
-			if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks checksum: {0}", Integer.toHexString(checksum));}
+			//if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks checksum: {0}", Integer.toHexString(checksum));}
 			if(debug >= 1) {SmartDashboard.putString("Pixy: getBlocks checksum: ", Integer.toHexString(checksum));}
-			if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks trialsum: {0}", Integer.toHexString(trialsum));}
+		//	if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks trialsum: {0}", Integer.toHexString(trialsum));}
 			if(debug >= 1) {SmartDashboard.putString("Pixy: getBlocks trialsum: ", Integer.toHexString(trialsum));}
 
 			// See if we received the data correctly.
 			if(checksum == trialsum) {
 				// Data has been validated, add the current block of data to the overall blocks buffer.
 				blocks.add(block);
-				if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks Checksum: {0}", "passed");}
+				//if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks Checksum: {0}", "passed");}
 				if(debug >= 1) {SmartDashboard.putString("Pixy: getBlocks Checksum", "passed");}
 			}
 			else {
-				if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks Checksum: {0}", "failed");}
+				//if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks Checksum: {0}", "failed");}
 				if(debug >= 1) {SmartDashboard.putString("Pixy: getBlocks Checksum", "failed");}
 			}
 
@@ -186,7 +191,7 @@ public class PixySPI {
 			if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks: w: ", (Integer.toHexString(w)));}
 
 			if (w != PIXY_START_WORD) {
-				if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks: {0}", "w != PIXY_START_WORD");}
+				//if(debug >= 2) {logger.log(Level.INFO, "Pixy: getBlocks: {0}", "w != PIXY_START_WORD");}
 				return(blocks.size());
 			}
 		}
@@ -208,6 +213,8 @@ public class PixySPI {
 		String readString = null;
 		String writeString = null;
 
+		if(debug >= 1) {SmartDashboard.putNumber("getWord: count: ", getWord++);}
+
 		if (outBuf.size() > 0) {
 			writeBuf.put(PIXY_SYNC_BYTE_DATA);
 		}
@@ -223,7 +230,7 @@ public class PixySPI {
 			writeString = bbToString(writeBuf);
 			SmartDashboard.putString("Pixy: getWord: write sync: ", writeString);
 		}
-		if(debug >= 2) {logger.log(Level.INFO, "Pixy: getWord: write sync: {0}", writeString);}
+		//if(debug >= 2) {logger.log(Level.INFO, "Pixy: getWord: write sync: {0}", writeString);}
 
 		// Send the sync / data bit / 0 to get the Pixy to return data appropriately.
 		ret = pixy.transaction(writeBuf, readBuf, 2);
@@ -233,7 +240,7 @@ public class PixySPI {
 			readString = bbToString(readBuf);
 			SmartDashboard.putString("Pixy: getWord: read sync: ", readString);
 		}
-		if(debug >= 2) {logger.log(Level.INFO, "Pixy: getWord: read sync: {0}", readString);}
+		//if(debug >= 2) {logger.log(Level.INFO, "Pixy: getWord: read sync: {0}", readString);}
 
 		// Set the position back to 0 in the buffer so we read it from the beginning next time.
 		readBuf.rewind();
@@ -242,7 +249,6 @@ public class PixySPI {
 		word = (int) (readBuf.getShort() & 0xffff);
 
 		if(debug >= 1) {SmartDashboard.putString("Pixy: getWord: word: ", Integer.toHexString(word));}
-		if(debug >= 2) {logger.log(Level.INFO, "Pixy: getWord: word: ", Integer.toHexString(word));}
 
 		// Clear the buffers, not needed, but nice to know they are cleaned out.
 		writeBuf.clear();
@@ -264,16 +270,21 @@ public class PixySPI {
 		// Loop until we get a start word from the Pixy.
 		while(true) {
 			int w = getWord();
-			if(debug >= 2) {logger.log(Level.INFO, "Pixy: getStart: w: {0}", Integer.toHexString(w));}
-
+			if(debug >= 2) {logger.log(Level.INFO, "Pixy: getStart: w: {0}", w);}
+			if(debug >= 1) {
+				SmartDashboard.putString("Pixy: getStart: w", Integer.toHexString(w));
+				SmartDashboard.putNumber("getStart: loop count: ", count++);
+			}
 			if ((w == 0x00) && (lastw == 0x00)) {
 				// Could delay a bit to give time for next data block, but to get accurate time would tie up cpu.
 				// So might as well return and let caller call this getStart again.
-				if(debug >= 2) {logger.log(Level.INFO, "Pixy: getStart: {0}", "no pixy data received");}
+			//	if(debug >= 2) {logger.log(Level.INFO, "Pixy: getStart: {0}", "no pixy data received");}
+				if(debug >= 1) {SmartDashboard.putString("Pixy: getStart", "no pixy data received");}
 				return(false);
 			}
 			else if (((int) w == PIXY_START_WORD) && ((int) lastw == PIXY_START_WORD)) {
-				if(debug >= 2) {logger.log(Level.INFO, "Pixy: getStart: {0}", "found start");}
+				//if(debug >= 2) {logger.log(Level.INFO, "Pixy: getStart: {0}", "found start");}
+				if(debug >= 1) {SmartDashboard.putString("Pixy: getStart", "found start");}
 				return(true);
 			}
 
@@ -324,12 +335,12 @@ public class PixySPI {
 			writeBuf.put(PIXY_SYNC_BYTE);
 			writeBuf.flip();
 			writeString = bbToString(writeBuf);
-			if(debug >= 2) {logger.log(Level.INFO, "Pixy: rawComms: write sync: {0}", writeString);}
+			//if(debug >= 2) {logger.log(Level.INFO, "Pixy: rawComms: write sync: {0}", writeString);}
 			if(debug >= 1) {SmartDashboard.putString("Pixy: rawComms: write sync: ", writeString);}
 			ret = pixy.transaction(writeBuf, readBuf, 2);
 			//readBuf.flip();
 			readString = bbToString(readBuf);
-			if(debug >= 2) {logger.log(Level.INFO, "Pixy: rawComms: read sync: {0}", readString);}
+		//	if(debug >= 2) {logger.log(Level.INFO, "Pixy: rawComms: read sync: {0}", readString);}
 			readBuf.rewind();
 			if(debug >= 1) {SmartDashboard.putString("Pixy: rawComms: read sync: ", readString);}
 			writeBuf.clear();
