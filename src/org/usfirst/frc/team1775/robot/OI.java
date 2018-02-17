@@ -18,8 +18,8 @@ public class OI {
 	public void init() {
 		driverJoystick = new Joystick(0);
 		mechanismJoystick = new Joystick(1);
-		JoystickButton aButton = new JoystickButton(driverJoystick, 1);
-		aButton.whenPressed(new DriveDistance(30));
+		// JoystickButton aButton = new JoystickButton(driverJoystick, 1);
+		// aButton.whenPressed(new DriveDistance(30));
 		
 		JoystickButton bButton = new JoystickButton(driverJoystick, 2);
 		bButton.whenPressed(new RotateToAngle(40));

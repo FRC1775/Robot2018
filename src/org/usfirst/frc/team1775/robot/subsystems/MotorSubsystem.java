@@ -24,12 +24,18 @@ public class MotorSubsystem extends Subsystem {
 				driveToDistancePidResult = value;
 			}, 0.02);
 	
-	private PIDController rotateToAnglePidController = new PIDController(0 ,0 ,0 ,(PIDSource) RobotMap.gyro,
-			(value) ->  {
-				RobotMap.drive.arcadeDrive(0, value);
-			});
+	private PIDController rotateToAnglePidController;
 	
 	public MotorSubsystem() {
+		rotateToAnglePidController = new PIDController(0 ,0 ,0 ,(PIDSource) RobotMap.gyro,
+				(value) ->  {
+					RobotMap.drive.arcadeDrive(0, value);
+					System.out.println(value);
+				}, 0.02);
+		rotateToAnglePidController.setInputRange(-180, 180);
+		rotateToAnglePidController.setOutputRange(-0.75, 0.75);
+		rotateToAnglePidController.setAbsoluteTolerance(2);
+		rotateToAnglePidController.setContinuous();
 		addChild(rotateToAnglePidController);
 	}
 
@@ -89,9 +95,6 @@ public class MotorSubsystem extends Subsystem {
 		RobotMap.gyro.zeroYaw();
 
 		rotateToAnglePidController.setPID(0.02, 0, 0);
-		rotateToAnglePidController.setInputRange(-180, 180);
-		rotateToAnglePidController.setOutputRange(-0.8, 0.8);
-		rotateToAnglePidController.setAbsoluteTolerance(2);
 
 		rotateToAnglePidController.setSetpoint(angle);
 		rotateToAnglePidController.enable();
@@ -113,6 +116,7 @@ public class MotorSubsystem extends Subsystem {
 		builder.addDoubleProperty("navx/angle", () -> { return RobotMap.gyro.getAngle(); }, null);
 		builder.addBooleanProperty("resetGyro", () -> { return false; }, (value) -> {
 			if (value) {
+				rotateToAnglePidController.reset();
 				RobotMap.gyro.reset();
 				RobotMap.gyro.zeroYaw();
 			}
