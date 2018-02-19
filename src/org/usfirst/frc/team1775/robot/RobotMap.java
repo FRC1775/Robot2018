@@ -1,16 +1,9 @@
 package org.usfirst.frc.team1775.robot;
 
-import java.lang.invoke.SwitchPoint;
-
-import com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -19,39 +12,25 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * floating around.
  */
 public class RobotMap {
-	public static Encoder driveEncoder;
-	public static Talon leftDriveMotorController;
-	public static Talon rightDriveMotorController;
-	public static DifferentialDrive drive;
-	public static Talon intakeMotorController1;
-	public static Talon intakeMotorController2;
-	public static Talon liftMotorController1;
-	public static DigitalInput liftBottomLimitSwitch;
-	public static DigitalInput liftTopLimitSwitch;
-	public static AHRS gyro;
-	public static Compressor compressor;
-	public static Solenoid solenoid;
+    public static Talon motorController;
+    public static Talon motorController2;
+    public static DifferentialDrive drive;
+	// For example to map the left and right motors, you could define the
+	// following variables to use with your drivetrain subsystem.
+	// public static int leftMotor = 1;
+	// public static int rightMotor = 2;
+
+	// If you are using multiple modules, make sure to define both the port
+	// number and the module. For example you with a rangefinder:
+	// public static int rangefinderPort = 1;
+	// public static int rangefinderModule = 1;
+	public static Servo servo;
 	
-	public static void init(){
-		driveEncoder = new Encoder(3, 2, false, Encoder.EncodingType.k1X);
-		double distancePerPulse = ((3.19*Math.PI)/250.0);
-		driveEncoder.setDistancePerPulse(distancePerPulse);
-		
-		gyro = new AHRS(SPI.Port.kMXP);
-		gyro.reset();
-		
-		compressor = new Compressor();
-		solenoid = new Solenoid(0);
-		
-	    leftDriveMotorController = new Talon(0);
-	    rightDriveMotorController = new Talon(1);
-	    intakeMotorController1 = new Talon(3);
-	    intakeMotorController2 = new Talon(4);
-	    intakeMotorController2.setInverted(true);
-	    liftMotorController1 = new Talon(5);
-	    liftMotorController1.setInverted(true);
-	    liftBottomLimitSwitch = new DigitalInput(0);
-	    liftTopLimitSwitch = new DigitalInput(1);
-	    drive = new DifferentialDrive(leftDriveMotorController, rightDriveMotorController);
-	}
+	public static void init() {
+	    // servo = new Servo(0);
+	    motorController = new Talon(1);
+	    motorController2 = new Talon(2);
+	    drive = new DifferentialDrive(motorController, motorController2);
+    }
+  
 }
