@@ -11,7 +11,7 @@ public class SetMotorSpeed extends Command {
 	}
 
 	public void execute() {
-		double yVal = OI.myJoystick.getY();
+		double yVal = OI.driverJoystick.getY();
 		// Robot.motorSubsystem.setSpeed(yVal);
 
 	}

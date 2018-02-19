@@ -13,8 +13,8 @@ public class JoystickServo extends Command {
 
 	@Override
 	protected void execute() {
-		double xVal = OI.myJoystick.getX();
-		double yVal = OI.myJoystick.getY();
+		double xVal = OI.driverJoystick.getX();
+		double yVal = OI.driverJoystick.getY();
 
 		double xServo = xVal * 90 + 90;
 		double yServo = xVal * 90 + 90;
