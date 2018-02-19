@@ -639,44 +639,14 @@ function setDocumentScrollTop(ypos)
 
 </head>
 <body class="markdown-body">
-<h2> <a id="pixycam" class="anchor" href="#pixycam" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pixycam</h2> 
-<h3> <a id="what-is-it" class="anchor" href="#what-is-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is it?</h3> 
+<h1> <a id="pixycam" class="anchor" href="#pixycam" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pixycam</h1> 
+<h2> <a id="what-is-it" class="anchor" href="#what-is-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is it?</h2> 
 <p>The Pixycam is a vision sensor that we use to track objects based on their color. It can be taught up to 7 distinct color signatures using the PixyMon desktop app. Once Pixy has learned a new color, it will recognize that color and send information about the position (X and Y) and dimensions (width and height) to the RoboRio. This is useful for autonomous especially, when the robot has to interact with field elements without the help of human drivers.</p> 
-<h3> <a id="porting-to-the-roborio" class="anchor" href="#porting-to-the-roborio" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Porting to the RoboRio</h3> 
+<h2> <a id="porting-to-the-roborio" class="anchor" href="#porting-to-the-roborio" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Porting to the RoboRio</h2> 
 <p>On the RoboRio, we use the SPI Port to interface with the Pixy. The Pixy was originally designed to connect to an Arduino, which has a slightly different SPI Port than the RoboRio does. This means that you can't port directly from Pixy to RoboRio. Instead, you must connect certain pins in the SPI Port to certain pins on the Pixy. If these are incorrectly connected, then the code <strong>will not work.</strong></p> 
-<h3> <a id="to-do" class="anchor" href="#to-do" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To Do</h3> 
+<h2> <a id="to-do" class="anchor" href="#to-do" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To Do</h2> 
 <ul> 
  <li>Figure out what the magic numbers in lines 55 and 68 of PixySPI.java mean</li> 
-</ul> 
-<table> 
- <thead> 
-  <tr> 
-   <th>Subsystem</th> 
-   <th>Completed</th> 
-  </tr> 
- </thead> 
- <tbody> 
-  <tr> 
-   <td>Intake</td> 
-   <td>I think so?</td> 
-  </tr> 
-  <tr> 
-   <td>Lift</td> 
-   <td>No (?)</td> 
-  </tr> 
-  <tr> 
-   <td>Vision / Pixy</td> 
-   <td>No</td> 
-  </tr> 
-  <tr> 
-   <td>Motor</td> 
-   <td>Probably not</td> 
-  </tr> 
-  <tr> 
-   <td>Conveyor</td> 
-   <td>No</td> 
-  </tr> 
- </tbody> 
-</table>
+</ul>
 </body>
 </html>
