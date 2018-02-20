@@ -10,10 +10,6 @@ import edu.wpi.first.wpilibj.Servo;
 
 public class JoystickServo extends Command {
     
-    public JoystickServo() {
-        requires(Robot.exampleSubsystem);
-        
-    }
     @Override
     protected void execute() {
         double xVal = OI.myJoystick.getX();

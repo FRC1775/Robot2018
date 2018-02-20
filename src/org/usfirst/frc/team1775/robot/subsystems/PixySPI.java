@@ -35,10 +35,11 @@ public class PixySPI {
 	static final int PIXY_START_WORDX = 0x55aa;
 	static final int BLOCK_LEN = 5;
 	static final int PIXY_SIG_COUNT = 7;
+	static final int BLOCK_COUNT = 1000;
 	private ArrayDeque<Byte> outBuf = new ArrayDeque<>(); // Future use for sending commands to Pixy.
 	private ArrayList<int[]> blocks = new ArrayList<int[]>();
 	private boolean skipStart = false;
-	private int debug = 1; // 0 - none, 1 - some, 2 - more
+	private int debug = 0; // 0 - none, 1 - some, 2 - more
 
 	private static Logger logger;
 
@@ -46,6 +47,7 @@ public class PixySPI {
 	long getStart = 0;
 	long getBlock = 0;
 	long readPackets = 0;
+	
 
 	public PixySPI(SPI argPixy, HashMap<Integer, ArrayList<PixyPacket>> argPixyPacket, PixyException argPixyException){
 		pixy = argPixy;
@@ -74,13 +76,12 @@ public class PixySPI {
 		// to kill this.
 		//rawComms();
 
-		int numBlocks = getBlocks(20);
+		int numBlocks = getBlocks(BLOCK_COUNT);
 
 		// Clear out and initialize ArrayList for PixyPackets.
 		packets.clear();
 
-		//for(int i=1; i<=PIXY_SIG_COUNT; i++) {
-		for(int i=1; i<=2; i++) {
+		for(int i=1; i<=PIXY_SIG_COUNT; i++) {
 			packets.put(i, new ArrayList<PixyPacket>());
 		}
 
@@ -88,22 +89,15 @@ public class PixySPI {
 		if(numBlocks > 0) {
 			if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: blocks detected: {0}", Integer.toString(numBlocks));}
 
-			for(int i=0; i < numBlocks; i++) {
+			for(int j=0; j < numBlocks; j++) {
 				// Create the PixyPacket for the current blocks.
 				PixyPacket packet = new PixyPacket();
-				int signature = blocks.get(i)[0];
-				packet.X = blocks.get(i)[1];
-				packet.Y = blocks.get(i)[2];
-				packet.Width = blocks.get(i)[3];
-				packet.Height = blocks.get(i)[4];
+				int signature = blocks.get(j)[0];
+				packet.X = blocks.get(j)[1];
+				packet.Y = blocks.get(j)[2];
+				packet.Width = blocks.get(j)[3];
+				packet.Height = blocks.get(j)[4];
 				if(debug >= 1) {logger.log(Level.INFO, "Pixy: " + signature + ", X: "+ packet.X + ", Y: " + packet.Y + ", w: " + packet.Width + ", h: " + packet.Height);}
-////				
-//				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: Signature: " + Integer.toString(signature), Integer.toString(signature));}
-//				if(debug >= 2) {logger.log(Level.INFO, "Pixy: " + Integer.toString(signature) + ": X: {0}", packet.X);}
-////				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: " + Integer.toString(signature) + ": Y: ", Integer.toString(packet.Y));}
-//				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: " + Integer.toString(signature) + ": Width: {0}", packet.Width);}
-////				if(debug >= 2) {logger.log(Level.INFO, "Pixy readPackets: " + Integer.toString(signature) + ": Height: ", Integer.toString(packet.Height));}
-
 				// Add the current PixyPacket to the correct location for the signature.
 				packets.get(signature).add(packet);
 			}
