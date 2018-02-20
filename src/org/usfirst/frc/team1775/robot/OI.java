@@ -1,11 +1,7 @@
 package org.usfirst.frc.team1775.robot;
 
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-import org.usfirst.frc.team1775.robot.commands.SetServo;
-f326f66daabbc60f71e841eb42bf2859f3d97bcf
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.

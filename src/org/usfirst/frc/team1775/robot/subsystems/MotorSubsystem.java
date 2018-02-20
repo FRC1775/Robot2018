@@ -2,7 +2,6 @@ package org.usfirst.frc.team1775.robot.subsystems;
 
 import org.usfirst.frc.team1775.robot.RobotMap;
 import org.usfirst.frc.team1775.robot.commands.Drive;
-import org.usfirst.frc.team1775.robot.commands.SetMotorSpeed;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -10,13 +9,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class MotorSubsystem extends Subsystem {
+public class MotorSubsystem extends Subsystem{
 	private enum DriveMode {
 		Regular, RotateToAngle, DriveToDistance
 	}
 
 	private static DriveMode driveMode = DriveMode.Regular;
-
+	
 	double driveToDistancePidResult = 0;
 	double rotateToAnglePidResult = 0;
 
@@ -25,8 +24,6 @@ public class MotorSubsystem extends Subsystem {
 				driveToDistancePidResult = value;
 			}, 0.02);
 	
-public class MotorSubsystem extends Subsystem{
-    
 	private PIDController rotateToAnglePidController;
 	
 	public MotorSubsystem() {
