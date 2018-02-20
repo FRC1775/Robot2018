@@ -5,11 +5,12 @@ import org.usfirst.frc.team1775.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class MotorSubsystem extends Subsystem {
+public class MotorSubsystem extends Subsystem implements PIDSource {
 	private enum DriveMode {
 		Regular, RotateToAngle, DriveToDistance
 	}
@@ -19,7 +20,7 @@ public class MotorSubsystem extends Subsystem {
 	double driveToDistancePidResult = 0;
 	double rotateToAnglePidResult = 0;
 
-	private PIDController driveToDistancePidController = new PIDController(0, 0, 0, (PIDSource) RobotMap.driveEncoder,
+	private PIDController driveToDistancePidController = new PIDController(0, 0, 0, this,
 			(value) -> {
 				driveToDistancePidResult = value;
 			}, 0.02);
@@ -47,6 +48,7 @@ public class MotorSubsystem extends Subsystem {
 
 	public void drive(double moveValue, double rotateValue) {
 		rotateToAnglePidController.disable();
+		SmartDashboard.putNumber("Distance", getDistance());
 		SmartDashboard.putNumber("Angle", RobotMap.gyro.getAngle());
 		RobotMap.drive.arcadeDrive(-moveValue, rotateValue, true);
 	}
@@ -74,7 +76,8 @@ public class MotorSubsystem extends Subsystem {
 	public void setDriveDistance(double distance) {
 		setDriveMode(DriveMode.DriveToDistance);
 
-		RobotMap.driveEncoder.reset();
+		RobotMap.driveEncoderLeft.reset();
+		RobotMap.driveEncoderRight.reset();
 
 		driveToDistancePidController.setPID(0.35, 0, 2.3);
 		driveToDistancePidController.setInputRange(-100, 100);
@@ -121,5 +124,28 @@ public class MotorSubsystem extends Subsystem {
 				RobotMap.gyro.zeroYaw();
 			}
 		});
+	}
+
+	@Override
+	public void setPIDSourceType(PIDSourceType pidSource) {
+		// This is for the drive train encoders
+	}
+
+	@Override
+	public PIDSourceType getPIDSourceType() {
+		// This is for the drive train encoders
+		return PIDSourceType.kDisplacement;
+	}
+
+	@Override
+	public double pidGet() {
+		// This is for the drive train encoders
+		return getDistance();
+	}
+	
+	private double getDistance() {
+		SmartDashboard.putNumber("LeftEncoder", RobotMap.driveEncoderLeft.getDistance());
+		SmartDashboard.putNumber("RightEncoder", -RobotMap.driveEncoderRight.getDistance());
+		return (RobotMap.driveEncoderLeft.getDistance() + -RobotMap.driveEncoderRight.getDistance()) / 2.0;
 	}
 }
