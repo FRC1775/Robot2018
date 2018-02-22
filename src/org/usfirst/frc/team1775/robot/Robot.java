@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
 import org.usfirst.frc.team1775.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.IntakeSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.MotorSubsystem;
@@ -45,6 +46,12 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData(motorSubsystem);
 		LiveWindow.add(motorSubsystem);
+		initDashboard();
+	}
+	
+	private void initDashboard() {
+		
+		chooser.addDefault("Do Nothing", new DoNothing(RobotMap.drive));
 	}
 
 	/**
@@ -110,6 +117,7 @@ public class Robot extends IterativeRobot {
 		oi.init();
 		RobotMap.driveEncoderLeft.reset();
 		RobotMap.driveEncoderLeft.reset();
+		RobotMap.liftEncoder.reset();
 		RobotMap.gyro.reset();
 		RobotMap.gyro.zeroYaw();
 	}

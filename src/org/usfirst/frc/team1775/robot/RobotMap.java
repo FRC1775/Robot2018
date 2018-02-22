@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 public class RobotMap {
 	public static Encoder driveEncoderLeft;
 	public static Encoder driveEncoderRight;
+	public static Encoder liftEncoder;
 	public static Talon leftDriveMotorController;
 	public static Talon rightDriveMotorController;
 	public static DifferentialDrive drive;
@@ -35,12 +36,16 @@ public class RobotMap {
 	
 	public static void init(){
 		double distancePerPulse = ((6*Math.PI)/250.0);
+		double distancePerPulseLift = (((1.5*Math.PI)/250.0)*2);
 		
 		driveEncoderLeft = new Encoder(2, 3, false, Encoder.EncodingType.k1X);
 		driveEncoderLeft.setDistancePerPulse(distancePerPulse);
 
 		driveEncoderRight = new Encoder(4, 5, false, Encoder.EncodingType.k1X);
 		driveEncoderRight.setDistancePerPulse(distancePerPulse);
+		
+		liftEncoder = new Encoder(6, 7, false, Encoder.EncodingType.k1X);
+		liftEncoder.setDistancePerPulse(distancePerPulseLift);
 		
 		gyro = new AHRS(SPI.Port.kMXP);
 		gyro.reset();
