@@ -1,9 +1,5 @@
 package org.usfirst.frc.team1775.robot.subsystems;
 
-import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.SPI.Port;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayDeque;
@@ -15,6 +11,10 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import org.usfirst.frc.team1775.robot.SingleLineFormatter;
+
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PixySPI {
 	PixyPacket values = null;
@@ -231,7 +231,7 @@ public class PixySPI {
 		readBuf.rewind();
 
 		// Store the contents of the buffer in a int that will be returned to the caller.
-		word = (int) (readBuf.getShort() & 0xffff);
+		word = readBuf.getShort() & 0xffff;
 
 		if(debug >= 2) {logger.log(Level.INFO, "Pixy: getWord: word: ", word);}
 
@@ -261,7 +261,7 @@ public class PixySPI {
 				if(debug >= 2) {logger.log(Level.INFO, "Pixy: getStart: {0}", "no pixy data received");}
 				return(false);
 			}
-			else if (((int) w == PIXY_START_WORD) && ((int) lastw == PIXY_START_WORD)) {
+			else if ((w == PIXY_START_WORD) && (lastw == PIXY_START_WORD)) {
 				if(debug >= 2) {logger.log(Level.INFO, "Pixy: getStart: {0}", "found start");}
 				return(true);
 			}

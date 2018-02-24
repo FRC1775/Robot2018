@@ -7,7 +7,8 @@ public class SetMotorSpeed extends Command{
    public SetMotorSpeed(){
      requires(Robot.motorSubsystem);   
    }
-   public void execute (){
+   @Override
+public void execute (){
      // double yVal = OI.myJoystick.getY();
      // Robot.motorSubsystem.setSpeed(yVal);
    

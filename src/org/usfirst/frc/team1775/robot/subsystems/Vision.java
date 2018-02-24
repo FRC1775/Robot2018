@@ -7,7 +7,6 @@ import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SPI.Port;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Vision extends Subsystem {
@@ -31,6 +30,7 @@ public class Vision extends Subsystem {
 	}
 
 
+	@Override
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
