@@ -18,7 +18,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * floating around.
  */
 public class RobotMap {
-	public static Encoder driveEncoder;
+	public static Encoder driveEncoderLeft;
+	public static Encoder driveEncoderRight;
 	public static Talon leftDriveMotorController;
 	public static Talon rightDriveMotorController;
 	public static DifferentialDrive drive;
@@ -33,14 +34,19 @@ public class RobotMap {
 	public static Solenoid solenoid;
  	
 	public static void init(){
-		driveEncoder = new Encoder(3, 2, false, Encoder.EncodingType.k1X);
 		double distancePerPulse = ((3.19*Math.PI)/250.0);
-		driveEncoder.setDistancePerPulse(distancePerPulse);
  		
 	    leftDriveMotorController = new Talon(1);
 	    leftDriveMotorController.setInverted(true);
 	    rightDriveMotorController = new Talon(2);
 	    rightDriveMotorController.setInverted(true);
+		
+		driveEncoderLeft = new Encoder(2, 3, false, Encoder.EncodingType.k1X);
+		driveEncoderLeft.setDistancePerPulse(distancePerPulse);
+
+		driveEncoderRight = new Encoder(4, 5, false, Encoder.EncodingType.k1X);
+		driveEncoderRight.setDistancePerPulse(distancePerPulse);
+		
 		gyro = new AHRS(SPI.Port.kMXP);
 		gyro.reset();
 		

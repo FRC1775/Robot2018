@@ -104,8 +104,11 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 			
-			oi.init();
-			RobotMap.init();
+		oi.init();
+		RobotMap.driveEncoderLeft.reset();
+		RobotMap.driveEncoderLeft.reset();
+		RobotMap.gyro.reset();
+		RobotMap.gyro.zeroYaw();
 	}
 
 	/**
