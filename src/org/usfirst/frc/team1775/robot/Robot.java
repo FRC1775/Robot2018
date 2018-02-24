@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team1775.robot.subsystems.ExampleSubsystem;
-import org.usfirst.frc.team1775.robot.subsystems.IntakeSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.MotorSubsystem;
-import org.usfirst.frc.team1775.robot.subsystems.LiftSubsystem;
+import org.usfirst.frc.team1775.robot.subsystems.TestSPI;
+import org.usfirst.frc.team1775.robot.subsystems.VisionProcessor;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,13 +21,12 @@ import org.usfirst.frc.team1775.robot.subsystems.LiftSubsystem;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-	public static MotorSubsystem motorSubsystem;
-	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-	public static final LiftSubsystem liftSubsystem = new LiftSubsystem();
 	public static OI oi;
     
+    public static MotorSubsystem motorSubsystem = new MotorSubsystem();
+    public static VisionProcessor pixy;
+    public static TestSPI testSpi;
+     
     Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -38,12 +37,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		RobotMap.init();
-		motorSubsystem = new MotorSubsystem();
+		//testSpi = new TestSPI();
+		 pixy = new VisionProcessor();
 			// choosetype name = new type(arguments);r.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
-		SmartDashboard.putData(motorSubsystem);
 		LiveWindow.add(motorSubsystem);
 	}
 
@@ -103,7 +101,6 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 			
@@ -120,5 +117,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		 pixy.readPixy();
+		//testSpi.doSomething();
+	}
+
+	/**
+	 * This function is called periodically during test mode
+	 */
+	@Override
+	public void testPeriodic() {
 	}
 }

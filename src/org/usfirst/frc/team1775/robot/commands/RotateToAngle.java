@@ -4,7 +4,7 @@ import org.usfirst.frc.team1775.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class RotateToAngle extends Command{
+public class RotateToAngle extends Command {
 	private double angle = 0;
 	
 	public RotateToAngle(double angle) {
@@ -25,6 +25,6 @@ public class RotateToAngle extends Command{
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.motorSubsystem.isFinished();
+		return this.isFinished();
 	}
 }

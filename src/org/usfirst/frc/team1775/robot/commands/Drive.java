@@ -1,22 +1,23 @@
 package org.usfirst.frc.team1775.robot.commands;
+import org.usfirst.frc.team1775.robot.OI;
+import org.usfirst.frc.team1775.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team1775.robot.Robot;
-import org.usfirst.frc.team1775.robot.OI;
 
 public class Drive extends Command {
-	public Drive() {
-		requires(Robot.motorSubsystem);
-	}
-
-	public void execute() {
-		double yVal2 = OI.driverJoystick.getRawAxis(1);
-		double xVal2 = OI.driverJoystick.getRawAxis(4);
-		Robot.motorSubsystem.drive(yVal2, xVal2);
-	}
-
-	@Override
-	protected boolean isFinished() {
-		return false;
-	}
+    public Drive(){
+        requires(Robot.motorSubsystem);
+    }
+ 
+    @Override
+    protected void execute() {
+        double yVal = OI.myJoystick.getRawAxis(1);
+        double xVal = OI.myJoystick.getRawAxis(4);
+        Robot.motorSubsystem.drive(yVal, xVal);
+    }
+    
+    @Override
+    protected boolean isFinished() {
+        return false;
+    }
 }
