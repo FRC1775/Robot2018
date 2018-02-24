@@ -36,9 +36,9 @@ public class RobotMap {
 	public static void init(){
 		double distancePerPulse = ((3.19*Math.PI)/250.0);
  		
-	    leftDriveMotorController = new Talon(1);
+	    leftDriveMotorController = new Talon(0);
 	    leftDriveMotorController.setInverted(true);
-	    rightDriveMotorController = new Talon(2);
+	    rightDriveMotorController = new Talon(1);
 	    rightDriveMotorController.setInverted(true);
 		
 		driveEncoderLeft = new Encoder(2, 3, false, Encoder.EncodingType.k1X);
@@ -50,11 +50,10 @@ public class RobotMap {
 		gyro = new AHRS(SPI.Port.kMXP);
 		gyro.reset();
 		
-		compressor = new Compressor();
-		solenoid = new Solenoid(0);
+		//compressor = new Compressor();
+		//solenoid = new Solenoid(0);
 		
-	    leftDriveMotorController = new Talon(0);
-	    rightDriveMotorController = new Talon(1);
+	   
 	    intakeMotorController1 = new Talon(3);
 	    intakeMotorController2 = new Talon(4);
 	    intakeMotorController2.setInverted(true);

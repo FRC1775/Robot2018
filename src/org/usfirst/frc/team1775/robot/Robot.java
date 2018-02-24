@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	public static OI oi;
     
-    public static MotorSubsystem motorSubsystem = new MotorSubsystem();
+    public static MotorSubsystem motorSubsystem;
     public static VisionProcessor pixy;
      
     Command autonomousCommand;
@@ -35,6 +35,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+	RobotMap.init();
+		motorSubsystem = new MotorSubsystem();
 		 pixy = new VisionProcessor();
 		SmartDashboard.putData("Auto mode", chooser);
 		LiveWindow.add(motorSubsystem);
