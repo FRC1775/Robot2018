@@ -3,3 +3,4 @@ dist/
 build/
 /bin/
 .DS_Store
+.settings

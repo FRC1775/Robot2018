@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1775.robot.subsystems.MotorSubsystem;
-import org.usfirst.frc.team1775.robot.subsystems.TestSPI;
 import org.usfirst.frc.team1775.robot.subsystems.VisionProcessor;
 
 
@@ -25,7 +24,6 @@ public class Robot extends IterativeRobot {
     
     public static MotorSubsystem motorSubsystem = new MotorSubsystem();
     public static VisionProcessor pixy;
-    public static TestSPI testSpi;
      
     Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -37,10 +35,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		//testSpi = new TestSPI();
 		 pixy = new VisionProcessor();
-			// choosetype name = new type(arguments);r.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		LiveWindow.add(motorSubsystem);
 	}
@@ -81,8 +76,6 @@ public class Robot extends IterativeRobot {
 		 * = new MyAutoCommand(); break; case "Default Auto": default:
 		 * autonomousCommand = new ExampleCommand(); break; }
 		 */
-
-		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -118,7 +111,6 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		 pixy.readPixy();
-		//testSpi.doSomething();
 	}
 
 	/**
