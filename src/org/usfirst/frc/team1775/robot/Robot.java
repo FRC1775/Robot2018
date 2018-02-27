@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
-import org.usfirst.frc.team1775.robot.commands.autonomous.DriveAndRotate;
+import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToSwitch;
 import org.usfirst.frc.team1775.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.IntakeSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.MotorSubsystem;
@@ -54,7 +54,7 @@ public class Robot extends IterativeRobot {
 	private void initDashboard() {
 		
 		chooser.addDefault("Do Nothing", new DoNothing(RobotMap.drive));
-		chooser.addObject("Move And Rotate", new DriveAndRotate());
+		chooser.addObject("Move And Rotate", new DriveToSwitch());
 	}
 
 	/**
