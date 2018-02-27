@@ -50,8 +50,8 @@ public class RobotMap {
 		gyro = new AHRS(SPI.Port.kMXP);
 		gyro.reset();
 		
-		compressor = new Compressor();
-		solenoid = new Solenoid(0);
+//		compressor = new Compressor();
+//		solenoid = new Solenoid(0);
 		
 	    leftDriveMotorController = new Talon(0);
 	    rightDriveMotorController = new Talon(1);
