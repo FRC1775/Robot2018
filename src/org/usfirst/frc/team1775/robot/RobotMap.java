@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -31,7 +32,10 @@ public class RobotMap {
 	public static DigitalInput liftTopLimitSwitch;
 	public static AHRS gyro;
 	public static Compressor compressor;
-	public static Solenoid solenoid;
+	public static Solenoid intakeLiftUp;
+	public static Solenoid intakeLiftDown;
+	public static Servo leftIntakeRelease;
+	public static Servo rightIntakeRelease;
 	
 	public static void init(){
 		double distancePerPulse = ((6*Math.PI)/250.0);
@@ -46,7 +50,11 @@ public class RobotMap {
 		gyro.reset();
 		
 		compressor = new Compressor();
-		solenoid = new Solenoid(0);
+		intakeLiftUp = new Solenoid(0);
+		intakeLiftDown = new Solenoid(1);
+		
+		leftIntakeRelease = new Servo(8);
+		rightIntakeRelease = new Servo(9);
 		
 	    leftDriveMotorController = new Talon(0);
 	    rightDriveMotorController = new Talon(1);

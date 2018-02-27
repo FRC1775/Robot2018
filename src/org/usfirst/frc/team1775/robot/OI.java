@@ -4,8 +4,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team1775.robot.commands.DriveDistance;
+import org.usfirst.frc.team1775.robot.commands.IntakeRelease;
 import org.usfirst.frc.team1775.robot.commands.RotateToAngle;
-import org.usfirst.frc.team1775.robot.commands.Solenoid;
+import org.usfirst.frc.team1775.robot.commands.IntakeLift;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -21,10 +22,16 @@ public class OI {
 		// JoystickButton aButton = new JoystickButton(driverJoystick, 1);
 		// aButton.whenPressed(new DriveDistance(30));
 		
-		JoystickButton bButton = new JoystickButton(driverJoystick, 2);
-		bButton.whenPressed(new RotateToAngle(40));
+		//JoystickButton bButton = new JoystickButton(driverJoystick, 2);
+		//bButton.whenPressed(new RotateToAngle(40));
 		
 		JoystickButton xButton = new JoystickButton(driverJoystick, 3);
-		xButton.whileHeld(new Solenoid());
+		xButton.whileHeld(new IntakeLift(false));
+		
+		JoystickButton yButton = new JoystickButton(driverJoystick, 4);
+		yButton.whileHeld(new IntakeLift(true));
+		
+		JoystickButton leftBumper = new JoystickButton(driverJoystick, 5);
+		leftBumper.whenPressed(new IntakeRelease());
 	}
 }
