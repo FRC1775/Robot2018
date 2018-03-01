@@ -35,8 +35,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+<<<<<<< HEAD
+		RobotMap.init();
+=======
 	RobotMap.init();
 		motorSubsystem = new MotorSubsystem();
+>>>>>>> 5ea0954bc294525680659cc548e87791e1369825
 		 pixy = new VisionProcessor();
 		SmartDashboard.putData("Auto mode", chooser);
 		LiveWindow.add(motorSubsystem);

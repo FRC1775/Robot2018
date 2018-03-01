@@ -50,8 +50,13 @@ public class RobotMap {
 		gyro = new AHRS(SPI.Port.kMXP);
 		gyro.reset();
 		
+<<<<<<< HEAD
 //		compressor = new Compressor();
 //		solenoid = new Solenoid(0);
+=======
+		//compressor = new Compressor();
+		//solenoid = new Solenoid(0);
+>>>>>>> 5ea0954bc294525680659cc548e87791e1369825
 		
 	   
 	    intakeMotorController1 = new Talon(3);
