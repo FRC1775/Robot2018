@@ -6,12 +6,14 @@ import edu.wpi.first.wpilibj.Joystick;
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
+
+//thisis just so i can commit
 public class OI {
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	//// joystick.
 	// You create one by telling it which joystick it's f326f66daabbc60f71e841eb42bf2859f3d97bcfon and which button
-	// number it is.
+// number it is.
 	// Joystick stick = new Joystick(port);
 	// Button button = new JoystickButton(stick, buttonNumber);
 
