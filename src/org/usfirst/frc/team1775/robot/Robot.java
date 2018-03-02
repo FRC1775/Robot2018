@@ -25,7 +25,7 @@ public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static MotorSubsystem motorSubsystem;
 	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-	public static final LiftSubsystem liftSubsystem = new LiftSubsystem();
+	public static LiftSubsystem liftSubsystem;
 	public static OI oi;
     
     Command autonomousCommand;
@@ -40,6 +40,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		RobotMap.init();
 		motorSubsystem = new MotorSubsystem();
+		liftSubsystem = new LiftSubsystem();
 			// choosetype name = new type(arguments);r.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);

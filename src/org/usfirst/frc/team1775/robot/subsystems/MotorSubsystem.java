@@ -20,14 +20,16 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	double driveToDistancePidResult = 0;
 	double rotateToAnglePidResult = 0;
 
-	private PIDController driveToDistancePidController = new PIDController(0, 0, 0, this,
-			(value) -> {
-				driveToDistancePidResult = value;
-			}, 0.02);
+	private PIDController driveToDistancePidController;
 	
 	private PIDController rotateToAnglePidController;
 	
 	public MotorSubsystem() {
+		driveToDistancePidController = new PIDController(0, 0, 0, this,
+				(value) -> {
+					driveToDistancePidResult = value;
+				}, 0.02);
+
 		rotateToAnglePidController = new PIDController(0 ,0 ,0 ,(PIDSource) RobotMap.gyro,
 				(value) ->  {
 					RobotMap.drive.arcadeDrive(0, value);
