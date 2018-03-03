@@ -39,6 +39,7 @@ public class RobotMap {
 	public static Servo leftIntakeRelease;
 	public static Servo rightIntakeRelease;
 	public static Solenoid liftBrake;
+	public static Solenoid liftUnbrake;
 	
 	public static void init(){
 		double distancePerPulse = ((6*Math.PI)/250.0);
@@ -75,7 +76,8 @@ public class RobotMap {
 	    drive = new DifferentialDrive(leftDriveMotorController, rightDriveMotorController);
 	    
 	    cubeFlip = new Talon(5);
-	    
+
 	    liftBrake = new Solenoid(2);
+	    liftUnbrake = new Solenoid(3);
 	}
 }

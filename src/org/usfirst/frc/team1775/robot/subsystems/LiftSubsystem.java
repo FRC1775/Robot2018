@@ -55,6 +55,12 @@ public class LiftSubsystem extends Subsystem {
 		// safety purposes, so it might need to be changed
 		RobotMap.liftMotorController1.stopMotor();
 	}
+	
+	public void flipCube(double speed) {
+		if (RobotMap.liftEncoder.getDistance() > 20) {
+			RobotMap.cubeFlip.set(speed);
+		}
+	}
 
 	public void setSpeed(double speed) {
 		double outputSpeed = 0;
@@ -67,6 +73,20 @@ public class LiftSubsystem extends Subsystem {
 			outputSpeed = 0;
 			startTime = System.currentTimeMillis();
 		}
+		
+		if (outputSpeed > 0.1 || outputSpeed < -0.1) {
+			RobotMap.liftBrake.set(false);
+			RobotMap.liftUnbrake.set(true);
+		} else {
+			RobotMap.liftBrake.set(true);
+			RobotMap.liftUnbrake.set(false);
+			outputSpeed = 0;
+		}
+		
+		if (!RobotMap.liftBottomLimitSwitch.get()) {
+			RobotMap.liftEncoder.reset();
+		}
+		
 		SmartDashboard.putNumber("lift encoder", RobotMap.liftEncoder.getDistance());
 		RobotMap.liftMotorController1.set(outputSpeed); // Must call set, not setSpeed, to take into account the setInverted on the controller
 	}
