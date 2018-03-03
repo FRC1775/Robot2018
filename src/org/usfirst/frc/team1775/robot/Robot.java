@@ -38,6 +38,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+		oi.init();
 		RobotMap.init();
 		motorSubsystem = new MotorSubsystem();
 		liftSubsystem = new LiftSubsystem();
@@ -61,6 +62,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		OI.checkJoysticks();
 	}
 
 	/**
@@ -107,8 +109,8 @@ public class Robot extends IterativeRobot {
 		
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-			
-		oi.init();
+		
+		OI.checkJoysticks();
 		RobotMap.driveEncoderLeft.reset();
 		RobotMap.driveEncoderLeft.reset();
 		RobotMap.gyro.reset();
@@ -120,6 +122,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		OI.checkJoysticks();
 		Scheduler.getInstance().run();
 	}
 }

@@ -11,9 +11,9 @@ public class Lift extends Command {
 	}
 
 	public void execute() {
-		Robot.liftSubsystem.setSpeed(-OI.mechanismJoystick.getRawAxis(5));
+		// Robot.liftSubsystem.setSpeed(-OI.operatorJoystick.getRawAxis(5));
 		
-		Robot.liftSubsystem.flipCube(-OI.mechanismJoystick.getRawAxis(2)+OI.mechanismJoystick.getRawAxis(3));
+		// Robot.liftSubsystem.flipCube(-OI.operatorJoystick.getRawAxis(2)+OI.operatorJoystick.getRawAxis(3));
 	}
 
 	@Override
