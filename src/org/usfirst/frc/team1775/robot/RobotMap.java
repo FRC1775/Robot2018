@@ -31,12 +31,14 @@ public class RobotMap {
 	public static Talon liftMotorController1;
 	public static DigitalInput liftBottomLimitSwitch;
 	public static DigitalInput liftTopLimitSwitch;
+	public static Talon cubeFlip; 
 	public static AHRS gyro;
 	public static Compressor compressor;
 	public static Solenoid intakeLiftUp;
 	public static Solenoid intakeLiftDown;
 	public static Servo leftIntakeRelease;
 	public static Servo rightIntakeRelease;
+	public static Solenoid liftBrake;
 	
 	public static void init(){
 		double distancePerPulse = ((6*Math.PI)/250.0);
@@ -71,5 +73,9 @@ public class RobotMap {
 	    liftBottomLimitSwitch = new DigitalInput(0);
 	    liftTopLimitSwitch = new DigitalInput(1);
 	    drive = new DifferentialDrive(leftDriveMotorController, rightDriveMotorController);
+	    
+	    cubeFlip = new Talon(5);
+	    
+	    liftBrake = new Solenoid(2);
 	}
 }
