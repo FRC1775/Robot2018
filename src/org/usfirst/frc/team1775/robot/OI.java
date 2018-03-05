@@ -4,8 +4,11 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+import org.usfirst.frc.team1775.robot.commands.FlippyCube;
 import org.usfirst.frc.team1775.robot.commands.IntakeIn;
+import org.usfirst.frc.team1775.robot.commands.IntakeLift;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
+import org.usfirst.frc.team1775.robot.subsystems.LiftSubsystem;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -17,9 +20,18 @@ public class OI {
 	
 	private final static int A_BUTTON = 1;
 	private final static int B_BUTTON = 2;
+	private final static int X_BUTTON = 3;
+	private final static int Y_BUTTON = 4;
+	private final static int LEFT_BUMPER = 5;
+	private final static int RIGHT_BUMPER = 6;
+	
+
 	
 	private final static int LEFT_ANALOG_Y_AXIS = 1;
 	private final static int RIGHT_ANALOG_X_AXIS = 4;
+	private final static int LEFT_TRIGGER = 2;
+	private final static int RIGHT_TRIGGER = 3;
+
 	
 	private static Joystick driverJoystick;
 	private static Joystick operatorJoystick;
@@ -79,6 +91,24 @@ public class OI {
 		return 0;
 	}
 	
+	public static double getLeftTrigger() {
+		if (operatorJoystickConnected) {
+			return operatorJoystick.getRawAxis(LEFT_TRIGGER);
+		} else if (driverJoystickConnected) {
+			return driverJoystick.getRawAxis(LEFT_TRIGGER);
+		}
+		return 0;
+	}
+	
+	public static double getRightTrigger() {
+		if (operatorJoystickConnected) {
+			return operatorJoystick.getRawAxis(RIGHT_TRIGGER);
+		} else if (driverJoystickConnected) {
+			return driverJoystick.getRawAxis(RIGHT_TRIGGER);
+		}
+		return 0;
+	}
+	
 	private static boolean checkDriverJoystickConnected() {
 		try {
 			if (DriverStation.getInstance().getJoystickType(DRIVER_JOYSTICK_PORT) >= 0) {
@@ -119,6 +149,10 @@ public class OI {
 		
 		configureIntakeInButton(driverJoystick);
 		configureIntakeOutButton(driverJoystick);
+		configureIntakeUpButton(driverJoystick);
+		configureIntakeDownButton(driverJoystick);
+		configureCubeFlipRightButton(driverJoystick);
+		configureCubeFlipLeftButton(driverJoystick);
 		
 		driverJoystickConfigured = true;
 	}
@@ -131,7 +165,11 @@ public class OI {
 		
 		configureIntakeInButton(operatorJoystick);
 		configureIntakeOutButton(operatorJoystick, true);
-		
+		configureIntakeUpButton(operatorJoystick);
+		configureIntakeDownButton(operatorJoystick);
+		configureCubeFlipRightButton(operatorJoystick);
+		configureCubeFlipLeftButton(operatorJoystick);
+
 		operatorJoystickConfigured = true;
 	}
 	
@@ -139,7 +177,7 @@ public class OI {
 		JoystickButton intakeInButton = new JoystickButton(joystick, A_BUTTON);
 		intakeInButton.whileHeld(new IntakeIn());
 	}
-
+	
 	private static void configureIntakeOutButton(Joystick joystick) {
 		configureIntakeOutButton(joystick, false);
 	}
@@ -151,5 +189,25 @@ public class OI {
 			command.setFallback(joystick);
 		}
 		intakeOutButton.whileHeld(command);
+	}
+	
+	private static void configureIntakeDownButton(Joystick joystick) {
+		JoystickButton intakeDownButton = new JoystickButton(joystick, X_BUTTON);
+		intakeDownButton.whenPressed(new IntakeLift(false));
+	}
+	
+	private static void configureIntakeUpButton(Joystick joystick) {
+		JoystickButton intakeUpButton = new JoystickButton(joystick, Y_BUTTON);
+		intakeUpButton.whenPressed(new IntakeLift(true));
+	}
+	
+	private static void configureCubeFlipRightButton(Joystick joystick) {
+		JoystickButton cubeFlipRightButton = new JoystickButton(joystick, RIGHT_BUMPER);
+		cubeFlipRightButton.whenPressed(new FlippyCube(.9));
+	}
+	
+	private static void configureCubeFlipLeftButton(Joystick joystick) {
+		JoystickButton cubeFlipLeftButton = new JoystickButton(joystick, LEFT_BUMPER);
+		cubeFlipLeftButton.whenPressed(new FlippyCube(-.9));
 	}
 }
