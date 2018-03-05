@@ -4,6 +4,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.function.Function;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+
+import org.usfirst.frc.team1775.robot.SingleLineFormatter;
 
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SPI.Port;
@@ -16,23 +24,28 @@ public class VisionProcessor extends Subsystem {
 	// To create multiple PixySPI objects and thus use multiple Pixy cameras via SPI
 	// Copy the items below, change variable names as needed and especially change
 	// the SPI port used eg; Port.kOnboardCS[0-3] or Port.kMXP
-	public PixySPI pixy1;
+	public PixySPI pixy;
 	Port port = Port.kOnboardCS0;
 	String print;
-	public HashMap<Integer, ArrayList<PixyPacket>> packets = new HashMap<Integer, ArrayList<PixyPacket>>();
-	private HashMap<String, ArrayList<Integer>> pPackets;
-	
+	private List<Integer> xVals;
+	private static Logger logger;
+	ArrayList<PixyPacket> packetList;
+	private static int WATCHED_SIG = 3;
 	
 	public VisionProcessor() {
-		// Open a pipeline to a Pixy camera.
-		pixy1 = new PixySPI(new SPI(port), packets, new PixyException(print));
-		System.out.println("Pixy Vision here, y'all.");
+		packetList = new ArrayList<PixyPacket>();
 		
-		pPackets = new HashMap<String, ArrayList<Integer>>();
-		pPackets.put("x", new ArrayList<Integer>());
-		pPackets.put("y", new ArrayList<Integer>());
-		pPackets.put("w", new ArrayList<Integer>());
-		pPackets.put("h", new ArrayList<Integer>());
+		LogManager.getLogManager().reset();
+		logger = Logger.getLogger(PixySPI.class.getName());
+		ConsoleHandler handler = new ConsoleHandler();
+		handler.setFormatter(new SingleLineFormatter());
+		logger.addHandler(handler);
+		
+		// Open a pipeline to a Pixy camera.
+		pixy = new PixySPI(new SPI(port), new PixyException(print));
+		logger.info("Pixy Vision here, y'all.");
+		
+		xVals = new ArrayList<Integer>();
 	}
 
 
@@ -43,56 +56,33 @@ public class VisionProcessor extends Subsystem {
 	}
 
 	public void readPixy(){
-		int ret = -1;
+
+		HashMap<Integer, ArrayList<PixyPacket>> packets = null;
+
 		// Get the packets from the pixy.
 		try {
-			ret = pixy1.readPackets();
+			packets = pixy.readPackets();
 		} catch (PixyException e) {
-			// TODO Auto-generated catch block
-			System.out.println("No packets from Pixy!");
+			logger.info("No packets from Pixy!");
 			e.printStackTrace();
 		}
-		if (ret == -1) { return; }
 		
-		for (int i = 0; i < packets.keySet().size(); i++) {
+		List<PixyPacket> signatureSet = packets.get(WATCHED_SIG);
+		if (signatureSet != null) {
 			
-			ArrayList<PixyPacket> signatureSet = packets.get(i);
-			if (signatureSet == null) { return; }
-			pPackets = pivot(signatureSet);	
-			double maxX = getMax(pPackets.get("x"));
-			System.out.println(maxX);
-		}	
-	}
-	
-	private HashMap<String, ArrayList<Integer>> pivot(ArrayList<PixyPacket> sSet) {
-		ArrayList<Integer> Xs = new ArrayList<Integer>();
-		ArrayList<Integer> Ys = new ArrayList<Integer>();
-		ArrayList<Integer> Ws = new ArrayList<Integer>();
-		ArrayList<Integer> Hs = new ArrayList<Integer>();
-		
-		for (PixyPacket p: sSet) {
-			Xs.add(p.X);
-			Ys.add(p.Y);
-			Ws.add(p.Width);
-			Hs.add(p.Height);
+			try {
+				int maxWidth = signatureSet
+						.stream()
+						.map(p -> p.Width)
+						.mapToInt(i->i)
+						.max()
+						.getAsInt();
+			logger.log(Level.INFO, "max width: " + maxWidth);
+			}
+			catch (Exception e) {
+//				logger.info(e.getMessage());
+			}
 		}
-			
-		pPackets.put("x", Xs);
-		pPackets.put("y", Ys);
-		pPackets.put("w", Ws);
-		pPackets.put("h", Hs);
-		
-		return pPackets;
 	}
-	
-	
-	
-	private double getMax(ArrayList<Integer> intSet) {
-		int currentMax = 0;
-		for (Integer i: intSet)
-			if (i > currentMax) { currentMax = i; }
-		return currentMax;
-	}
-	
 }
 
