@@ -20,7 +20,6 @@ public class PixySPI {
 	PixyPacket values = null;
 	SPI pixy = null;
 	Port port = null;
-	HashMap<Integer, ArrayList<PixyPacket>> packets = null;
 	PixyException pExc = null;
 	String print;
 
@@ -47,9 +46,8 @@ public class PixySPI {
 	long readPackets = 0;
 	
 
-	public PixySPI(SPI argPixy, HashMap<Integer, ArrayList<PixyPacket>> argPixyPacket, PixyException argPixyException){
+	public PixySPI(SPI argPixy, PixyException argPixyException){
 		pixy = argPixy;
-		packets = argPixyPacket;
 		pExc = argPixyException;
 
 		// Set some SPI parameters.
@@ -67,7 +65,7 @@ public class PixySPI {
 	}
 
 	//This method gathers data, then parses that data, and assigns the ints to global variables
-	public int readPackets() throws PixyException { //The signature should be which number object in 
+	public HashMap<Integer, ArrayList<PixyPacket>> readPackets() throws PixyException { //The signature should be which number object in 
 		if(debug >= 2) {logger.log(Level.INFO, "readPackets: count: {0}", readPackets++);}
 		
 		// Uncomment this to see just the raw output from the Pixy. You will need to restart the robot code
@@ -77,7 +75,7 @@ public class PixySPI {
 		int numBlocks = getBlocks(BLOCK_COUNT);
 
 		// Clear out and initialize ArrayList for PixyPackets.
-		packets.clear();
+		HashMap<Integer, ArrayList<PixyPacket>> packets = new HashMap<Integer, ArrayList<PixyPacket>>();
 
 		for(int i=1; i<=PIXY_SIG_COUNT; i++) {
 			packets.put(i, new ArrayList<PixyPacket>());
@@ -95,13 +93,14 @@ public class PixySPI {
 				packet.Y = blocks.get(j)[2];
 				packet.Width = blocks.get(j)[3];
 				packet.Height = blocks.get(j)[4];
-				if(debug >= 1) {logger.log(Level.INFO, "Pixy: " + signature + ", X: "+ packet.X + ", Y: " + packet.Y + ", w: " + packet.Width + ", h: " + packet.Height);}
 				// Add the current PixyPacket to the correct location for the signature.
+				if(debug >= 1) {logger.log(Level.INFO, "Pixy: " + signature + ", X: "+ packet.X + ", Y: " + packet.Y + ", w: " + packet.Width + ", h: " + packet.Height);}
 				packets.get(signature).add(packet);
 			}
 		}
+		if(debug >= 1) { logger.log(Level.INFO, "readPackets: " + packets.get(3).size()); }
 
-		return(1);
+		return packets;
 	}
 
 	private int getBlocks(int maxBlocks) {
