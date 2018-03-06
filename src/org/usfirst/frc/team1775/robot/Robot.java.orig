@@ -43,7 +43,11 @@ public class Robot extends IterativeRobot {
 		oi.init();
 		RobotMap.init();
 		motorSubsystem = new MotorSubsystem();
+<<<<<<< HEAD
 		liftSubsystem = new LiftSubsystem();
+=======
+		oi.init();
+>>>>>>> origin_autonomous-and-PIDlift
 			// choosetype name = new type(arguments);r.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
