@@ -28,7 +28,6 @@ public class Robot extends IterativeRobot {
 	public static MotorSubsystem motorSubsystem;
 	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 	public static LiftSubsystem liftSubsystem;
-	public static OI oi;
     
     Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -39,12 +38,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		oi = new OI();
-		oi.init();
 		RobotMap.init();
-		motorSubsystem = new MotorSubsystem();
 		liftSubsystem = new LiftSubsystem();
-			// choosetype name = new type(arguments);r.addDefault("Default Auto", new ExampleCommand());
+		OI.init();
+		motorSubsystem = new MotorSubsystem();
+					// choosetype name = new type(arguments);r.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData(motorSubsystem);
@@ -55,7 +53,15 @@ public class Robot extends IterativeRobot {
 	private void initDashboard() {
 		
 		chooser.addDefault("Do Nothing", new DoNothing(RobotMap.drive));
-		chooser.addObject("Move And Rotate", new DriveToAutoLineFromCenter(-1));
+		chooser.addObject("Cross Auto Line From Center by Going Left", new DriveToAutoLineFromCenter(-1));
+		chooser.addObject("Cross Auto Line From Center by Going Right", new DriveToAutoLineFromCenter(1));
+		/**
+		 * choser.addObject("Place Block on Switch and Scale from Left", new SwitchScaleLogic(-1));
+		 * choser.addObject("Place Block on Switch and Scale from Right", new SwitchScaleLogic(1));
+		 * choser.addObject("Place Block on Switch Only", );
+		 * choser.addObject("Place Block on Scale Only", );
+		 * choser.addObject("Cross Auto Line and Stay Out of the Way", );
+		 */
 	}
 
 	/**

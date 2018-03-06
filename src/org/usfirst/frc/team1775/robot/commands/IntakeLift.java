@@ -3,11 +3,12 @@ package org.usfirst.frc.team1775.robot.commands;
 import org.usfirst.frc.team1775.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 
 /**
  *
  */
-public class IntakeLift extends Command {
+public class IntakeLift extends InstantCommand {
 	private boolean goingUp;
 
     public IntakeLift(boolean goingUp) {
@@ -29,11 +30,6 @@ public class IntakeLift extends Command {
     		RobotMap.intakeLiftUp.set(false);
     		RobotMap.intakeLiftDown.set(true);
     	}
-    }
-
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
     }
 
     // Called once after isFinished returns true

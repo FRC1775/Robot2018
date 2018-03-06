@@ -57,9 +57,9 @@ public class LiftSubsystem extends Subsystem {
 	}
 	
 	public void flipCube(double speed) {
-		if (RobotMap.liftEncoder.getDistance() > 20) {
+		//if (RobotMap.liftEncoder.getDistance() > 20) {
 			RobotMap.cubeFlip.set(speed);
-		}
+		//}
 	}
 
 	public void setSpeed(double speed) {

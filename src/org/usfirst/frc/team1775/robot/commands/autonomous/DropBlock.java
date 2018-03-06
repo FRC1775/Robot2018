@@ -1,6 +1,8 @@
 package org.usfirst.frc.team1775.robot.commands.autonomous;
 
 import org.usfirst.frc.team1775.robot.commands.DriveDistance;
+import org.usfirst.frc.team1775.robot.commands.FlippyCube;
+import org.usfirst.frc.team1775.robot.commands.LiftHeight;
 import org.usfirst.frc.team1775.robot.commands.RotateToAngle;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -10,7 +12,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class DropBlock extends CommandGroup {
 
-    public DropBlock(int direction, int height) {
+    public DropBlock(double speed, double height) {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -31,7 +33,8 @@ public class DropBlock extends CommandGroup {
     	//LiftToHeight(19)
     	//Push block using the conveyor belt
     	//Reset the lift
-
     	
+    	addSequential(new LiftHeight(height));
+    	addSequential(new FlippyCube(speed));
     }
 }

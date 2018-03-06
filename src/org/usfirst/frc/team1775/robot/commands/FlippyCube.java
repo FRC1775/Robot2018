@@ -1,10 +1,11 @@
 package org.usfirst.frc.team1775.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team1775.robot.Robot;
-import org.usfirst.frc.team1775.robot.OI;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 
-public class FlippyCube extends Command {
+import org.usfirst.frc.team1775.robot.Robot;
+
+public class FlippyCube extends InstantCommand {
 	private double speed;
 	
 	public FlippyCube(double speed) {
@@ -14,6 +15,20 @@ public class FlippyCube extends Command {
 
 	public void execute() {
 		Robot.liftSubsystem.flipCube(speed);
+	}
+	
+	@Override
+	protected void end() {
+		// TODO Auto-generated method stub
+		super.end();
+		Robot.liftSubsystem.flipCube(0);
+	}
+	
+	@Override
+	protected void interrupted() {
+		// TODO Auto-generated method stub
+		super.interrupted();
+		Robot.liftSubsystem.flipCube(0);
 	}
 	
 	@Override

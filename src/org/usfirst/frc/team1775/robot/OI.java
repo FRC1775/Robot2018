@@ -41,7 +41,7 @@ public class OI {
 	private static boolean driverJoystickConnected = false;
 	private static boolean operatorJoystickConnected = false;
 
-	public void init() {
+	public static void init() {
 		checkJoysticks();
 	}
 	
@@ -203,11 +203,11 @@ public class OI {
 	
 	private static void configureCubeFlipRightButton(Joystick joystick) {
 		JoystickButton cubeFlipRightButton = new JoystickButton(joystick, RIGHT_BUMPER);
-		cubeFlipRightButton.whenPressed(new FlippyCube(.9));
+		cubeFlipRightButton.whileHeld(new FlippyCube(1.0));
 	}
 	
 	private static void configureCubeFlipLeftButton(Joystick joystick) {
 		JoystickButton cubeFlipLeftButton = new JoystickButton(joystick, LEFT_BUMPER);
-		cubeFlipLeftButton.whenPressed(new FlippyCube(-.9));
+		cubeFlipLeftButton.whileHeld(new FlippyCube(-1.0));
 	}
 }

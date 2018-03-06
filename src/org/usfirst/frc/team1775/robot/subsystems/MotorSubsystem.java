@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class MotorSubsystem extends Subsystem implements PIDSource {
+	private static final double DEFAULT_ROTATE_RAMP_TIME = 200;
 	private enum DriveMode {
 		Regular, RotateToAngle, DriveToDistance
 	}
@@ -23,6 +24,9 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	private PIDController driveToDistancePidController;
 	
 	private PIDController rotateToAnglePidController;
+	
+	double rotateInPlaceCurrentRampFactor = 0;
+	double rotateInPlaceStartTime = 0;
 	
 	public MotorSubsystem() {
 		driveToDistancePidController = new PIDController(0, 0, 0, this,
@@ -51,12 +55,28 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	public void drive(double moveValue, double rotateValue) {
 		rotateToAnglePidController.disable();
 		double realRotateValue = rotateValue;
+		double realMoveValue = -moveValue;
 		if(moveValue > 0.1 || moveValue < -0.1) {
-			realRotateValue = moveValue * rotateValue;
+			realRotateValue = -moveValue * rotateValue;
+		}else {
+			if (rotateValue < 0.15 && rotateValue > -0.15) {
+
+				rotateInPlaceCurrentRampFactor = 0;
+				rotateInPlaceStartTime = System.currentTimeMillis();
+			}
+			realMoveValue = 0;
+			//setDriveMode(DriveMode.RotateInPlace);
+			
+			//SmartDashboard.putNumber("DriveTrain.rotateValue", rotateValue);
+			//SmartDashboard.putBoolean("DriveTrain.squaredInputs", squaredInputs);
+
+			// TODO handle ramp of rotate
+			rotateInPlaceCurrentRampFactor = Math.min(1, (System.currentTimeMillis() - rotateInPlaceStartTime) / (double) DEFAULT_ROTATE_RAMP_TIME);
+			realRotateValue = rotateValue * rotateInPlaceCurrentRampFactor;
 		}
 		SmartDashboard.putNumber("Distance", getDistance());
 		SmartDashboard.putNumber("Angle", RobotMap.gyro.getAngle());
-		RobotMap.drive.arcadeDrive(-moveValue, realRotateValue, true);
+		RobotMap.drive.arcadeDrive(realMoveValue, realRotateValue, true);
 	}
 
 	public void driveDistance() {

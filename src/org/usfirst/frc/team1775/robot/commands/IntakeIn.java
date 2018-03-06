@@ -12,6 +12,18 @@ public class IntakeIn extends Command {
 	public void execute() {
 		Robot.intakeSubsystem.runIn();
 	}
+	
+	@Override
+	protected void interrupted() {
+		super.interrupted();
+		Robot.intakeSubsystem.stop();
+	}
+	
+	@Override
+	protected void end() {
+		super.end();
+		Robot.intakeSubsystem.stop();
+	}
 
 	@Override
 	protected boolean isFinished() {
