@@ -43,7 +43,7 @@ public class RobotMap {
 	
 	public static void init(){
 		double distancePerPulse = ((6*Math.PI)/250.0);
-		double liftDistancePerPulse = ((1.5*Math.PI)/250.0);
+		double liftDistancePerPulse = ((1.375*Math.PI)/250.0);
 		
 		driveEncoderLeft = new Encoder(2, 3, false, Encoder.EncodingType.k1X);
 		driveEncoderLeft.setDistancePerPulse(distancePerPulse);

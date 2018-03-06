@@ -50,9 +50,13 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 
 	public void drive(double moveValue, double rotateValue) {
 		rotateToAnglePidController.disable();
+		double realRotateValue = rotateValue;
+		if(moveValue > 0.1 || moveValue < -0.1) {
+			realRotateValue = moveValue * rotateValue;
+		}
 		SmartDashboard.putNumber("Distance", getDistance());
 		SmartDashboard.putNumber("Angle", RobotMap.gyro.getAngle());
-		RobotMap.drive.arcadeDrive(-moveValue, rotateValue, true);
+		RobotMap.drive.arcadeDrive(-moveValue, realRotateValue, true);
 	}
 
 	public void driveDistance() {
