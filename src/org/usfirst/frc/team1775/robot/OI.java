@@ -31,6 +31,8 @@ public class OI {
 	private final static int RIGHT_ANALOG_X_AXIS = 4;
 	private final static int LEFT_TRIGGER = 2;
 	private final static int RIGHT_TRIGGER = 3;
+	
+	private final static double CUBE_FLIP_SPEED = 1.0;
 
 	
 	private static Joystick driverJoystick;
@@ -203,11 +205,11 @@ public class OI {
 	
 	private static void configureCubeFlipRightButton(Joystick joystick) {
 		JoystickButton cubeFlipRightButton = new JoystickButton(joystick, RIGHT_BUMPER);
-		cubeFlipRightButton.whileHeld(new FlippyCube(1.0));
+		cubeFlipRightButton.whileHeld(new FlippyCube(CUBE_FLIP_SPEED));
 	}
 	
 	private static void configureCubeFlipLeftButton(Joystick joystick) {
 		JoystickButton cubeFlipLeftButton = new JoystickButton(joystick, LEFT_BUMPER);
-		cubeFlipLeftButton.whileHeld(new FlippyCube(-1.0));
+		cubeFlipLeftButton.whileHeld(new FlippyCube(-CUBE_FLIP_SPEED));
 	}
 }
