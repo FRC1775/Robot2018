@@ -7,11 +7,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Solenoid extends Command {
+public class IntakeLift extends Command {
+	private boolean goingUp;
 
-    public Solenoid() {
+    public IntakeLift(boolean goingUp) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	this.goingUp = goingUp;
     }
 
     // Called just before this Command runs the first time
@@ -20,7 +22,13 @@ public class Solenoid extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	RobotMap.solenoid.set(true);
+    	if (goingUp) {
+    		RobotMap.intakeLiftDown.set(false);
+    		RobotMap.intakeLiftUp.set(true);
+    	} else {
+    		RobotMap.intakeLiftUp.set(false);
+    		RobotMap.intakeLiftDown.set(true);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -35,6 +43,5 @@ public class Solenoid extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	RobotMap.solenoid.set(false);
     }
 }
