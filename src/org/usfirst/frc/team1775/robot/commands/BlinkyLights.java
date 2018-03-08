@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1775.robot.commands;
 
+import org.usfirst.frc.team1775.robot.Robot;
 import org.usfirst.frc.team1775.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -7,6 +8,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class BlinkyLights extends Command{
 	private static int HALF_OF_LIFT_HEIGHT = 22;
+	
+	public BlinkyLights() {
+		requires(Robot.blinkyLightSubsystem);
+	}
 	
 	@Override
 	protected void initialize() {
@@ -19,16 +24,17 @@ public class BlinkyLights extends Command{
 		checkIntake();
 		checkElevator();
 		checkCubeInRobot();
+		//SmartDashboard.updateValues();
 		super.execute();
 	}
 	
-	private void checkIntake() {		
-		if(RobotMap.intakeMotorController1.get() < 0 /*&& RobotMap.intakeMotorController2.get() > 0*/) {
+	private void checkIntake() {
+		if(RobotMap.intakeMotorController1.get() < 0 && RobotMap.intakeMotorController2.get() > 0) {
 			// left motor is turning counter-clockwise and right is turning clockwise
 			// the robot is releasing a cube
 //			setPinConfiguration(true, true, true);
-			SmartDashboard.putString("Intake state", "spit it out");
 			System.out.println("it's working at least");
+			SmartDashboard.putString("Intake state", "spit it out");
 			return;
 		}else if(RobotMap.intakeMotorController1.get() > 0 && RobotMap.intakeMotorController2.get() < 0) {
 			// right motor is turning counter-clockwise and left is turning clockwise
@@ -38,7 +44,7 @@ public class BlinkyLights extends Command{
 			return;
 		}
 //		setPinConfiguration(false, false, false);
-		SmartDashboard.putString("Intake state", "nothing here :)");
+		SmartDashboard.putString("Intake state", "nothing hete");
 	}
 	
 	private void checkElevator() {
@@ -46,16 +52,20 @@ public class BlinkyLights extends Command{
 			// elevator is at lowest point
 //			setPinConfiguration(true, false, false);
 			SmartDashboard.putString("Lift state", "bottom");
+			return;
 		}else if(!RobotMap.liftTopLimitSwitch.get()) {
 			// elevator is at highest point
 //			setPinConfiguration(false, false, true);
 			SmartDashboard.putString("Lift state", "top ;)");
+			return;
 		}else if(RobotMap.liftEncoder.getDistance() > HALF_OF_LIFT_HEIGHT - 2 && RobotMap.liftEncoder.getDistance() < HALF_OF_LIFT_HEIGHT + 2) {
 			// elevator is at halfway point
 			// probably this will change to height of switch and/or scale
 //			setPinConfiguration(true, true, false);
 			SmartDashboard.putString("Lift state", "midpoint my dudes");
+			return;
 		}
+		SmartDashboard.putString("Lift state", "in the void (like me)");
 	}
 	
 	// if sensor sees a cube, then pin value is high. if it doesn't see a cube the 
@@ -71,6 +81,7 @@ public class BlinkyLights extends Command{
 		//	SmartDashboard.putString("Lift state", "nothing here xd");
 		}
 		SmartDashboard.putBoolean("IR Sensor", RobotMap.cubeInRobot.get());
+		System.out.println(RobotMap.cubeInRobot.get());
 	}
 	
 //	private void setPinConfiguration(boolean pin0, boolean pin1, boolean pin2) {

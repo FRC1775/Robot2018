@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team1775.robot.commands.BlinkyLights;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
+import org.usfirst.frc.team1775.robot.subsystems.BlinkyLightSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.IntakeSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.MotorSubsystem;
@@ -29,6 +30,7 @@ public class Robot extends IterativeRobot {
 	public static MotorSubsystem motorSubsystem;
 	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 	public static LiftSubsystem liftSubsystem;
+	public static BlinkyLightSubsystem blinkyLightSubsystem;
 	
 //	public static final BlinkyLightSubsystem blinkyLightSubsystem = new BlinkyLightSubsystem();
     
@@ -45,6 +47,7 @@ public class Robot extends IterativeRobot {
 		liftSubsystem = new LiftSubsystem();
 		OI.init();
 		motorSubsystem = new MotorSubsystem();
+		blinkyLightSubsystem = new BlinkyLightSubsystem();
 					// choosetype name = new type(arguments);r.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
@@ -134,6 +137,7 @@ public class Robot extends IterativeRobot {
 		RobotMap.liftEncoder.reset();
 		RobotMap.gyro.reset();
 		RobotMap.gyro.zeroYaw();
+		
 	}
 
 	/**
