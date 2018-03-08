@@ -29,6 +29,8 @@ public class Robot extends IterativeRobot {
 	public static MotorSubsystem motorSubsystem;
 	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 	public static LiftSubsystem liftSubsystem;
+	
+//	public static final BlinkyLightSubsystem blinkyLightSubsystem = new BlinkyLightSubsystem();
     
     Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
