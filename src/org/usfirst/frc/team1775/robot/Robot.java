@@ -29,6 +29,8 @@ public class Robot extends IterativeRobot {
 	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 	public static LiftSubsystem liftSubsystem;
     
+	public static DriverCamera camera;
+	
     Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -47,6 +49,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData(motorSubsystem);
 		LiveWindow.add(motorSubsystem);
+		initCamera();
 		initDashboard();
 	}
 	
@@ -62,6 +65,13 @@ public class Robot extends IterativeRobot {
 		 * choser.addObject("Place Block on Scale Only", );
 		 * choser.addObject("Cross Auto Line and Stay Out of the Way", );
 		 */
+	}
+	
+	private void initCamera() {
+		//cameras = new Cameras();
+		//cameras.init();
+		camera = new DriverCamera();
+		camera.init();
 	}
 
 	/**
