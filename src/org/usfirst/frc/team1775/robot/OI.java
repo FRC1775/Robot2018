@@ -8,6 +8,7 @@ import org.usfirst.frc.team1775.robot.commands.FlippyCube;
 import org.usfirst.frc.team1775.robot.commands.IntakeIn;
 import org.usfirst.frc.team1775.robot.commands.IntakeLift;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
+import org.usfirst.frc.team1775.robot.commands.LiftOffLimitSwitch;
 import org.usfirst.frc.team1775.robot.subsystems.LiftSubsystem;
 
 /**
@@ -149,12 +150,15 @@ public class OI {
 		}
 		driverJoystick = new Joystick(DRIVER_JOYSTICK_PORT);
 		
-		configureIntakeInButton(driverJoystick);
-		configureIntakeOutButton(driverJoystick);
+		//configureIntakeInButton(driverJoystick);
+		//configureIntakeOutButton(driverJoystick);
 		configureIntakeUpButton(driverJoystick);
 		configureIntakeDownButton(driverJoystick);
 		configureCubeFlipRightButton(driverJoystick);
 		configureCubeFlipLeftButton(driverJoystick);
+		
+		JoystickButton b = new JoystickButton(driverJoystick, 7);
+		b.whenPressed(new LiftOffLimitSwitch());
 		
 		driverJoystickConfigured = true;
 	}
@@ -166,7 +170,8 @@ public class OI {
 		operatorJoystick = new Joystick(OPERATOR_JOYSTICK_PORT);
 		
 		configureIntakeInButton(operatorJoystick);
-		configureIntakeOutButton(operatorJoystick, true);
+		// this was set as a fallback command, but we need it to fall back to the driver joystick
+		configureIntakeOutButton(operatorJoystick);
 		configureIntakeUpButton(operatorJoystick);
 		configureIntakeDownButton(operatorJoystick);
 		configureCubeFlipRightButton(operatorJoystick);

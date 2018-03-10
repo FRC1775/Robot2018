@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team1775.robot.commands.LiftOffLimitSwitch;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
 import org.usfirst.frc.team1775.robot.subsystems.ExampleSubsystem;
@@ -134,6 +135,8 @@ public class Robot extends IterativeRobot {
 		
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		
+		//Scheduler.getInstance().add(new LiftOffLimitSwitch());
 		
 		OI.checkJoysticks();
 		RobotMap.driveEncoderLeft.reset();

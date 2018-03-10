@@ -42,7 +42,6 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		rotateToAnglePidController = new PIDController(0.15, 0, 0.45,(PIDSource) RobotMap.gyro,
 				(value) ->  {
 					RobotMap.drive.arcadeDrive(0, value);
-					System.out.println(value);
 				}, 0.02);
 		rotateToAnglePidController.setInputRange(-180, 180);
 		rotateToAnglePidController.setOutputRange(-0.75, 0.75);
