@@ -18,9 +18,9 @@ public class BlockOnSwitchFromSides extends CommandGroup {
     	// From either the left or right starting position, with outside edge of robot
     	// aligned with the slanted corner, drive so that back edge of robot is  aligned
     	// with back edge of switch.
-    	addSequential(new DriveDistance(150));
+    	addSequential(new DriveDistance(AutonomousConstants.BACK_WALL_TO_SWITCH));
     	
     	// The switch has a height of 18.75 in
-    	addSequential(new DropBlock(20, direction));
+    	addSequential(new DropBlock(AutonomousConstants.SWITCH_HEIGHT, direction));
     }
 }

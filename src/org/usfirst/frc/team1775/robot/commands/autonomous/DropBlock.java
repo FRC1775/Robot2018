@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class DropBlock extends CommandGroup {
 
-    public DropBlock(double speed, double height) {
+    public DropBlock(double height, double speed) {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -36,5 +36,6 @@ public class DropBlock extends CommandGroup {
     	
     	addSequential(new LiftHeight(height));
     	addSequential(new FlippyCube(speed));
+    	addSequential(new LiftHeight(0));
     }
 }

@@ -16,7 +16,7 @@ public class DriverCamera {
 	private static final int FPS = 15;
 	
 	private Thread cameraThread;
-
+/* How do i make this work???
     public void init() {
     	CvSource imageSource = CameraServer.getInstance().putVideo("Camera Viewer", IMG_WIDTH, IMG_HEIGHT);
 		NetworkTable.getTable("").putString("CameraSelection", "Camera Viewer");
@@ -29,7 +29,7 @@ public class DriverCamera {
 			}
 		}
     }
-    
+    */
     private UsbCamera initMainCamera() {
     	
 		UsbCamera shooterCamera = new UsbCamera("Camera", getMainCameraDevice());

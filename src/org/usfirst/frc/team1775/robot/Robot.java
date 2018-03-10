@@ -29,7 +29,7 @@ public class Robot extends IterativeRobot {
 	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 	public static LiftSubsystem liftSubsystem;
     
-	public static DriverCamera camera;
+	//public static DriverCamera camera;
 	
     Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -70,8 +70,8 @@ public class Robot extends IterativeRobot {
 	private void initCamera() {
 		//cameras = new Cameras();
 		//cameras.init();
-		camera = new DriverCamera();
-		camera.init();
+//		camera = new DriverCamera();
+//		camera.init();
 	}
 
 	/**
