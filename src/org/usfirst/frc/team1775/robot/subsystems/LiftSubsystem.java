@@ -17,7 +17,7 @@ public class LiftSubsystem extends Subsystem {
 	public static final double DOWN_MAX_SPEED = 0.5;
 	public static final double UP_MAX_SPEED = 0.8;
 	
-	private static final double MIN_HEIGHT_START_RAMP = 18.0;
+	private static final double MIN_HEIGHT_START_RAMP = 20.0;
 	private static final double MAX_HEIGHT_START_RAMP = 70.0;
 	private static final double MAX_HEIGHT = 84.0;
 	

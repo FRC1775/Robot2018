@@ -144,6 +144,8 @@ public class Robot extends IterativeRobot {
 		RobotMap.liftEncoder.reset();
 		RobotMap.gyro.reset();
 		RobotMap.gyro.zeroYaw();
+		
+		Scheduler.getInstance().add(new LiftOffLimitSwitch());
 	}
 
 	/**
