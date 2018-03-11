@@ -11,6 +11,8 @@ import org.usfirst.frc.team1775.robot.commands.IntakeLift;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
 import org.usfirst.frc.team1775.robot.commands.LiftOffLimitSwitch;
 import org.usfirst.frc.team1775.robot.commands.RotateToAngle;
+import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousConstants;
+import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
 import org.usfirst.frc.team1775.robot.subsystems.LiftSubsystem;
 
 /**
@@ -160,7 +162,7 @@ public class OI {
 		configureCubeFlipLeftButton(driverJoystick);
 		
 		JoystickButton b = new JoystickButton(driverJoystick, 7);
-		b.whenPressed(new RotateToAngle(90));
+		b.whenPressed(new DriveToAutoLineFromCenter(AutonomousConstants.RIGHT));
 		
 		driverJoystickConfigured = true;
 	}
