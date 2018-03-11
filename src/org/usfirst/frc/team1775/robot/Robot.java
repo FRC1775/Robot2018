@@ -43,8 +43,8 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		RobotMap.init();
 		liftSubsystem = new LiftSubsystem();
-		OI.init();
 		motorSubsystem = new MotorSubsystem();
+		OI.init();
 					// choosetype name = new type(arguments);r.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);

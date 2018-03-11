@@ -4,11 +4,13 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+import org.usfirst.frc.team1775.robot.commands.DriveDistance;
 import org.usfirst.frc.team1775.robot.commands.FlippyCube;
 import org.usfirst.frc.team1775.robot.commands.IntakeIn;
 import org.usfirst.frc.team1775.robot.commands.IntakeLift;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
 import org.usfirst.frc.team1775.robot.commands.LiftOffLimitSwitch;
+import org.usfirst.frc.team1775.robot.commands.RotateToAngle;
 import org.usfirst.frc.team1775.robot.subsystems.LiftSubsystem;
 
 /**
@@ -158,7 +160,7 @@ public class OI {
 		configureCubeFlipLeftButton(driverJoystick);
 		
 		JoystickButton b = new JoystickButton(driverJoystick, 7);
-		b.whenPressed(new LiftOffLimitSwitch());
+		b.whenPressed(new RotateToAngle(90));
 		
 		driverJoystickConfigured = true;
 	}
