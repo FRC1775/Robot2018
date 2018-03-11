@@ -17,7 +17,7 @@ public class LiftOffLimitSwitch extends Command {
 
     protected void execute() {
     	if (!RobotMap.liftBottomLimitSwitch.get()) {
-    		Robot.liftSubsystem.setSpeed(LiftSubsystem.MIN_SPEED);
+    		Robot.liftSubsystem.setSpeed(LiftSubsystem.UP_MIN_SPEED);
     	} else {
     		Robot.liftSubsystem.setSpeed(0);
     	}
