@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team1775.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -102,6 +103,13 @@ public class Robot extends IterativeRobot {
 	 * chooser code above (like the commented example) or additional comparisons
 	 * to the switch structure below with additional strings & commands.
 	 */
+	
+	public final static String checkFMS() {
+		String gameData;
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		return gameData;
+	}
+	
 	@Override
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
@@ -116,6 +124,8 @@ public class Robot extends IterativeRobot {
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
 			autonomousCommand.start();
+
+		checkFMS();
 	}
 
 	/**

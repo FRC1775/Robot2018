@@ -71,7 +71,8 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		double realRotateValue = rotateValue;
 		double realMoveValue = -moveValue;
 		if(moveValue > 0.1 || moveValue < -0.1) {
-			realRotateValue = -moveValue * rotateValue;
+			// changed from -moveValue to realMoveValue
+			realRotateValue = realMoveValue * rotateValue;
 		} else {
 			if (rotateValue < 0.15 && rotateValue > -0.15) {
 
@@ -87,14 +88,15 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 			rotateInPlaceCurrentRampFactor = Math.min(1, (System.currentTimeMillis() - rotateInPlaceStartTime) / (double) DEFAULT_ROTATE_RAMP_TIME);
 			realRotateValue = rotateValue * rotateInPlaceCurrentRampFactor;
 		}
-		SmartDashboard.putNumber("Distance", getDistance());
-		SmartDashboard.putNumber("Angle", RobotMap.gyro.getAngle());
+//		SmartDashboard.putNumber("Distance", getDistance());
+//		SmartDashboard.putNumber("Angle", RobotMap.gyro.getAngle());
 		realRotateValue = driveStraightCorrection(moveValue, rotateValue);
 		RobotMap.drive.arcadeDrive(realMoveValue, realRotateValue, true);
 	}
 	
 	private double driveStraightCorrection(double moveValue, double rotateValue) {
-		if (rotateValue < 0.2 && rotateValue > -0.2) {
+		// changed from .2 to .1
+		if (rotateValue < 0.1 && rotateValue > -0.1) {
 			if (shouldSetPoint || (moveValue < 0.1 && moveValue > -0.1)) {
 				RobotMap.gyro.reset();
 				shouldSetPoint = false;
