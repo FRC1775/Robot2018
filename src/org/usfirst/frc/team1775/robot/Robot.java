@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team1775.robot.commands.LiftOffLimitSwitch;
 import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousConstants;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
@@ -45,8 +46,8 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		RobotMap.init();
 		liftSubsystem = new LiftSubsystem();
-		OI.init();
 		motorSubsystem = new MotorSubsystem();
+		OI.init();
 					// choosetype name = new type(arguments);r.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
@@ -154,6 +155,8 @@ public class Robot extends IterativeRobot {
 		RobotMap.liftEncoder.reset();
 		RobotMap.gyro.reset();
 		RobotMap.gyro.zeroYaw();
+		
+		Scheduler.getInstance().add(new LiftOffLimitSwitch());
 	}
 
 	/**

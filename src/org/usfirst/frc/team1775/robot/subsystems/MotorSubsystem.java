@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class MotorSubsystem extends Subsystem implements PIDSource {
-	private static final double DEFAULT_ROTATE_RAMP_TIME = 200;
+	private static final double DEFAULT_ROTATE_RAMP_TIME = 400;
 	private enum DriveMode {
 		Regular, RotateToAngle, DriveToDistance
 	}
@@ -34,15 +34,23 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	double straightDriveRotateCompensationValue = 0;
 	
 	public MotorSubsystem() {
-		driveToDistancePidController = new PIDController(0, 0, 0, this,
+		driveToDistancePidController = new PIDController(1, 0, 5, this,
 				(value) -> {
-					driveToDistancePidResult = value;
+					if (driveToDistancePidController.isEnabled()) {
+						RobotMap.drive.arcadeDrive(value, -straightDriveRotateCompensationValue);
+					}
 				}, 0.02);
-
+		
+		driveToDistancePidController.setInputRange(-300, 300);
+		driveToDistancePidController.setContinuous(true);
+		driveToDistancePidController.setOutputRange(-0.6, 0.6);
+		driveToDistancePidController.setAbsoluteTolerance(2);
+		
 		rotateToAnglePidController = new PIDController(0.15, 0, 0.45,(PIDSource) RobotMap.gyro,
 				(value) ->  {
-					RobotMap.drive.arcadeDrive(0, value);
-					System.out.println(value);
+					if (rotateToAnglePidController.isEnabled()) {
+						RobotMap.drive.arcadeDrive(0, value);
+					}
 				}, 0.02);
 		rotateToAnglePidController.setInputRange(-180, 180);
 		rotateToAnglePidController.setOutputRange(-0.75, 0.75);
@@ -51,26 +59,25 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		addChild(rotateToAnglePidController);
 		
 		// Ivan suggests putting a P that's about 1/4 of what the rotateToAnglePidController is
-		straightDrivePidController = new PIDController(-0.4, 0.0, 0.0, (PIDSource) RobotMap.gyro, (value) -> {
-			//SmartDashboard.putNumber("DriveTrain.straightDrive.pidResult", value);
+		straightDrivePidController = new PIDController(-0.2, 0.0, 0.0, (PIDSource) RobotMap.gyro, (value) -> {
 			straightDriveRotateCompensationValue = value;
 		}, 0.01);
-	}
-
-	@Override
-	protected void initDefaultCommand() {
-		setDefaultCommand(new Drive());
-		driveToDistancePidController.setOutputRange(-0.9, 0.9);
 		straightDrivePidController.setOutputRange(-0.4, 0.4);
 		straightDrivePidController.setSetpoint(0);
 		straightDrivePidController.enable();
 	}
 
+	@Override
+	protected void initDefaultCommand() {
+		setDefaultCommand(new Drive());
+	}
+
 	public void drive(double moveValue, double rotateValue) {
 		rotateToAnglePidController.disable();
+		driveToDistancePidController.disable();
 		double realRotateValue = rotateValue;
 		double realMoveValue = -moveValue;
-		if(moveValue > 0.1 || moveValue < -0.1) {
+		if(moveValue > 0.15 || moveValue < -0.15) {
 			// changed from -moveValue to realMoveValue
 			realRotateValue = realMoveValue * rotateValue;
 		} else {
@@ -90,7 +97,8 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		}
 		SmartDashboard.putNumber("Distance", getDistance());
 		SmartDashboard.putNumber("Angle", RobotMap.gyro.getAngle());
-		realRotateValue = driveStraightCorrection(moveValue, rotateValue);
+		
+		realRotateValue = driveStraightCorrection(moveValue, realRotateValue);
 		RobotMap.drive.arcadeDrive(realMoveValue, realRotateValue, true);
 	}
 	
@@ -109,22 +117,12 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 
 	public void driveDistance() {
 		rotateToAnglePidController.disable();
-		RobotMap.drive.arcadeDrive(driveToDistancePidResult, 0, false);
+		SmartDashboard.putNumber("Distance", getDistance());
 	}
 	
 	public void rotateAngle() {
-		rotateToAnglePidController.enable();
+		driveToDistancePidController.disable();
 		SmartDashboard.putNumber("Angle", RobotMap.gyro.getAngle());
-	}
-
-	public boolean isFinished() {
-		if (driveMode == DriveMode.DriveToDistance) {
-			return driveToDistancePidController.onTarget();
-		} else if (driveMode == DriveMode.RotateToAngle) {
-			return rotateToAnglePidController.onTarget();
-		}
-
-		return false;
 	}
 
 	public void setDriveDistance(double distance) {
@@ -132,13 +130,9 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 
 		RobotMap.driveEncoderLeft.reset();
 		RobotMap.driveEncoderRight.reset();
-
-		driveToDistancePidController.setPID(0.35, 0, 2.3);
-		driveToDistancePidController.setInputRange(-100, 100);
-		driveToDistancePidController.setContinuous(true);
-		driveToDistancePidController.setOutputRange(-0.5, 0.5);
-		driveToDistancePidController.setAbsoluteTolerance(0.5);
-		driveToDistancePidController.setToleranceBuffer(20);
+		
+		RobotMap.gyro.reset();
+		RobotMap.gyro.zeroYaw();
 
 		driveToDistancePidController.setSetpoint(distance);
 		driveToDistancePidController.enable();
@@ -150,7 +144,7 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 
 		RobotMap.gyro.reset();
 		RobotMap.gyro.zeroYaw();
-
+		
 		rotateToAnglePidController.setSetpoint(angle);
 		rotateToAnglePidController.enable();
 	}
@@ -172,6 +166,16 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		builder.addBooleanProperty("resetGyro", () -> { return false; }, (value) -> {
 			if (value) {
 				rotateToAnglePidController.reset();
+				RobotMap.gyro.reset();
+				RobotMap.gyro.zeroYaw();
+			}
+		});
+		builder.addDoubleProperty("distance", () -> { return getDistance(); }, null);
+		builder.addBooleanProperty("reset drive encoder", () -> { return false; }, (value) -> {
+			if (value) {
+				driveToDistancePidController.reset();
+				RobotMap.driveEncoderLeft.reset();
+				RobotMap.driveEncoderRight.reset();
 				RobotMap.gyro.reset();
 				RobotMap.gyro.zeroYaw();
 			}
@@ -198,6 +202,6 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	private double getDistance() {
 		SmartDashboard.putNumber("LeftEncoder", RobotMap.driveEncoderLeft.getDistance());
 		SmartDashboard.putNumber("RightEncoder", -RobotMap.driveEncoderRight.getDistance());
-		return (-RobotMap.driveEncoderRight.getDistance());
+		return (RobotMap.driveEncoderLeft.getDistance());
 	}
 }

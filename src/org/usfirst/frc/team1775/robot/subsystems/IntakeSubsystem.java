@@ -6,7 +6,7 @@ import org.usfirst.frc.team1775.robot.commands.IntakeIn;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class IntakeSubsystem extends Subsystem {
-	private static final double IN_SPEED = 0.9;
+	private static final double IN_SPEED = 0.7;
 	private static final double OUT_SPEED = -0.9;
 	
 	public void runIn() {

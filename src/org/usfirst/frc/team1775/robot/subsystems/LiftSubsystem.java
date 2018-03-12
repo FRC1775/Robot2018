@@ -12,9 +12,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LiftSubsystem extends Subsystem {
+	public static final double UP_MIN_SPEED = 0.6;
+	public static final double DOWN_MIN_SPEED = 0.25;
+	public static final double DOWN_MAX_SPEED = 0.5;
+	public static final double UP_MAX_SPEED = 0.8;
+	
+	private static final double MIN_HEIGHT_START_RAMP = 20.0;
+	private static final double MAX_HEIGHT_START_RAMP = 70.0;
+	private static final double MAX_HEIGHT = 84.0;
+	
 	private static final double START_RAMP_TIME_MS = 500.0;
-	private static final double MAX_SPEED = 0.6;
-	private static final double LIFT_SPEED_DEADBAND = 0.1;
 
 	private double startTime = System.currentTimeMillis();
 	
@@ -54,6 +61,7 @@ public class LiftSubsystem extends Subsystem {
 		// this might disable the motor controller for too long because it's for
 		// safety purposes, so it might need to be changed
 		RobotMap.liftMotorController1.stopMotor();
+		brake();
 	}
 	
 	public void flipCube(double speed) {
@@ -64,23 +72,16 @@ public class LiftSubsystem extends Subsystem {
 
 	public void setSpeed(double speed) {
 		double outputSpeed = 0;
+		
+		System.out.println(RobotMap.liftEncoder.getDistance());
 
-		if (isAllowedToGoUp(speed)) {
-			outputSpeed = speed * getRampAndMaxSpeedMultiplier();
-		} else if (isAllowedToGoDown(speed)) {
-			outputSpeed = speed * getRampAndMaxSpeedMultiplier();
+		if (isAllowedToGoUp(speed) || isAllowedToGoDown(speed)) {
+			unbrake();
+			outputSpeed = getAdjustedSpeed(speed);
 		} else {
+			brake();
 			outputSpeed = 0;
 			startTime = System.currentTimeMillis();
-		}
-		
-		if (outputSpeed > 0.1 || outputSpeed < -0.1) {
-			RobotMap.liftBrake.set(false);
-			RobotMap.liftUnbrake.set(true);
-		} else {
-			RobotMap.liftBrake.set(true);
-			RobotMap.liftUnbrake.set(false);
-			outputSpeed = 0;
 		}
 		
 		if (!RobotMap.liftBottomLimitSwitch.get()) {
@@ -92,14 +93,38 @@ public class LiftSubsystem extends Subsystem {
 	}
 	
 	private boolean isAllowedToGoUp(double inputLiftSpeed) {
-		return inputLiftSpeed > LIFT_SPEED_DEADBAND && RobotMap.liftTopLimitSwitch.get();
+		return inputLiftSpeed >= UP_MIN_SPEED && RobotMap.liftTopLimitSwitch.get();
 	}
 	
 	private boolean isAllowedToGoDown(double inputLiftSpeed) {
-		return inputLiftSpeed < -LIFT_SPEED_DEADBAND && RobotMap.liftBottomLimitSwitch.get();
+		return inputLiftSpeed <= -DOWN_MIN_SPEED && RobotMap.liftBottomLimitSwitch.get();
 	}
 	
-	private double getRampAndMaxSpeedMultiplier() {
-		return Math.min((System.currentTimeMillis() - startTime) / START_RAMP_TIME_MS, 1) * MAX_SPEED;
+	private double getAdjustedSpeed(double inputLiftSpeed) {
+		double ramp = Math.min((System.currentTimeMillis() - startTime) / START_RAMP_TIME_MS, 1);
+		
+		if (inputLiftSpeed <= -DOWN_MIN_SPEED) { // Going down
+			if (RobotMap.liftEncoder.getDistance() < MIN_HEIGHT_START_RAMP) {
+				ramp = Math.max(RobotMap.liftEncoder.getDistance() / MIN_HEIGHT_START_RAMP, 0);
+			}
+			return -DOWN_MIN_SPEED + ramp * (Math.max(inputLiftSpeed, -DOWN_MAX_SPEED) + DOWN_MIN_SPEED);
+		} else if (inputLiftSpeed >= UP_MIN_SPEED) {
+			if (RobotMap.liftEncoder.getDistance() > MAX_HEIGHT_START_RAMP) {
+				ramp = Math.max(1 - (RobotMap.liftEncoder.getDistance() - MAX_HEIGHT_START_RAMP) / (MAX_HEIGHT - MAX_HEIGHT_START_RAMP), 0);
+			}
+			System.out.println(UP_MIN_SPEED + ramp * (Math.min(inputLiftSpeed, UP_MAX_SPEED) - UP_MIN_SPEED));
+			return UP_MIN_SPEED + ramp * (Math.min(inputLiftSpeed, UP_MAX_SPEED) - UP_MIN_SPEED);
+		}
+		return 0;
+	}
+	
+	private void unbrake() {
+		RobotMap.liftBrake.set(false);
+		RobotMap.liftUnbrake.set(true);
+	}
+	
+	private void brake() {
+		RobotMap.liftBrake.set(true);
+		RobotMap.liftUnbrake.set(false);
 	}
 }
