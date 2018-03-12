@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class MotorSubsystem extends Subsystem implements PIDSource {
+	private static final double DEFAULT_ROTATE_RAMP_TIME = 200;
 	private enum DriveMode {
 		Regular, RotateToAngle, DriveToDistance
 	}
@@ -20,15 +21,25 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	double driveToDistancePidResult = 0;
 	double rotateToAnglePidResult = 0;
 
-	private PIDController driveToDistancePidController = new PIDController(0, 0, 0, this,
-			(value) -> {
-				driveToDistancePidResult = value;
-			}, 0.02);
+	private PIDController driveToDistancePidController;
 	
 	private PIDController rotateToAnglePidController;
 	
+	private PIDController straightDrivePidController;
+	
+	boolean shouldSetPoint = true;
+	
+	double rotateInPlaceCurrentRampFactor = 0;
+	double rotateInPlaceStartTime = 0;
+	double straightDriveRotateCompensationValue = 0;
+	
 	public MotorSubsystem() {
-		rotateToAnglePidController = new PIDController(0 ,0 ,0 ,(PIDSource) RobotMap.gyro,
+		driveToDistancePidController = new PIDController(0, 0, 0, this,
+				(value) -> {
+					driveToDistancePidResult = value;
+				}, 0.02);
+
+		rotateToAnglePidController = new PIDController(0.15, 0, 0.45,(PIDSource) RobotMap.gyro,
 				(value) ->  {
 					RobotMap.drive.arcadeDrive(0, value);
 					System.out.println(value);
@@ -38,19 +49,62 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		rotateToAnglePidController.setAbsoluteTolerance(2);
 		rotateToAnglePidController.setContinuous();
 		addChild(rotateToAnglePidController);
+		
+		// Ivan suggests putting a P that's about 1/4 of what the rotateToAnglePidController is
+		straightDrivePidController = new PIDController(-0.4, 0.0, 0.0, (PIDSource) RobotMap.gyro, (value) -> {
+			//SmartDashboard.putNumber("DriveTrain.straightDrive.pidResult", value);
+			straightDriveRotateCompensationValue = value;
+		}, 0.01);
 	}
 
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new Drive());
 		driveToDistancePidController.setOutputRange(-0.9, 0.9);
+		straightDrivePidController.setOutputRange(-0.4, 0.4);
+		straightDrivePidController.setSetpoint(0);
+		straightDrivePidController.enable();
 	}
 
 	public void drive(double moveValue, double rotateValue) {
 		rotateToAnglePidController.disable();
+		double realRotateValue = rotateValue;
+		double realMoveValue = -moveValue;
+		if(moveValue > 0.1 || moveValue < -0.1) {
+			// changed from -moveValue to realMoveValue
+			realRotateValue = realMoveValue * rotateValue;
+		} else {
+			if (rotateValue < 0.15 && rotateValue > -0.15) {
+
+				rotateInPlaceCurrentRampFactor = 0;
+				rotateInPlaceStartTime = System.currentTimeMillis();
+			}
+			realMoveValue = 0;
+						
+			//SmartDashboard.putNumber("DriveTrain.rotateValue", rotateValue);
+			//SmartDashboard.putBoolean("DriveTrain.squaredInputs", squaredInputs);
+
+			// TODO handle ramp of rotate
+			rotateInPlaceCurrentRampFactor = Math.min(1, (System.currentTimeMillis() - rotateInPlaceStartTime) / (double) DEFAULT_ROTATE_RAMP_TIME);
+			realRotateValue = rotateValue * rotateInPlaceCurrentRampFactor;
+		}
 		SmartDashboard.putNumber("Distance", getDistance());
 		SmartDashboard.putNumber("Angle", RobotMap.gyro.getAngle());
-		RobotMap.drive.arcadeDrive(-moveValue, rotateValue, true);
+		realRotateValue = driveStraightCorrection(moveValue, rotateValue);
+		RobotMap.drive.arcadeDrive(realMoveValue, realRotateValue, true);
+	}
+	
+	private double driveStraightCorrection(double moveValue, double rotateValue) {
+		if (rotateValue < 0.2 && rotateValue > -0.2) {
+			if (shouldSetPoint || (moveValue < 0.1 && moveValue > -0.1)) {
+				RobotMap.gyro.reset();
+				shouldSetPoint = false;
+			}
+			return -straightDriveRotateCompensationValue;
+		} else {
+			shouldSetPoint = true;
+			return rotateValue;
+		}
 	}
 
 	public void driveDistance() {
@@ -96,8 +150,6 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 
 		RobotMap.gyro.reset();
 		RobotMap.gyro.zeroYaw();
-
-		rotateToAnglePidController.setPID(0.02, 0, 0);
 
 		rotateToAnglePidController.setSetpoint(angle);
 		rotateToAnglePidController.enable();
@@ -146,6 +198,6 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	private double getDistance() {
 		SmartDashboard.putNumber("LeftEncoder", RobotMap.driveEncoderLeft.getDistance());
 		SmartDashboard.putNumber("RightEncoder", -RobotMap.driveEncoderRight.getDistance());
-		return (RobotMap.driveEncoderLeft.getDistance() + -RobotMap.driveEncoderRight.getDistance()) / 2.0;
+		return (-RobotMap.driveEncoderRight.getDistance());
 	}
 }

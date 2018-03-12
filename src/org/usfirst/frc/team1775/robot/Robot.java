@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team1775.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -8,6 +9,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousConstants;
+import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
+import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
+import org.usfirst.frc.team1775.robot.commands.autonomous.SwitchScaleLogic;
 import org.usfirst.frc.team1775.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.IntakeSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.MotorSubsystem;
@@ -25,9 +30,10 @@ public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static MotorSubsystem motorSubsystem;
 	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-	public static final LiftSubsystem liftSubsystem = new LiftSubsystem();
-	public static OI oi;
+	public static LiftSubsystem liftSubsystem;
     
+	//public static DriverCamera camera;
+	
     Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -37,14 +43,39 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		oi = new OI();
 		RobotMap.init();
+		liftSubsystem = new LiftSubsystem();
+		OI.init();
 		motorSubsystem = new MotorSubsystem();
-			// choosetype name = new type(arguments);r.addDefault("Default Auto", new ExampleCommand());
+					// choosetype name = new type(arguments);r.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData(motorSubsystem);
 		LiveWindow.add(motorSubsystem);
+		initCamera();
+		initDashboard();
+	}
+	
+	private void initDashboard() {
+		
+		chooser.addDefault("Do Nothing", new DoNothing(RobotMap.drive));
+		chooser.addObject("Cross Auto Line From Center by Going Left", new DriveToAutoLineFromCenter(AutonomousConstants.LEFT));
+		chooser.addObject("Cross Auto Line From Center by Going Right", new DriveToAutoLineFromCenter(AutonomousConstants.RIGHT));
+		chooser.addObject("Place Block on as much as we can from Left", new SwitchScaleLogic(AutonomousConstants.LEFT));
+		chooser.addObject("Place Block on as much as we can from Right", new SwitchScaleLogic(AutonomousConstants.RIGHT));
+		// maybe need one that adds delay
+		/**
+		 * choser.addObject("Place Block on Switch Only", );
+		 * choser.addObject("Place Block on Scale Only", );
+		 * choser.addObject("Cross Auto Line and Stay Out of the Way", );
+		 */
+	}
+	
+	private void initCamera() {
+		//cameras = new Cameras();
+		//cameras.init();
+//		camera = new DriverCamera();
+//		camera.init();
 	}
 
 	/**
@@ -60,6 +91,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		OI.checkJoysticks();
 	}
 
 	/**
@@ -73,6 +105,13 @@ public class Robot extends IterativeRobot {
 	 * chooser code above (like the commented example) or additional comparisons
 	 * to the switch structure below with additional strings & commands.
 	 */
+	
+	public final static String checkFMS() {
+		String gameData;
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		return gameData;
+	}
+	
 	@Override
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
@@ -87,6 +126,8 @@ public class Robot extends IterativeRobot {
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
 			autonomousCommand.start();
+
+		checkFMS();
 	}
 
 	/**
@@ -106,10 +147,11 @@ public class Robot extends IterativeRobot {
 		
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-			
-		oi.init();
+		
+		OI.checkJoysticks();
 		RobotMap.driveEncoderLeft.reset();
 		RobotMap.driveEncoderLeft.reset();
+		RobotMap.liftEncoder.reset();
 		RobotMap.gyro.reset();
 		RobotMap.gyro.zeroYaw();
 	}
@@ -119,6 +161,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		OI.checkJoysticks();
 		Scheduler.getInstance().run();
 	}
 }
