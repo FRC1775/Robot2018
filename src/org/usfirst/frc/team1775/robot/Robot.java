@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousConstants;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
 import org.usfirst.frc.team1775.robot.subsystems.ExampleSubsystem;
@@ -56,11 +57,11 @@ public class Robot extends IterativeRobot {
 	private void initDashboard() {
 		
 		chooser.addDefault("Do Nothing", new DoNothing(RobotMap.drive));
-		chooser.addObject("Cross Auto Line From Center by Going Left", new DriveToAutoLineFromCenter(-1));
-		chooser.addObject("Cross Auto Line From Center by Going Right", new DriveToAutoLineFromCenter(1));
+		chooser.addObject("Cross Auto Line From Center by Going Left", new DriveToAutoLineFromCenter(AutonomousConstants.LEFT));
+		chooser.addObject("Cross Auto Line From Center by Going Right", new DriveToAutoLineFromCenter(AutonomousConstants.RIGHT));
 		/**
-		 * choser.addObject("Place Block on Switch and Scale from Left", new SwitchScaleLogic(-1));
-		 * choser.addObject("Place Block on Switch and Scale from Right", new SwitchScaleLogic(1));
+		 * choser.addObject("Place Block on Switch and Scale from Left", new SwitchScaleLogic(AutonomousConstants.LEFT));
+		 * choser.addObject("Place Block on Switch and Scale from Right", new SwitchScaleLogic(AutonomousConstants.RIGHT));
 		 * choser.addObject("Place Block on Switch Only", );
 		 * choser.addObject("Place Block on Scale Only", );
 		 * choser.addObject("Cross Auto Line and Stay Out of the Way", );

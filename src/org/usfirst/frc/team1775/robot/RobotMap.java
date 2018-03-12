@@ -6,6 +6,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Servo;
@@ -40,6 +41,7 @@ public class RobotMap {
 	public static Servo rightIntakeRelease;
 	public static Solenoid liftBrake;
 	public static Solenoid liftUnbrake;
+	public static DigitalOutput IRSensor; 
 	
 	public static void init(){
 		double distancePerPulse = ((6*Math.PI)/250.0);
@@ -79,5 +81,7 @@ public class RobotMap {
 
 	    liftBrake = new Solenoid(2);
 	    liftUnbrake = new Solenoid(3);
+	    
+	    IRSensor = new DigitalOutput(8);
 	}
 }
