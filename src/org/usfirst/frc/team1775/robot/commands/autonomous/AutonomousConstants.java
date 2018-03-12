@@ -16,6 +16,6 @@ public final class AutonomousConstants{
 	public static final int BACK_WALL_TO_SCALE = 300;
 	public static final int BACK_WALL_TO_SWITCH = 150;
 	public static final int CENTER_TO_SWITCH = 95;
-	public static final int CENTER_TO_EDGE = 144;
-	public static final int AUTO_LINE = 120;
+	public static final int CENTER_TO_EDGE = 60;
+	public static final int AUTO_LINE = 50;
 }
