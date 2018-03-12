@@ -17,7 +17,7 @@ public class PickUpBlockFromSwitch extends CommandGroup {
 		addSequential (new RotateToAngle(-direction*AutonomousConstants.BLOCK_SWITCH_ANGLE));
 		addSequential (new DriveDistance (AutonomousConstants.SWITCH_BUFFER));
 		addParallel (new IntakeIn ());
-		if(!RobotMap.IRSensor.get()) {
+		if(!RobotMap.cubeInRobot.get()) {
 			Robot.intakeSubsystem.stop();		
 		}
 		// This is meant to stop the intake once it acquires a cube
