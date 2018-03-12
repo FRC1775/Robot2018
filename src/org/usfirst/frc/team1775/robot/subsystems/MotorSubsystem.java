@@ -88,20 +88,18 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 			rotateInPlaceCurrentRampFactor = Math.min(1, (System.currentTimeMillis() - rotateInPlaceStartTime) / (double) DEFAULT_ROTATE_RAMP_TIME);
 			realRotateValue = rotateValue * rotateInPlaceCurrentRampFactor;
 		}
-//		SmartDashboard.putNumber("Distance", getDistance());
-//		SmartDashboard.putNumber("Angle", RobotMap.gyro.getAngle());
+		SmartDashboard.putNumber("Distance", getDistance());
+		SmartDashboard.putNumber("Angle", RobotMap.gyro.getAngle());
 		realRotateValue = driveStraightCorrection(moveValue, rotateValue);
 		RobotMap.drive.arcadeDrive(realMoveValue, realRotateValue, true);
 	}
 	
 	private double driveStraightCorrection(double moveValue, double rotateValue) {
-		// changed from .2 to .1
-		if (rotateValue < 0.1 && rotateValue > -0.1) {
+		if (rotateValue < 0.2 && rotateValue > -0.2) {
 			if (shouldSetPoint || (moveValue < 0.1 && moveValue > -0.1)) {
 				RobotMap.gyro.reset();
 				shouldSetPoint = false;
 			}
-			
 			return -straightDriveRotateCompensationValue;
 		} else {
 			shouldSetPoint = true;

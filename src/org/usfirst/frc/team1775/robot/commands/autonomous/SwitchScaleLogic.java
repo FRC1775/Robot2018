@@ -14,8 +14,19 @@ public class SwitchScaleLogic extends CommandGroup{
 				addSequential(new BlockOnSwitchFromSides(direction));
 				addSequential(new PickUpBlockFromSwitch(direction));
 				addSequential(new PickUpToScale(direction));
+			} else if ((gameData.charAt(0) == 'L' && direction == AutonomousConstants.LEFT)||
+			(gameData.charAt(0) == 'R' && direction == AutonomousConstants.RIGHT)) {
+				addSequential(new BlockOnSwitchFromSides(direction));
+				addSequential(new PickUpBlockFromSwitch(direction));
+			} else if ((gameData.charAt(1) == 'L' && direction == AutonomousConstants.LEFT)||
+					(gameData.charAt(1) == 'R' && direction == AutonomousConstants.RIGHT)) {
+				addSequential(new BlockOnScaleFromSides(direction));
 			} else {
-				// account for the other situations
+				if (gameData.charAt(0) == 'L') {
+					addSequential(new BlockOnSwitchFromCenter(AutonomousConstants.LEFT));
+				} else {
+					addSequential(new BlockOnSwitchFromCenter(AutonomousConstants.RIGHT));
+				}
 			}
 		}
 	}
