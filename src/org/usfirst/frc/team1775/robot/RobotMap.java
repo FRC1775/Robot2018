@@ -41,7 +41,12 @@ public class RobotMap {
 	public static Servo rightIntakeRelease;
 	public static Solenoid liftBrake;
 	public static Solenoid liftUnbrake;
-	public static DigitalOutput IRSensor; 
+	public static DigitalInput cubeInRobot;
+	
+	public static DigitalOutput pinZero;
+	public static DigitalOutput pinOne;
+	public static DigitalOutput pinTwo;
+	public static DigitalOutput pinThree;
 	
 	public static void init(){
 		double distancePerPulse = ((6*Math.PI)/250.0);
@@ -68,7 +73,9 @@ public class RobotMap {
 		
 	    leftDriveMotorController = new Talon(0);
 	    rightDriveMotorController = new Talon(1);
+	    // left intake
 	    intakeMotorController1 = new Talon(3);
+	    // right intake
 	    intakeMotorController2 = new Talon(4);
 	    intakeMotorController2.setInverted(true);
 	    liftMotorController1 = new Talon(2);
@@ -82,6 +89,11 @@ public class RobotMap {
 	    liftBrake = new Solenoid(2);
 	    liftUnbrake = new Solenoid(3);
 	    
-	    IRSensor = new DigitalOutput(8);
+	    cubeInRobot = new DigitalInput(8); 
+	    
+	    pinZero = new DigitalOutput(10);
+	    pinOne = new DigitalOutput(11);
+	    pinTwo = new DigitalOutput(12);
+	    pinThree = new DigitalOutput(13); //sends information about cube in robot
 	}
 }

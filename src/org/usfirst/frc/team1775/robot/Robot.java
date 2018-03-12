@@ -9,11 +9,13 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team1775.robot.commands.BlinkyLights;
 import org.usfirst.frc.team1775.robot.commands.LiftOffLimitSwitch;
 import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousConstants;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
 import org.usfirst.frc.team1775.robot.commands.autonomous.SwitchScaleLogic;
+import org.usfirst.frc.team1775.robot.subsystems.BlinkyLightSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.IntakeSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.MotorSubsystem;
@@ -32,6 +34,7 @@ public class Robot extends IterativeRobot {
 	public static MotorSubsystem motorSubsystem;
 	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 	public static LiftSubsystem liftSubsystem;
+	public static BlinkyLightSubsystem blinkyLightSubsystem;
     
 	//public static DriverCamera camera;
 	
@@ -47,6 +50,7 @@ public class Robot extends IterativeRobot {
 		RobotMap.init();
 		liftSubsystem = new LiftSubsystem();
 		motorSubsystem = new MotorSubsystem();
+		blinkyLightSubsystem = new BlinkyLightSubsystem();
 		OI.init();
 					// choosetype name = new type(arguments);r.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
