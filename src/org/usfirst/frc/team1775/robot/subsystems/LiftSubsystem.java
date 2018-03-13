@@ -3,21 +3,23 @@ package org.usfirst.frc.team1775.robot.subsystems;
 import org.usfirst.frc.team1775.robot.RobotMap;
 import org.usfirst.frc.team1775.robot.commands.Lift;
 //import org.usfirst.frc.team1775.robot.subsystems.MotorSubsystem.DriveMode;
+import org.usfirst.frc.team1775.robot.commands.ResetLiftToBottom;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LiftSubsystem extends Subsystem {
 	public static final double UP_MIN_SPEED = 0.6;
-	public static final double DOWN_MIN_SPEED = 0.25;
+	public static final double DOWN_MIN_SPEED = 0.15;
 	public static final double DOWN_MAX_SPEED = 0.5;
 	public static final double UP_MAX_SPEED = 0.8;
 	
-	private static final double MIN_HEIGHT_START_RAMP = 20.0;
+	private static final double MIN_HEIGHT_START_RAMP = 30.0;
 	private static final double MAX_HEIGHT_START_RAMP = 70.0;
 	private static final double MAX_HEIGHT = 84.0;
 	
@@ -30,12 +32,11 @@ public class LiftSubsystem extends Subsystem {
 	private PIDController liftToHeightPidController;
 	
 	public LiftSubsystem() {
-		liftToHeightPidController = new PIDController(0, 0, 0, RobotMap.liftEncoder,
-				(value) -> {
-					liftToHeightPidResult = value;
-				}, 0.02);
+		liftToHeightPidController = new PIDController(0.2, 0, 0, RobotMap.liftEncoder,
+				LiftSubsystem::setSpeedForPid, 0.02);
 		// This line might not be the output range we want
-		liftToHeightPidController.setOutputRange(-.8, .8);
+		liftToHeightPidController.setOutputRange(-DOWN_MAX_SPEED, UP_MAX_SPEED);
+		liftToHeightPidController.setInputRange(0, MAX_HEIGHT);
 		addChild(liftToHeightPidController);
 	}
 	
@@ -49,8 +50,31 @@ public class LiftSubsystem extends Subsystem {
 		setSpeed(liftToHeightPidResult);
 	}
 	
+	private boolean resetLift;
+	private long resetStartTime;
+	
 	public void initSendable(SendableBuilder builder) {
 		builder.addDoubleProperty("lift height", () -> { return RobotMap.liftEncoder.getDistance(); }, null);
+		builder.addBooleanProperty("resetGyro", 
+			() -> {
+				if (resetLift)
+				{
+					setSpeed(-DOWN_MIN_SPEED);
+					if (!RobotMap.liftBottomLimitSwitch.get()) {
+						resetLift = false;
+						resetStartTime = System.currentTimeMillis();
+					}
+				}
+				if (!RobotMap.liftBottomLimitSwitch.get() && System.currentTimeMillis() - resetStartTime < 500) {
+					RobotMap.liftEncoder.reset();
+				}
+				return resetLift;
+			}, 
+			(value) -> {
+				if (value) {
+					resetLift = true;
+				}
+			});
 	}
 	
 	public void initDefaultCommand() {
@@ -92,6 +116,19 @@ public class LiftSubsystem extends Subsystem {
 		RobotMap.liftMotorController1.set(outputSpeed); // Must call set, not setSpeed, to take into account the setInverted on the controller
 	}
 	
+	private static void setSpeedForPid(double speed) {
+		double outputSpeed = 0;
+		
+		if (speed > 0 && RobotMap.liftTopLimitSwitch.get() || speed < 0 && RobotMap.liftBottomLimitSwitch.get()) {
+			unbrake();
+			outputSpeed = speed;
+		} else {
+			outputSpeed = 0;
+		}
+		
+		RobotMap.liftMotorController1.set(outputSpeed);
+	}
+	
 	private boolean isAllowedToGoUp(double inputLiftSpeed) {
 		return inputLiftSpeed >= UP_MIN_SPEED && RobotMap.liftTopLimitSwitch.get();
 	}
@@ -118,12 +155,12 @@ public class LiftSubsystem extends Subsystem {
 		return 0;
 	}
 	
-	private void unbrake() {
+	private static void unbrake() {
 		RobotMap.liftBrake.set(false);
 		RobotMap.liftUnbrake.set(true);
 	}
 	
-	private void brake() {
+	private static void brake() {
 		RobotMap.liftBrake.set(true);
 		RobotMap.liftUnbrake.set(false);
 	}

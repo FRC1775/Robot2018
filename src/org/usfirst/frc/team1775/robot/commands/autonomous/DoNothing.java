@@ -4,16 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class DoNothing extends Command {
-
-	public static DifferentialDrive drive;
-	
-	public DoNothing(DifferentialDrive driveD) {
-		drive  = driveD;
-	}
-	
-	public void execute() {
-		drive.arcadeDrive(0, 0);
-	}
+	public DoNothing() {}
 
 	@Override
 	protected boolean isFinished() {

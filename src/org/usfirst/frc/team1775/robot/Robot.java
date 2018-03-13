@@ -9,14 +9,13 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team1775.robot.commands.BlinkyLights;
 import org.usfirst.frc.team1775.robot.commands.LiftOffLimitSwitch;
 import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousConstants;
+import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAuto;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
-import org.usfirst.frc.team1775.robot.commands.autonomous.SwitchScaleLogic;
+import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromSides;
 import org.usfirst.frc.team1775.robot.subsystems.BlinkyLightSubsystem;
-import org.usfirst.frc.team1775.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.IntakeSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.MotorSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.LiftSubsystem;
@@ -30,16 +29,16 @@ import org.usfirst.frc.team1775.robot.subsystems.LiftSubsystem;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static MotorSubsystem motorSubsystem;
-	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+	public static IntakeSubsystem intakeSubsystem;
 	public static LiftSubsystem liftSubsystem;
 	public static BlinkyLightSubsystem blinkyLightSubsystem;
     
 	//public static DriverCamera camera;
 	
     Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	private static SendableChooser<Command> chooser = new SendableChooser<>();
+	private static SendableChooser<RobotStartingPosition> positionChooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -50,30 +49,26 @@ public class Robot extends IterativeRobot {
 		RobotMap.init();
 		liftSubsystem = new LiftSubsystem();
 		motorSubsystem = new MotorSubsystem();
+		intakeSubsystem = new IntakeSubsystem();
 		blinkyLightSubsystem = new BlinkyLightSubsystem();
 		OI.init();
-					// choosetype name = new type(arguments);r.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
-		SmartDashboard.putData(motorSubsystem);
-		LiveWindow.add(motorSubsystem);
+		
+		LiveWindow.add(liftSubsystem);
 		initCamera();
 		initDashboard();
 	}
 	
 	private void initDashboard() {
+		chooser.addDefault("Do Nothing", new DoNothing());
+		chooser.addObject("Cross Auto Line From Center", new DriveToAutoLineFromCenter());
+		chooser.addObject("Pick Best Way to Go from a Side", new DetermineAuto());
+		chooser.addObject("Drive to Auto Line From Sides", new DriveToAutoLineFromSides());
+		SmartDashboard.putData("Auto mode", chooser);
 		
-		chooser.addDefault("Do Nothing", new DoNothing(RobotMap.drive));
-		chooser.addObject("Cross Auto Line From Center by Going Left", new DriveToAutoLineFromCenter(AutonomousConstants.LEFT));
-		chooser.addObject("Cross Auto Line From Center by Going Right", new DriveToAutoLineFromCenter(AutonomousConstants.RIGHT));
-		chooser.addObject("Place Block on as much as we can from Left", new SwitchScaleLogic(AutonomousConstants.LEFT));
-		chooser.addObject("Place Block on as much as we can from Right", new SwitchScaleLogic(AutonomousConstants.RIGHT));
-		// maybe need one that adds delay
-		/**
-		 * choser.addObject("Place Block on Switch Only", );
-		 * choser.addObject("Place Block on Scale Only", );
-		 * choser.addObject("Cross Auto Line and Stay Out of the Way", );
-		 */
+		positionChooser.addDefault("Center", RobotStartingPosition.CENTER);
+		positionChooser.addDefault("Left", RobotStartingPosition.LEFT);
+		positionChooser.addDefault("Right", RobotStartingPosition.RIGHT);
+		SmartDashboard.putData("Robot starting position", positionChooser);
 	}
 	
 	private void initCamera() {
@@ -117,17 +112,14 @@ public class Robot extends IterativeRobot {
 		return gameData;
 	}
 	
+	public static RobotStartingPosition getRobotStartingPosition() {
+		return positionChooser.getSelected();
+	}
+	
 	@Override
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-
+		
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
 			autonomousCommand.start();

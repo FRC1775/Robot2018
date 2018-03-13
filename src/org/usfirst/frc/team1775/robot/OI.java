@@ -160,9 +160,6 @@ public class OI {
 		configureCubeFlipRightButton(driverJoystick);
 		configureCubeFlipLeftButton(driverJoystick);
 		
-		JoystickButton b = new JoystickButton(driverJoystick, 7);
-		b.whenPressed(new DriveToAutoLineFromCenter(AutonomousConstants.RIGHT));
-		
 		driverJoystickConfigured = true;
 	}
 	

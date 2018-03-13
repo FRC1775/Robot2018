@@ -16,6 +16,7 @@ public class BlinkyLights extends Command{
 	@Override
 	protected void initialize() {
 		super.initialize();
+		setPinConfiguration(false, false, false);
 	}
 		
 	@Override
@@ -33,14 +34,11 @@ public class BlinkyLights extends Command{
 			// left motor is turning counter-clockwise and right is turning clockwise
 			// the robot is releasing a cube
 			setPinConfiguration(false, true, true);
-//			System.out.println("it's working at least");
-			SmartDashboard.putString("Intake state", "spit it out");
 			return;
 		}else if(RobotMap.intakeMotorController1.get() > 0 && RobotMap.intakeMotorController2.get() < 0) {
 			// right motor is turning counter-clockwise and left is turning clockwise
 			// robot is intaking a cube
 			setPinConfiguration(false, true, false);
-//			SmartDashboard.putString("Intake state", "take it in");
 			return;
 		}
 		setPinConfiguration(false, false, true);
@@ -51,18 +49,14 @@ public class BlinkyLights extends Command{
 		if(RobotMap.liftBottomLimitSwitch.get()) {
 			// elevator is at lowest point
 			setPinConfiguration(true, false, false);
-			SmartDashboard.putString("Lift state", "bottom");
 		}else if(RobotMap.liftTopLimitSwitch.get()) {
 			// elevator is at highest point
 			setPinConfiguration(true, true, false);
-			SmartDashboard.putString("Lift state", "top ;)");
 		}else if(RobotMap.liftEncoder.getDistance() >= SWITCH_FENCE_HEIGHT) {
 			// elevator is at halfway point
 			// probably this will change to height of switch and/or scale
 			setPinConfiguration(true, false, true );
-			SmartDashboard.putString("Lift state", "greater than scale height");
 		}
-		SmartDashboard.putString("Lift state", "in the void (like me)");
 	}
 	
 	// if sensor sees a cube, then pin value is high. if it doesn't see a cube the 
@@ -71,14 +65,10 @@ public class BlinkyLights extends Command{
 		if(!RobotMap.cubeInRobot.get()) {
 			// there is a cube in the robot
 			RobotMap.pinThree.set(true);
-		//	SmartDashboard.putString("Lift state", "found the cube myguys");
 		}else {
 			// there is no cube in the robot
 			RobotMap.pinThree.set(false);
-		//	SmartDashboard.putString("Lift state", "nothing here xd");
 		}
-//		SmartDashboard.putBoolean("IR Sensor", RobotMap.cubeInRobot.get());
-//		System.out.println(RobotMap.cubeInRobot.get());
 	}
 	
 	private void setPinConfiguration(boolean pin0, boolean pin1, boolean pin2) {
@@ -89,7 +79,6 @@ public class BlinkyLights extends Command{
 	
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }
