@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team1775.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -10,9 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1775.robot.commands.LiftOffLimitSwitch;
-import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousConstants;
-import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAuto;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
+import org.usfirst.frc.team1775.robot.commands.autonomous.DoWhatsBestFromSides;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromSides;
 import org.usfirst.frc.team1775.robot.subsystems.BlinkyLightSubsystem;
@@ -34,7 +35,7 @@ public class Robot extends IterativeRobot {
 	public static LiftSubsystem liftSubsystem;
 	public static BlinkyLightSubsystem blinkyLightSubsystem;
     
-	//public static DriverCamera camera;
+	public static UsbCamera driverCamera;
 	
     Command autonomousCommand;
 	private static SendableChooser<Command> chooser = new SendableChooser<>();
@@ -61,7 +62,7 @@ public class Robot extends IterativeRobot {
 	private void initDashboard() {
 		chooser.addDefault("Do Nothing", new DoNothing());
 		chooser.addObject("Cross Auto Line From Center", new DriveToAutoLineFromCenter());
-		chooser.addObject("Pick Best Way to Go from a Side", new DetermineAuto());
+		chooser.addObject("Pick Best Way to Go from a Side", new DoWhatsBestFromSides());
 		chooser.addObject("Drive to Auto Line From Sides", new DriveToAutoLineFromSides());
 		SmartDashboard.putData("Auto mode", chooser);
 		
@@ -72,10 +73,10 @@ public class Robot extends IterativeRobot {
 	}
 	
 	private void initCamera() {
-		//cameras = new Cameras();
-		//cameras.init();
-//		camera = new DriverCamera();
-//		camera.init();
+		driverCamera = CameraServer.getInstance().startAutomaticCapture();
+		driverCamera.setResolution(320, 180);
+		driverCamera.setFPS(15);
+		driverCamera.getProperty("focus_auto").set(1);
 	}
 
 	/**

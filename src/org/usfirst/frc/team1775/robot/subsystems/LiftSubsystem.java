@@ -23,9 +23,13 @@ public class LiftSubsystem extends Subsystem {
 	private static final double MAX_HEIGHT_START_RAMP = 70.0;
 	private static final double MAX_HEIGHT = 84.0;
 	
+	private static final double TARGET_TOLERANCE = 1;
+	private static final double ON_TARGET_MIN_TIME = 500;
+	
 	private static final double START_RAMP_TIME_MS = 500.0;
 
 	private double startTime = System.currentTimeMillis();
+	private double firstTimeWithinTarget = -1;
 	
 	double liftToHeightPidResult = 0;
 	
@@ -33,21 +37,25 @@ public class LiftSubsystem extends Subsystem {
 	
 	public LiftSubsystem() {
 		liftToHeightPidController = new PIDController(0.2, 0, 0, RobotMap.liftEncoder,
-				LiftSubsystem::setSpeedForPid, 0.02);
+				(value) -> { 
+					if(liftToHeightPidController.isEnabled()) {
+						setSpeedForPid(value);
+					}
+				}, 0.02);
 		// This line might not be the output range we want
 		liftToHeightPidController.setOutputRange(-DOWN_MAX_SPEED, UP_MAX_SPEED);
 		liftToHeightPidController.setInputRange(0, MAX_HEIGHT);
+		liftToHeightPidController.setAbsoluteTolerance(TARGET_TOLERANCE);
 		addChild(liftToHeightPidController);
 	}
 	
 	public void setLiftHeight(double height) {
-		liftToHeightPidController.setPID(0, 0, 0);
 		liftToHeightPidController.setSetpoint(height);
 		liftToHeightPidController.enable();
 	}
 	
 	public void liftHeight() {
-		setSpeed(liftToHeightPidResult);
+		// Nothing to do here at the moment
 	}
 	
 	private boolean resetLift;
@@ -84,6 +92,7 @@ public class LiftSubsystem extends Subsystem {
 	public void stop() {
 		// this might disable the motor controller for too long because it's for
 		// safety purposes, so it might need to be changed
+		liftToHeightPidController.disable();
 		RobotMap.liftMotorController1.stopMotor();
 		brake();
 	}
@@ -95,6 +104,7 @@ public class LiftSubsystem extends Subsystem {
 	}
 
 	public void setSpeed(double speed) {
+		liftToHeightPidController.disable();
 		double outputSpeed = 0;
 		
 		System.out.println(RobotMap.liftEncoder.getDistance());
@@ -114,6 +124,21 @@ public class LiftSubsystem extends Subsystem {
 		
 		SmartDashboard.putNumber("lift encoder", RobotMap.liftEncoder.getDistance());
 		RobotMap.liftMotorController1.set(outputSpeed); // Must call set, not setSpeed, to take into account the setInverted on the controller
+	}
+	
+	public boolean isLiftHeightOnTarget()
+	{
+		if (liftToHeightPidController.onTarget()) {
+			if (firstTimeWithinTarget == -1) {
+				firstTimeWithinTarget = System.currentTimeMillis();
+			}
+			if (System.currentTimeMillis() - firstTimeWithinTarget > ON_TARGET_MIN_TIME) {
+				return true;
+			}
+		} else {
+			firstTimeWithinTarget = -1;
+		}
+		return false;
 	}
 	
 	private static void setSpeedForPid(double speed) {

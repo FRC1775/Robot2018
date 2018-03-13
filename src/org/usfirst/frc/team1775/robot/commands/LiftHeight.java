@@ -30,6 +30,6 @@ public class LiftHeight extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return Robot.liftSubsystem.isLiftHeightOnTarget();
 	}
 }

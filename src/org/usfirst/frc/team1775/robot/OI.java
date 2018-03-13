@@ -9,7 +9,10 @@ import org.usfirst.frc.team1775.robot.commands.FlippyCube;
 import org.usfirst.frc.team1775.robot.commands.IntakeIn;
 import org.usfirst.frc.team1775.robot.commands.IntakeLift;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
+import org.usfirst.frc.team1775.robot.commands.IntakeRelease;
+import org.usfirst.frc.team1775.robot.commands.LiftHeight;
 import org.usfirst.frc.team1775.robot.commands.LiftOffLimitSwitch;
+import org.usfirst.frc.team1775.robot.commands.ResetLiftToBottom;
 import org.usfirst.frc.team1775.robot.commands.RotateToAngle;
 import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousConstants;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
@@ -159,6 +162,11 @@ public class OI {
 		configureIntakeDownButton(driverJoystick);
 		configureCubeFlipRightButton(driverJoystick);
 		configureCubeFlipLeftButton(driverJoystick);
+		
+		JoystickButton b = new JoystickButton(driverJoystick, 7);
+		b.whenPressed(new LiftHeight(30));
+		JoystickButton c = new JoystickButton(driverJoystick, 8);
+		c.whenPressed(new IntakeRelease());
 		
 		driverJoystickConfigured = true;
 	}

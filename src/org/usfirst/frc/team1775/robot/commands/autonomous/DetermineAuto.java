@@ -15,20 +15,21 @@ public class DetermineAuto extends ConditionalCommand {
     	this(
     		DetermineAuto::ifBothSwitchAndScaleOnOurSide,
     		new ChooseByRobotPosition(
-				new IdealAutonomous(AutonomousConstants.LEFT),
-				new IdealAutonomous(AutonomousConstants.RIGHT)),
+				new IdealAutonomous(AutonomousConstants.RIGHT),
+				new IdealAutonomous(AutonomousConstants.LEFT)),
     		new DetermineAuto(
 				DetermineAuto::ifSwitchOnlyOnOurSide,
 				new ChooseByRobotPosition(
-					new JustSwitchAutonomous(AutonomousConstants.LEFT),
-					new JustSwitchAutonomous(AutonomousConstants.RIGHT)),
-				new DetermineAuto(
+					new JustSwitchAutonomous(AutonomousConstants.RIGHT),
+					new JustSwitchAutonomous(AutonomousConstants.LEFT)),
+				new DriveToAutoLineFromSides()
+				/* new DetermineAuto(
 					DetermineAuto::ifScaleOnlyOnOurSide,
 					new ChooseByRobotPosition(
 						new JustScaleAutonomous(AutonomousConstants.LEFT),
 						new JustScaleAutonomous(AutonomousConstants.RIGHT)),
 					new DriveToAutoLineFromSides()
-				)
+				) */
 			)
 		);
     }
