@@ -16,7 +16,7 @@ public class LiftOffLimitSwitch extends Command {
     }
 
     protected void execute() {
-    	if (!RobotMap.liftBottomLimitSwitch.get()) {
+    	if (Robot.liftSubsystem.checkBottomLimitSwitch()) {
     		Robot.liftSubsystem.setSpeed(LiftSubsystem.UP_MIN_SPEED);
     	} else {
     		Robot.liftSubsystem.setSpeed(0);
@@ -24,11 +24,11 @@ public class LiftOffLimitSwitch extends Command {
     }
 
     protected boolean isFinished() {
-        return RobotMap.liftBottomLimitSwitch.get();
+        return !Robot.liftSubsystem.checkBottomLimitSwitch();
     }
 
     protected void end() {
-    	if (RobotMap.liftBottomLimitSwitch.get()) {
+    	if (!Robot.liftSubsystem.checkBottomLimitSwitch()) {
         	RobotMap.liftEncoder.reset();
     	}
     	Robot.liftSubsystem.setSpeed(0);

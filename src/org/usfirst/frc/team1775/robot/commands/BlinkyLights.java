@@ -3,6 +3,7 @@ package org.usfirst.frc.team1775.robot.commands;
 import org.usfirst.frc.team1775.robot.Robot;
 import org.usfirst.frc.team1775.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -22,11 +23,19 @@ public class BlinkyLights extends Command{
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		checkIntake();
+		checkTeleop();
 		checkElevator();
+		checkIntake();
 		checkCubeInRobot();
+		checkEndMatchOrAuton();
 		//SmartDashboard.updateValues();
 		super.execute();
+	}
+	
+	private void checkTeleop() {
+		if(DriverStation.getInstance().isOperatorControl()) {
+			setPinConfiguration(false, false, true);
+		}
 	}
 	
 	private void checkIntake() {
@@ -41,15 +50,13 @@ public class BlinkyLights extends Command{
 			setPinConfiguration(false, true, false);
 			return;
 		}
-		setPinConfiguration(false, false, true);
-//		SmartDashboard.putString("Intake state", "nothing hete");
 	}
 	
 	private void checkElevator() {
-		if(RobotMap.liftBottomLimitSwitch.get()) {
+		if(Robot.liftSubsystem.checkBottomLimitSwitch()) {
 			// elevator is at lowest point
 			setPinConfiguration(true, false, false);
-		}else if(RobotMap.liftTopLimitSwitch.get()) {
+		}else if(Robot.liftSubsystem.checkTopLimitSwitch()) {
 			// elevator is at highest point
 			setPinConfiguration(true, true, false);
 		}else if(RobotMap.liftEncoder.getDistance() >= SWITCH_FENCE_HEIGHT) {
@@ -71,10 +78,23 @@ public class BlinkyLights extends Command{
 		}
 	}
 	
-	private void setPinConfiguration(boolean pin0, boolean pin1, boolean pin2) {
-		RobotMap.pinZero.set(pin0);
-		RobotMap.pinOne.set(pin1);
+	private void checkEndMatchOrAuton() {
+		if(DriverStation.getInstance().isAutonomous()) {
+			setPinConfiguration(false, false, false);
+		}
+		
+		if(DriverStation.getInstance().getMatchNumber() <= 0) {
+			return;
+		}
+		if(DriverStation.getInstance().getMatchTime() <= 30) {
+			setPinConfiguration(true, true, true);
+		}
+	}
+	
+	private void setPinConfiguration(boolean pin2, boolean pin1, boolean pin0) {
 		RobotMap.pinTwo.set(pin2);
+		RobotMap.pinOne.set(pin1);
+		RobotMap.pinZero.set(pin0);
 	}
 	
 	@Override

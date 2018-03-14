@@ -16,12 +16,12 @@ public class ResetLiftToBottom extends Command {
     }
 
     protected void execute() {
-    	if (RobotMap.liftBottomLimitSwitch.get()) {
+    	if (!Robot.liftSubsystem.checkBottomLimitSwitch()) {
     		Robot.liftSubsystem.setSpeed(-LiftSubsystem.DOWN_MIN_SPEED);
     	}
     }
 
     protected boolean isFinished() {
-        return !RobotMap.liftBottomLimitSwitch.get();
+        return Robot.liftSubsystem.checkBottomLimitSwitch();
     }
 }

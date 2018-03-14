@@ -15,6 +15,7 @@ public class Lift extends Command {
 		double downTrigger = OI.getLeftTrigger();
 		
 		if(upTrigger > 0.15) {
+			System.out.println("reading trigger values for up");
 			Robot.liftSubsystem.setSpeed(upTrigger);
 		} else if(downTrigger > 0.15) {
 			Robot.liftSubsystem.setSpeed(-downTrigger);

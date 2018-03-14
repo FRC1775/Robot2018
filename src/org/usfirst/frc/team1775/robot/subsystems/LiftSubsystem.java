@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1775.robot.subsystems;
 
+import org.usfirst.frc.team1775.robot.Robot;
 import org.usfirst.frc.team1775.robot.RobotMap;
 import org.usfirst.frc.team1775.robot.commands.Lift;
 //import org.usfirst.frc.team1775.robot.subsystems.MotorSubsystem.DriveMode;
@@ -27,15 +28,20 @@ public class LiftSubsystem extends Subsystem {
 	private static final double ON_TARGET_MIN_TIME = 500;
 	
 	private static final double START_RAMP_TIME_MS = 500.0;
+	
+	private static final double LOWER_TO_SET_HEIGHT = 0;
 
 	private double startTime = System.currentTimeMillis();
 	private double firstTimeWithinTarget = -1;
+	
+	private boolean hasSeenBottomLimitSwitch;
 	
 	double liftToHeightPidResult = 0;
 	
 	private PIDController liftToHeightPidController;
 	
 	public LiftSubsystem() {
+		System.out.println("starting lift subsystem");
 		liftToHeightPidController = new PIDController(0.2, 0, 0, RobotMap.liftEncoder,
 				(value) -> { 
 					if(liftToHeightPidController.isEnabled()) {
@@ -110,6 +116,7 @@ public class LiftSubsystem extends Subsystem {
 		System.out.println(RobotMap.liftEncoder.getDistance());
 
 		if (isAllowedToGoUp(speed) || isAllowedToGoDown(speed)) {
+			System.out.println("Trying to move");
 			unbrake();
 			outputSpeed = getAdjustedSpeed(speed);
 		} else {
@@ -118,7 +125,7 @@ public class LiftSubsystem extends Subsystem {
 			startTime = System.currentTimeMillis();
 		}
 		
-		if (!RobotMap.liftBottomLimitSwitch.get()) {
+		if (Robot.liftSubsystem.checkBottomLimitSwitch()) {
 			RobotMap.liftEncoder.reset();
 		}
 		
@@ -144,7 +151,7 @@ public class LiftSubsystem extends Subsystem {
 	private static void setSpeedForPid(double speed) {
 		double outputSpeed = 0;
 		
-		if (speed > 0 && RobotMap.liftTopLimitSwitch.get() || speed < 0 && RobotMap.liftBottomLimitSwitch.get()) {
+		if (speed > 0 && !Robot.liftSubsystem.checkTopLimitSwitch() || speed < 0 && !Robot.liftSubsystem.checkBottomLimitSwitch()) {
 			unbrake();
 			outputSpeed = speed;
 		} else {
@@ -155,11 +162,15 @@ public class LiftSubsystem extends Subsystem {
 	}
 	
 	private boolean isAllowedToGoUp(double inputLiftSpeed) {
-		return inputLiftSpeed >= UP_MIN_SPEED && RobotMap.liftTopLimitSwitch.get();
+		return inputLiftSpeed >= UP_MIN_SPEED && !Robot.liftSubsystem.checkTopLimitSwitch();
 	}
 	
 	private boolean isAllowedToGoDown(double inputLiftSpeed) {
-		return inputLiftSpeed <= -DOWN_MIN_SPEED && RobotMap.liftBottomLimitSwitch.get();
+		if(hasSeenBottomLimitSwitch) {
+			return inputLiftSpeed <= -DOWN_MIN_SPEED && !Robot.liftSubsystem.checkBottomLimitSwitch() && 
+					RobotMap.liftEncoder.getDistance() > LOWER_TO_SET_HEIGHT;
+		}
+		return inputLiftSpeed <= -DOWN_MIN_SPEED && !Robot.liftSubsystem.checkBottomLimitSwitch();
 	}
 	
 	private double getAdjustedSpeed(double inputLiftSpeed) {
@@ -188,5 +199,19 @@ public class LiftSubsystem extends Subsystem {
 	private static void brake() {
 		RobotMap.liftBrake.set(true);
 		RobotMap.liftUnbrake.set(false);
+	}
+	
+	public boolean checkBottomLimitSwitch() {
+		boolean bottomLimitSwitchHit = !RobotMap.liftBottomLimitSwitch.get();
+		
+		if(bottomLimitSwitchHit) {
+			hasSeenBottomLimitSwitch = true;
+		}
+		
+		return bottomLimitSwitchHit;
+	}
+	
+	public boolean checkTopLimitSwitch() {
+		return !RobotMap.liftTopLimitSwitch.get();
 	}
 }
