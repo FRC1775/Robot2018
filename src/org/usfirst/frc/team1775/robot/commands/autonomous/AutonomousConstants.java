@@ -11,7 +11,7 @@ public final class AutonomousConstants{
 	public static final int ROBOT_WIDTH = 34;
 	
 	public static final int SCALE_HEIGHT = 77;
-	public static final int SWITCH_HEIGHT = 20;
+	public static final int SWITCH_HEIGHT = 40;
 	
 	public static final int FOOT = 12;
 	public static final int BACK_WALL_TO_SCALE = 300;

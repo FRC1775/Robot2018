@@ -36,8 +36,6 @@ public class LiftSubsystem extends Subsystem {
 	
 	private boolean hasSeenBottomLimitSwitch;
 	
-	double liftToHeightPidResult = 0;
-	
 	private PIDController liftToHeightPidController;
 	
 	public LiftSubsystem() {

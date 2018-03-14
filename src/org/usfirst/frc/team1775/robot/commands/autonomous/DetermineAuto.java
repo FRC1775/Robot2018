@@ -22,7 +22,11 @@ public class DetermineAuto extends ConditionalCommand {
 				new ChooseByRobotPosition(
 					new JustSwitchAutonomous(AutonomousConstants.RIGHT),
 					new JustSwitchAutonomous(AutonomousConstants.LEFT)),
-				new DriveToAutoLineFromSides()
+				new DetermineAuto(
+					DetermineAuto::ifNotInCenter,
+					new DriveToAutoLineFromSides(),
+					new DriveToAutoLineFromCenter()
+				)
 				/* new DetermineAuto(
 					DetermineAuto::ifScaleOnlyOnOurSide,
 					new ChooseByRobotPosition(
@@ -54,6 +58,10 @@ public class DetermineAuto extends ConditionalCommand {
     private static boolean ifSwitchOnlyOnOurSide() {
     	return (isSwitchLeft() && Robot.getRobotStartingPosition() == RobotStartingPosition.LEFT) ||
 		(isSwitchRight() && Robot.getRobotStartingPosition() == RobotStartingPosition.RIGHT);
+    }
+    
+    private static boolean ifNotInCenter() {
+    	return Robot.getRobotStartingPosition() != RobotStartingPosition.CENTER;
     }
     
     private static boolean ifScaleOnlyOnOurSide() {

@@ -12,6 +12,6 @@ public class DriveToAutoLineFromCenter extends CommandGroup {
 
     public DriveToAutoLineFromCenter() {
     	addSequential(new AutonomousStart());
-    	addSequential(new DriveDistance((AutonomousConstants.AUTO_LINE - AutonomousConstants.ROBOT_LENGTH) + 3));
+    	addSequential(new DriveDistance((AutonomousConstants.AUTO_LINE - AutonomousConstants.ROBOT_LENGTH) + 12));
     }
 }

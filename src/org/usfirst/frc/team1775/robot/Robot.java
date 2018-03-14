@@ -55,7 +55,7 @@ public class Robot extends IterativeRobot {
 		OI.init();
 		
 		LiveWindow.add(liftSubsystem);
-		initCamera();
+		// initCamera(); -- No camera for the first competition
 		initDashboard();
 	}
 	
@@ -149,7 +149,6 @@ public class Robot extends IterativeRobot {
 		OI.checkJoysticks();
 		RobotMap.driveEncoderLeft.reset();
 		RobotMap.driveEncoderLeft.reset();
-		RobotMap.liftEncoder.reset();
 		RobotMap.gyro.reset();
 		RobotMap.gyro.zeroYaw();
 		

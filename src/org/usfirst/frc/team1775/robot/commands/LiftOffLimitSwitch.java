@@ -28,7 +28,7 @@ public class LiftOffLimitSwitch extends Command {
     }
 
     protected void end() {
-    	if (!Robot.liftSubsystem.checkBottomLimitSwitch()) {
+    	if (Robot.liftSubsystem.checkBottomLimitSwitch()) {
         	RobotMap.liftEncoder.reset();
     	}
     	Robot.liftSubsystem.setSpeed(0);

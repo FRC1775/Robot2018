@@ -33,7 +33,8 @@ public class DriveDistance extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return System.currentTimeMillis() - startTime > 500 && !RobotMap.gyro.isMoving();
+		return Robot.motorSubsystem.isDriveDistanceOnTarget();
+		//return System.currentTimeMillis() - startTime > 500 && !RobotMap.gyro.isMoving();
 	}
 
 }

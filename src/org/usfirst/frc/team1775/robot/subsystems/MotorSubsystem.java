@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class MotorSubsystem extends Subsystem implements PIDSource {
 	private static final double DEFAULT_ROTATE_RAMP_TIME = 400;
+	private static final double ON_TARGET_MIN_TIME = 500;
+	
 	private enum DriveMode {
 		Regular, RotateToAngle, DriveToDistance
 	}
@@ -28,6 +30,8 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	private PIDController straightDrivePidController;
 	
 	boolean shouldSetPoint = true;
+	
+	private double firstTimeWithinTarget = -1;
 	
 	double rotateInPlaceCurrentRampFactor = 0;
 	double rotateInPlaceStartTime = 0;
@@ -180,6 +184,20 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 				RobotMap.gyro.zeroYaw();
 			}
 		});
+	}
+	
+	public boolean isDriveDistanceOnTarget() {
+		if (driveToDistancePidController.onTarget()) {
+			if (firstTimeWithinTarget == -1) {
+				firstTimeWithinTarget = System.currentTimeMillis();
+			}
+			if (System.currentTimeMillis() - firstTimeWithinTarget > ON_TARGET_MIN_TIME) {
+				return true;
+			}
+		} else {
+			firstTimeWithinTarget = -1;
+		}
+		return false;
 	}
 
 	@Override
