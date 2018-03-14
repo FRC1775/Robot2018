@@ -5,9 +5,6 @@ import org.usfirst.frc.team1775.robot.commands.RotateToAngle;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- *
- */
 public class BlockOnSwitchFromCenter extends CommandGroup {
 
     public BlockOnSwitchFromCenter(int direction) {

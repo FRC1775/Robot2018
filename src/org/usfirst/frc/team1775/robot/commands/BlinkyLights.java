@@ -5,7 +5,6 @@ import org.usfirst.frc.team1775.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class BlinkyLights extends Command{
 	private static double SWITCH_FENCE_HEIGHT = 18.75;
@@ -22,13 +21,11 @@ public class BlinkyLights extends Command{
 		
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
 		checkTeleop();
 		checkElevator();
 		checkIntake();
 		checkCubeInRobot();
 		checkEndMatchOrAuton();
-		//SmartDashboard.updateValues();
 		super.execute();
 	}
 	

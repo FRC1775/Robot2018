@@ -3,13 +3,8 @@ package org.usfirst.frc.team1775.robot.subsystems;
 import org.usfirst.frc.team1775.robot.Robot;
 import org.usfirst.frc.team1775.robot.RobotMap;
 import org.usfirst.frc.team1775.robot.commands.Lift;
-//import org.usfirst.frc.team1775.robot.subsystems.MotorSubsystem.DriveMode;
-import org.usfirst.frc.team1775.robot.commands.ResetLiftToBottom;
 
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -39,7 +34,6 @@ public class LiftSubsystem extends Subsystem {
 	private PIDController liftToHeightPidController;
 	
 	public LiftSubsystem() {
-		System.out.println("starting lift subsystem");
 		liftToHeightPidController = new PIDController(0.2, 0, 0, RobotMap.liftEncoder,
 				(value) -> { 
 					if(liftToHeightPidController.isEnabled()) {
@@ -110,11 +104,8 @@ public class LiftSubsystem extends Subsystem {
 	public void setSpeed(double speed) {
 		liftToHeightPidController.disable();
 		double outputSpeed = 0;
-		
-		System.out.println(RobotMap.liftEncoder.getDistance());
 
 		if (isAllowedToGoUp(speed) || isAllowedToGoDown(speed)) {
-			System.out.println("Trying to move");
 			unbrake();
 			outputSpeed = getAdjustedSpeed(speed);
 		} else {
@@ -183,7 +174,6 @@ public class LiftSubsystem extends Subsystem {
 			if (RobotMap.liftEncoder.getDistance() > MAX_HEIGHT_START_RAMP) {
 				ramp = Math.max(1 - (RobotMap.liftEncoder.getDistance() - MAX_HEIGHT_START_RAMP) / (MAX_HEIGHT - MAX_HEIGHT_START_RAMP), 0);
 			}
-			System.out.println(UP_MIN_SPEED + ramp * (Math.min(inputLiftSpeed, UP_MAX_SPEED) - UP_MIN_SPEED));
 			return UP_MIN_SPEED + ramp * (Math.min(inputLiftSpeed, UP_MAX_SPEED) - UP_MIN_SPEED);
 		}
 		return 0;

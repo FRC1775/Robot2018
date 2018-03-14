@@ -64,10 +64,12 @@ public class DetermineAuto extends ConditionalCommand {
     	return Robot.getRobotStartingPosition() != RobotStartingPosition.CENTER;
     }
     
+    /*
     private static boolean ifScaleOnlyOnOurSide() {
     	return (isScaleLeft() && Robot.getRobotStartingPosition() == RobotStartingPosition.LEFT) ||
 				(isScaleRight() && Robot.getRobotStartingPosition() == RobotStartingPosition.RIGHT);
     }
+    */
     
     private static boolean isSwitchLeft()
     {
@@ -79,6 +81,7 @@ public class DetermineAuto extends ConditionalCommand {
     	return Robot.checkFMS().charAt(0) == 'R';
     }
     
+    /*
     private static boolean isScaleLeft()
     {
     	return Robot.checkFMS().charAt(1) == 'L';
@@ -88,6 +91,7 @@ public class DetermineAuto extends ConditionalCommand {
     {
     	return Robot.checkFMS().charAt(1) == 'R';
     }
+    */
 
 	@Override
 	protected boolean condition() {

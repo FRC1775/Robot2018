@@ -1,14 +1,10 @@
 package org.usfirst.frc.team1775.robot.commands.autonomous;
 
 import org.usfirst.frc.team1775.robot.commands.DriveDistance;
-import org.usfirst.frc.team1775.robot.commands.LiftHeight;
 import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousConstants;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- *
- */
 public class BlockOnScaleFromSides extends CommandGroup {
 
     public BlockOnScaleFromSides(double direction) {

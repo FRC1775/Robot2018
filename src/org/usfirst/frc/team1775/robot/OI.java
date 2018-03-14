@@ -4,19 +4,12 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-import org.usfirst.frc.team1775.robot.commands.DriveDistance;
 import org.usfirst.frc.team1775.robot.commands.FlippyCube;
 import org.usfirst.frc.team1775.robot.commands.IntakeIn;
 import org.usfirst.frc.team1775.robot.commands.IntakeLift;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
 import org.usfirst.frc.team1775.robot.commands.IntakeRelease;
 import org.usfirst.frc.team1775.robot.commands.LiftHeight;
-import org.usfirst.frc.team1775.robot.commands.LiftOffLimitSwitch;
-import org.usfirst.frc.team1775.robot.commands.ResetLiftToBottom;
-import org.usfirst.frc.team1775.robot.commands.RotateToAngle;
-import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousConstants;
-import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
-import org.usfirst.frc.team1775.robot.subsystems.LiftSubsystem;
 
 /**
  * This class is the glue that binds the controls on the physical operator

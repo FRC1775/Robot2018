@@ -2,7 +2,7 @@
 package org.usfirst.frc.team1775.robot;
 
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.CameraServer;
+// import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -72,12 +72,14 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Robot starting position", positionChooser);
 	}
 	
+	/*
 	private void initCamera() {
 		driverCamera = CameraServer.getInstance().startAutomaticCapture();
 		driverCamera.setResolution(320, 180);
 		driverCamera.setFPS(15);
 		driverCamera.getProperty("focus_auto").set(1);
 	}
+	*/
 
 	/**
 	 * This function is called once each time the robot enters Disabled mode.

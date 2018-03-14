@@ -3,11 +3,10 @@ package org.usfirst.frc.team1775.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc.team1775.robot.Robot;
-import org.usfirst.frc.team1775.robot.RobotMap;
 
 public class DriveDistance extends Command {
 	private double distance = 0;
-	private long startTime = 0;
+	// private long startTime = 0;
 
 	public DriveDistance(double distance) {
 		requires(Robot.motorSubsystem);
@@ -18,7 +17,7 @@ public class DriveDistance extends Command {
 	@Override
 	protected void initialize() {
 		Robot.motorSubsystem.setDriveDistance(distance);
-		startTime = System.currentTimeMillis();
+		// startTime = System.currentTimeMillis();
 	}
 
 	@Override

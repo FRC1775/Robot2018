@@ -1,7 +1,5 @@
 package org.usfirst.frc.team1775.robot;
 
-import java.lang.invoke.SwitchPoint;
-
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Compressor;
