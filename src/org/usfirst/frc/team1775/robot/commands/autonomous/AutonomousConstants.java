@@ -22,4 +22,7 @@ public final class AutonomousConstants{
 	public static final int BACK_WALL_TO_FAR_SIDE_SWITCH = 196;
 	public static final int SWITCH_BUFFER = 5;
 	public static final int BLOCK_SWITCH_ANGLE = 135;
+	
+	public static final double AUTO_START_INTAKE_SPEED = 0.7;
+	public static final double INTAKE_SPEED = 0.45;
 }

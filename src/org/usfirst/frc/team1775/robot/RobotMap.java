@@ -48,7 +48,7 @@ public class RobotMap {
 	
 	public static void init(){
 		double distancePerPulse = ((6*Math.PI)/250.0);
-		double liftDistancePerPulse = ((1.375*Math.PI)/250.0);
+		double liftDistancePerPulse = (((1.375*Math.PI)/250.0) * 2);
 		
 		driveEncoderLeft = new Encoder(2, 3, false, Encoder.EncodingType.k1X);
 		driveEncoderLeft.setDistancePerPulse(distancePerPulse);
@@ -73,11 +73,12 @@ public class RobotMap {
 	    rightDriveMotorController = new Talon(1);
 	    // left intake
 	    intakeMotorController1 = new Talon(3);
+	    intakeMotorController1.setInverted(true);
 	    // right intake
 	    intakeMotorController2 = new Talon(4);
 	    intakeMotorController2.setInverted(true);
 	    liftMotorController1 = new Talon(2);
-	    liftMotorController1.setInverted(true);
+	    liftMotorController1.setInverted(false);
 	    liftBottomLimitSwitch = new DigitalInput(0);
 	    liftTopLimitSwitch = new DigitalInput(1);
 	    drive = new DifferentialDrive(leftDriveMotorController, rightDriveMotorController);

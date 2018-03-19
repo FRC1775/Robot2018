@@ -12,13 +12,13 @@ public class IntakeRelease extends TimedCommand {
 
     protected void execute() {
     	if (RobotMap.intakeLiftUp.get()) {
-	    	RobotMap.leftIntakeRelease.setAngle(180);
-	    	RobotMap.rightIntakeRelease.setAngle(180);
+	    	RobotMap.leftIntakeRelease.setAngle(0);
+	    	RobotMap.rightIntakeRelease.setAngle(0);
     	}
     }
 
     protected void end() {
-    	RobotMap.leftIntakeRelease.setAngle(0);
-    	RobotMap.rightIntakeRelease.setAngle(0);
+    	RobotMap.leftIntakeRelease.setAngle(180);
+    	RobotMap.rightIntakeRelease.setAngle(180);
     }
 }

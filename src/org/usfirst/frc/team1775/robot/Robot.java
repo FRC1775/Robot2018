@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1775.robot.commands.LiftOffLimitSwitch;
+import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAuto;
+import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAutoCenter;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DoWhatsBestFromSides;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
@@ -62,8 +64,9 @@ public class Robot extends IterativeRobot {
 	private void initDashboard() {
 		chooser.addDefault("Do Nothing", new DoNothing());
 		chooser.addObject("Cross Auto Line From Center", new DriveToAutoLineFromCenter());
-		chooser.addObject("Pick Best Way to Go from a Side", new DoWhatsBestFromSides());
+		chooser.addObject("Pick Best Way to Go from a Side", new DetermineAuto());
 		chooser.addObject("Drive to Auto Line From Sides", new DriveToAutoLineFromSides());
+		chooser.addObject("Pick Best Way from Center", new DetermineAutoCenter());
 		SmartDashboard.putData("Auto mode", chooser);
 		
 		positionChooser.addDefault("Center", RobotStartingPosition.CENTER);
@@ -154,7 +157,7 @@ public class Robot extends IterativeRobot {
 		RobotMap.gyro.reset();
 		RobotMap.gyro.zeroYaw();
 		
-		Scheduler.getInstance().add(new LiftOffLimitSwitch());
+		// Scheduler.getInstance().add(new LiftOffLimitSwitch());
 	}
 
 	/**

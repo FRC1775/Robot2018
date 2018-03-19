@@ -10,6 +10,7 @@ import org.usfirst.frc.team1775.robot.commands.IntakeLift;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
 import org.usfirst.frc.team1775.robot.commands.IntakeRelease;
 import org.usfirst.frc.team1775.robot.commands.LiftHeight;
+import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousStart;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -34,6 +35,7 @@ public class OI {
 	private final static int RIGHT_TRIGGER = 3;
 	
 	private final static double CUBE_FLIP_SPEED = 1.0;
+	private final static double INTAKE_SPEED = 0.45;
 	
 	private static Joystick driverJoystick;
 	private static Joystick operatorJoystick;
@@ -157,7 +159,7 @@ public class OI {
 		configureCubeFlipLeftButton(driverJoystick);
 		
 		JoystickButton b = new JoystickButton(driverJoystick, 7);
-		b.whenPressed(new LiftHeight(30));
+		b.whenPressed(new IntakeLift(true));
 		JoystickButton c = new JoystickButton(driverJoystick, 8);
 		c.whenPressed(new IntakeRelease());
 		
@@ -177,13 +179,13 @@ public class OI {
 		configureIntakeDownButton(operatorJoystick);
 		configureCubeFlipRightButton(operatorJoystick);
 		configureCubeFlipLeftButton(operatorJoystick);
-
+		
 		operatorJoystickConfigured = true;
 	}
 	
 	private static void configureIntakeInButton(Joystick joystick) {
 		JoystickButton intakeInButton = new JoystickButton(joystick, A_BUTTON);
-		intakeInButton.whileHeld(new IntakeIn());
+		intakeInButton.whileHeld(new IntakeIn(INTAKE_SPEED));
 	}
 	
 	private static void configureIntakeOutButton(Joystick joystick) {
