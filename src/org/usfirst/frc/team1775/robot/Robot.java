@@ -11,11 +11,9 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team1775.robot.commands.LiftOffLimitSwitch;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAuto;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAutoCenter;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
-import org.usfirst.frc.team1775.robot.commands.autonomous.DoWhatsBestFromSides;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromSides;
 import org.usfirst.frc.team1775.robot.subsystems.BlinkyLightSubsystem;
