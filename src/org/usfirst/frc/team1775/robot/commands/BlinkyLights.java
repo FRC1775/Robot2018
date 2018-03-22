@@ -36,12 +36,12 @@ public class BlinkyLights extends Command{
 	}
 	
 	private void checkIntake() {
-		if(RobotMap.intakeMotorController1.get() < 0 && RobotMap.intakeMotorController2.get() > 0) {
+		if(RobotMap.intakeMotorController1.get() <= -0.1 || RobotMap.intakeMotorController2.get() >= 0.1) {
 			// left motor is turning counter-clockwise and right is turning clockwise
 			// the robot is releasing a cube
 			setPinConfiguration(false, true, true);
 			return;
-		}else if(RobotMap.intakeMotorController1.get() > 0 && RobotMap.intakeMotorController2.get() < 0) {
+		}else if(RobotMap.intakeMotorController1.get() >= 0.1 || RobotMap.intakeMotorController2.get() <= -0.1) {
 			// right motor is turning counter-clockwise and left is turning clockwise
 			// robot is intaking a cube
 			setPinConfiguration(false, true, false);

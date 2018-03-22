@@ -220,6 +220,6 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	private double getDistance() {
 		SmartDashboard.putNumber("LeftEncoder", RobotMap.driveEncoderLeft.getDistance());
 		SmartDashboard.putNumber("RightEncoder", -RobotMap.driveEncoderRight.getDistance());
-		return (RobotMap.driveEncoderLeft.getDistance());
+		return ((RobotMap.driveEncoderLeft.getDistance() - RobotMap.driveEncoderRight.getDistance()) / 2.0);
 	}
 }

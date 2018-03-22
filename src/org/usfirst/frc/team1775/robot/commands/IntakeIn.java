@@ -4,12 +4,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team1775.robot.Robot;
 
 public class IntakeIn extends Command {
-	public IntakeIn() {
+	private double speed;
+	public IntakeIn(double speed) {
 		requires(Robot.intakeSubsystem);
+		this.speed = speed;
 	}
 
 	public void execute() {
-		Robot.intakeSubsystem.runIn();
+		Robot.intakeSubsystem.runIn(speed);
 	}
 	
 	@Override

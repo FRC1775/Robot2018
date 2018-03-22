@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class DriveToAutoLineFromSides extends CommandGroup {
 
     public DriveToAutoLineFromSides() {
+    	addSequential(new AutonomousStart());
     	addSequential(new DriveDistance(AutonomousConstants.AUTO_LINE));	
     }
 }
