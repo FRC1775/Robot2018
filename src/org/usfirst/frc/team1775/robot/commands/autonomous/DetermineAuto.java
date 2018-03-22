@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.ConditionalCommand;
 public class DetermineAuto extends ConditionalCommand {
 	private BooleanSupplier supplier;
 	
-    public DetermineAuto() {
+   /* public DetermineAuto() {
     	this(
     		DetermineAuto::ifBothSwitchAndScaleOnOurSide,
     		new ChooseByRobotPosition(
@@ -27,13 +27,42 @@ public class DetermineAuto extends ConditionalCommand {
 					new DriveToAutoLineFromSides(),
 					new DriveToAutoLineFromCenter()
 				)
-				/* new DetermineAuto(
+				comment starts here new DetermineAuto(
 					DetermineAuto::ifScaleOnlyOnOurSide,
 					new ChooseByRobotPosition(
 						new JustScaleAutonomous(AutonomousConstants.LEFT),
 						new JustScaleAutonomous(AutonomousConstants.RIGHT)),
 					new DriveToAutoLineFromSides()
-				) */
+				) comment ends here
+			)
+		);
+    } */
+    
+	// this will hopefully drive the robot to the scale and then lift the lift to scale height
+	// if the scale is on our side. otherwise, it will just drive to the auto line
+    public DetermineAuto() {
+    	this(
+    		DetermineAuto::ifBothSwitchAndScaleOnOurSide,
+    		new ChooseByRobotPosition(
+				new IdealAutonomous(AutonomousConstants.RIGHT),
+				new IdealAutonomous(AutonomousConstants.LEFT)),
+    		new DetermineAuto(
+				DetermineAuto::ifSwitchOnlyOnOurSide,
+				new ChooseByRobotPosition(
+					new JustSwitchAutonomous(AutonomousConstants.RIGHT),
+					new JustSwitchAutonomous(AutonomousConstants.LEFT)),
+//				new DetermineAuto(
+//					DetermineAuto::ifNotInCenter,
+//					new DriveToAutoLineFromSides(),
+//					new DriveToAutoLineFromCenter()
+//				)
+				new DetermineAuto(
+					DetermineAuto::ifScaleOnlyOnOurSide,
+					new ChooseByRobotPosition(
+						new JustScaleAutonomous(),
+						new JustScaleAutonomous()),
+					new DriveToAutoLineFromSides()
+				)
 			)
 		);
     }
@@ -64,12 +93,10 @@ public class DetermineAuto extends ConditionalCommand {
     	return Robot.getRobotStartingPosition() != RobotStartingPosition.CENTER;
     }
     
-    /*
     private static boolean ifScaleOnlyOnOurSide() {
     	return (isScaleLeft() && Robot.getRobotStartingPosition() == RobotStartingPosition.LEFT) ||
 				(isScaleRight() && Robot.getRobotStartingPosition() == RobotStartingPosition.RIGHT);
     }
-    */
     
     private static boolean isSwitchLeft()
     {
@@ -81,7 +108,6 @@ public class DetermineAuto extends ConditionalCommand {
     	return Robot.checkFMS().charAt(0) == 'R';
     }
     
-    /*
     private static boolean isScaleLeft()
     {
     	return Robot.checkFMS().charAt(1) == 'L';
@@ -91,7 +117,6 @@ public class DetermineAuto extends ConditionalCommand {
     {
     	return Robot.checkFMS().charAt(1) == 'R';
     }
-    */
 
 	@Override
 	protected boolean condition() {

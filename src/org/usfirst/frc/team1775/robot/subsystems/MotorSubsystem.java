@@ -62,7 +62,6 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		rotateToAnglePidController.setContinuous();
 		addChild(rotateToAnglePidController);
 		
-		// Ivan suggests putting a P that's about 1/4 of what the rotateToAnglePidController is
 		straightDrivePidController = new PIDController(-0.2, 0.0, 0.0, (PIDSource) RobotMap.gyro, (value) -> {
 			straightDriveRotateCompensationValue = value;
 		}, 0.01);
