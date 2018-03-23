@@ -14,7 +14,7 @@ public final class AutonomousConstants{
 	public static final int SWITCH_HEIGHT = 40;
 	
 	public static final int FOOT = 12;
-	public static final int BACK_WALL_TO_SCALE = 300;
+	public static final int BACK_WALL_TO_SCALE = 304;
 	public static final int BACK_WALL_TO_SWITCH = 150;
 	public static final int CENTER_TO_SWITCH = 95;
 	public static final int CENTER_TO_EDGE = 144;

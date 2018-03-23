@@ -1,7 +1,9 @@
 package org.usfirst.frc.team1775.robot.subsystems;
 
+import org.usfirst.frc.team1775.robot.Robot;
 import org.usfirst.frc.team1775.robot.RobotMap;
 import org.usfirst.frc.team1775.robot.commands.Drive;
+import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousConstants;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -13,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class MotorSubsystem extends Subsystem implements PIDSource {
 	private static final double DEFAULT_ROTATE_RAMP_TIME = 400;
 	private static final double ON_TARGET_MIN_TIME = 500;
+	private static final double START_PID_RAMP_DISTANCE = 30;
 	
 	private enum DriveMode {
 		Regular, RotateToAngle, DriveToDistance
@@ -38,18 +41,19 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	double straightDriveRotateCompensationValue = 0;
 	
 	public MotorSubsystem() {
-		driveToDistancePidController = new PIDController(1, 0, 5, this,
+		driveToDistancePidController = new PIDController(0, 0, 0, this,
 				(value) -> {
 					if (driveToDistancePidController.isEnabled()) {
-						RobotMap.drive.arcadeDrive(value, -straightDriveRotateCompensationValue);
+//						RobotMap.drive.arcadeDrive(value, -straightDriveRotateCompensationValue);
+						setSpeedForDrivePid(value);
 					}
 				}, 0.02);
 		
-		driveToDistancePidController.setInputRange(-300, 300);
+		driveToDistancePidController.setInputRange(-AutonomousConstants.BACK_WALL_TO_SCALE, AutonomousConstants.BACK_WALL_TO_SCALE);
 		driveToDistancePidController.setContinuous(true);
-		driveToDistancePidController.setOutputRange(-0.6, 0.6);
+		driveToDistancePidController.setOutputRange(-0.8, 0.8);
 		driveToDistancePidController.setAbsoluteTolerance(2);
-		//addChild(driveToDistancePidController);
+		addChild(driveToDistancePidController);
 		
 		rotateToAnglePidController = new PIDController(0.15, 0, 0.45,(PIDSource) RobotMap.gyro,
 				(value) ->  {
@@ -61,7 +65,7 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		rotateToAnglePidController.setOutputRange(-0.75, 0.75);
 		rotateToAnglePidController.setAbsoluteTolerance(2);
 		rotateToAnglePidController.setContinuous();
-		addChild(rotateToAnglePidController);
+//		addChild(rotateToAnglePidController);
 		
 		straightDrivePidController = new PIDController(-0.2, 0.0, 0.0, (PIDSource) RobotMap.gyro, (value) -> {
 			straightDriveRotateCompensationValue = value;
@@ -75,6 +79,19 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	protected void initDefaultCommand() {
 		setDefaultCommand(new Drive());
 	}
+	
+	private void setSpeedForDrivePid(double speed) {
+		double outputSpeed = speed;
+		double distanceFromSetpoint = driveToDistancePidController.getSetpoint() - getDistance();
+		if (distanceFromSetpoint <= START_PID_RAMP_DISTANCE && distanceFromSetpoint >= 2) {
+			
+			outputSpeed = 0.02 * distanceFromSetpoint;
+		}
+
+		System.out.println("outputSpeed:" + outputSpeed);
+		System.out.println("encoder distance: " + getDistance());
+		RobotMap.drive.arcadeDrive(outputSpeed, -straightDriveRotateCompensationValue);
+	}
 
 	public void drive(double moveValue, double rotateValue) {
 		rotateToAnglePidController.disable();
@@ -82,7 +99,6 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		double realRotateValue = rotateValue;
 		double realMoveValue = -moveValue;
 		if(moveValue > 0.15 || moveValue < -0.15) {
-			// changed from -moveValue to realMoveValue
 			realRotateValue = realMoveValue * rotateValue;
 		} else {
 			if (rotateValue < 0.15 && rotateValue > -0.15) {
@@ -142,7 +158,6 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		driveToDistancePidController.enable();
 	}
 	
-	
 	public void setRotateAngle(double angle) {
 		setDriveMode(DriveMode.RotateToAngle);
 
@@ -175,13 +190,14 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 			}
 		});
 		builder.addDoubleProperty("distance", () -> { return getDistance(); }, null);
-		builder.addBooleanProperty("reset drive encoder", () -> { return false; }, (value) -> {
+		builder.addBooleanProperty("resetDriveEncoder", () -> { return false; }, (value) -> {
 			if (value) {
 				driveToDistancePidController.reset();
 				RobotMap.driveEncoderLeft.reset();
 				RobotMap.driveEncoderRight.reset();
 				RobotMap.gyro.reset();
 				RobotMap.gyro.zeroYaw();
+				getDistance();
 			}
 		});
 	}

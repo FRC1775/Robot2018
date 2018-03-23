@@ -129,6 +129,8 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.start();
 
 		checkFMS();
+		RobotMap.driveEncoderLeft.reset();
+		RobotMap.driveEncoderLeft.reset();
 	}
 
 	/**
