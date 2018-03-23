@@ -43,10 +43,8 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	public MotorSubsystem() {
 		driveToDistancePidController = new PIDController(0, 0, 0, this,
 				(value) -> {
-					if (driveToDistancePidController.isEnabled()) {
-//						RobotMap.drive.arcadeDrive(value, -straightDriveRotateCompensationValue);
-						setSpeedForDrivePid(value);
-					}
+//					RobotMap.drive.arcadeDrive(value, -straightDriveRotateCompensationValue);
+					setSpeedForDrivePid(value);
 				}, 0.02);
 		
 		driveToDistancePidController.setInputRange(-AutonomousConstants.BACK_WALL_TO_SCALE, AutonomousConstants.BACK_WALL_TO_SCALE);
@@ -81,16 +79,19 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	}
 	
 	private void setSpeedForDrivePid(double speed) {
-		double outputSpeed = speed;
-		double distanceFromSetpoint = driveToDistancePidController.getSetpoint() - getDistance();
-		if (distanceFromSetpoint <= START_PID_RAMP_DISTANCE && distanceFromSetpoint >= 2) {
-			
-			outputSpeed = 0.02 * distanceFromSetpoint;
+		if(driveToDistancePidController.isEnabled()) {
+			double outputSpeed = speed;
+			double distanceFromSetpoint = driveToDistancePidController.getSetpoint() - getDistance();
+			if (distanceFromSetpoint <= START_PID_RAMP_DISTANCE && distanceFromSetpoint >= 2) {
+				
+				outputSpeed = 0.02 * distanceFromSetpoint;
+			}
+	
+			System.out.println("outputSpeed: " + outputSpeed);
+			System.out.println("encoder distance: " + getDistance());
+			System.out.println("distanceFromSetpoint: " + distanceFromSetpoint);
+			RobotMap.drive.arcadeDrive(outputSpeed, -straightDriveRotateCompensationValue);
 		}
-
-		System.out.println("outputSpeed:" + outputSpeed);
-		System.out.println("encoder distance: " + getDistance());
-		RobotMap.drive.arcadeDrive(outputSpeed, -straightDriveRotateCompensationValue);
 	}
 
 	public void drive(double moveValue, double rotateValue) {
