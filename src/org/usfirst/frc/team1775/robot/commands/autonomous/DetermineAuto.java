@@ -59,8 +59,8 @@ public class DetermineAuto extends ConditionalCommand {
 				new DetermineAuto(
 					DetermineAuto::ifScaleOnlyOnOurSide,
 					new ChooseByRobotPosition(
-						new JustScaleAutonomous(),
-						new JustScaleAutonomous()),
+						new JustScaleAutonomous(AutonomousConstants.RIGHT),
+						new JustScaleAutonomous(AutonomousConstants.LEFT)),
 					new DriveToAutoLineFromSides()
 				)
 			)

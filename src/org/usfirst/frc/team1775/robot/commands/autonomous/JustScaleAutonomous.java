@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class JustScaleAutonomous extends CommandGroup {
 
-    public JustScaleAutonomous() {
-    //	addSequential(new AutonomousStart());
-		addSequential(new BlockOnScaleFromSides());
+    public JustScaleAutonomous(int direction) {
+    	addSequential(new AutonomousStart());
+		addSequential(new BlockOnScaleFromSides(direction));
     }
 }
