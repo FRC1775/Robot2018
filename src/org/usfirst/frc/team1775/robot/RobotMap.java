@@ -73,10 +73,10 @@ public class RobotMap {
 	    rightDriveMotorController = new Talon(1);
 	    // left intake
 	    intakeMotorController1 = new Talon(3);
-	    intakeMotorController1.setInverted(true);
+	    intakeMotorController1.setInverted(false);
 	    // right intake
 	    intakeMotorController2 = new Talon(4);
-	    intakeMotorController2.setInverted(true);
+	    intakeMotorController2.setInverted(false);
 	    liftMotorController1 = new Talon(2);
 	    liftMotorController1.setInverted(false);
 	    liftBottomLimitSwitch = new DigitalInput(0);

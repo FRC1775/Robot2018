@@ -35,7 +35,7 @@ public class OI {
 	private final static int RIGHT_TRIGGER = 3;
 	
 	private final static double CUBE_FLIP_SPEED = 1.0;
-	private final static double INTAKE_SPEED = 0.45;
+	private final static double INTAKE_SPEED = 0.9;
 	
 	private static Joystick driverJoystick;
 	private static Joystick operatorJoystick;
