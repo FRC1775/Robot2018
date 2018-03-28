@@ -3,7 +3,6 @@ package org.usfirst.frc.team1775.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc.team1775.robot.Robot;
-import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousConstants;
 
 public class DriveDistance extends Command {
 	private double distance = 0;

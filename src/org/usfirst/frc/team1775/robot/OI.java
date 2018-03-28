@@ -9,8 +9,6 @@ import org.usfirst.frc.team1775.robot.commands.IntakeIn;
 import org.usfirst.frc.team1775.robot.commands.IntakeLift;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
 import org.usfirst.frc.team1775.robot.commands.IntakeRelease;
-import org.usfirst.frc.team1775.robot.commands.LiftHeight;
-import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousStart;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -26,8 +24,6 @@ public class OI {
 	private final static int Y_BUTTON = 4;
 	private final static int LEFT_BUMPER = 5;
 	private final static int RIGHT_BUMPER = 6;
-	
-
 	
 	private final static int LEFT_ANALOG_Y_AXIS = 1;
 	private final static int RIGHT_ANALOG_X_AXIS = 4;

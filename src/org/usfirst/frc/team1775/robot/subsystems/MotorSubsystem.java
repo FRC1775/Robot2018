@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1775.robot.subsystems;
 
-import org.usfirst.frc.team1775.robot.Robot;
 import org.usfirst.frc.team1775.robot.RobotMap;
 import org.usfirst.frc.team1775.robot.commands.Drive;
 import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousConstants;
@@ -15,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class MotorSubsystem extends Subsystem implements PIDSource {
 	private static final double DEFAULT_ROTATE_RAMP_TIME = 400;
 	private static final double ON_TARGET_MIN_TIME = 500;
-	private static final double START_PID_RAMP_DISTANCE = 30;
 	
 	private enum DriveMode {
 		Regular, RotateToAngle, DriveToDistance
@@ -87,7 +85,8 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		if(moveValue > 0.15 || moveValue < -0.15) {
 			realRotateValue = realMoveValue * rotateValue;
 		} else {
-			if (rotateValue < 0.15 && rotateValue > -0.15) {
+			// before, the deadband was -.15 to .15
+			if (rotateValue < 0.10 && rotateValue > -0.10) {
 
 				rotateInPlaceCurrentRampFactor = 0;
 				rotateInPlaceStartTime = System.currentTimeMillis();
@@ -99,7 +98,7 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 
 			// TODO handle ramp of rotate
 			rotateInPlaceCurrentRampFactor = Math.min(1, (System.currentTimeMillis() - rotateInPlaceStartTime) / (double) DEFAULT_ROTATE_RAMP_TIME);
-			realRotateValue = rotateValue * rotateInPlaceCurrentRampFactor;
+			realRotateValue = 0.8* rotateValue * rotateInPlaceCurrentRampFactor;
 		}
 		SmartDashboard.putNumber("Distance", getDistance());
 		SmartDashboard.putNumber("Angle", RobotMap.gyro.getAngle());

@@ -17,6 +17,5 @@ public class BlockOnSwitchFromCenter extends CommandGroup {
     	addSequential(new LiftHeight(AutonomousConstants.SWITCH_HEIGHT));
     	addSequential(new RotateToAngle(90));
     	addSequential(new FlippyCube(-1));
-
     }
 }

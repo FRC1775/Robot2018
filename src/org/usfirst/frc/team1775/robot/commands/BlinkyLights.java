@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class BlinkyLights extends Command{
-	private static double SWITCH_FENCE_HEIGHT = 18.75;
+	private static double SWITCH_FENCE_HEIGHT = 20;
 	
 	public BlinkyLights() {
 		requires(Robot.blinkyLightSubsystem);
@@ -65,12 +65,12 @@ public class BlinkyLights extends Command{
 	// if sensor sees a cube, then pin value is high. if it doesn't see a cube the 
 	// pin value is low. this toggles independently of the other pins
 	public void checkCubeInRobot() {
-		if(!RobotMap.cubeInRobot.get()) {
+		if(RobotMap.cubeInRobot.get()) {
 			// there is a cube in the robot
-			RobotMap.pinThree.set(true);
+			RobotMap.pinThree.set(false);
 		}else {
 			// there is no cube in the robot
-			RobotMap.pinThree.set(false);
+			RobotMap.pinThree.set(true);
 		}
 	}
 	
