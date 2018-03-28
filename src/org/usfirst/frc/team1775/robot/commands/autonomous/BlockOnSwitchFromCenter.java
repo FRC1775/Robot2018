@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1775.robot.commands.autonomous;
 
-import org.usfirst.frc.team1775.robot.RobotMap;
 import org.usfirst.frc.team1775.robot.commands.DriveDistance;
 import org.usfirst.frc.team1775.robot.commands.FlippyCube;
 import org.usfirst.frc.team1775.robot.commands.LiftHeight;
