@@ -9,6 +9,7 @@ import org.usfirst.frc.team1775.robot.commands.IntakeIn;
 import org.usfirst.frc.team1775.robot.commands.IntakeLift;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
 import org.usfirst.frc.team1775.robot.commands.IntakeRelease;
+import org.usfirst.frc.team1775.robot.commands.LiftHeight;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -29,6 +30,8 @@ public class OI {
 	private final static int RIGHT_ANALOG_X_AXIS = 4;
 	private final static int LEFT_TRIGGER = 2;
 	private final static int RIGHT_TRIGGER = 3;
+	
+	private final static int LEFT_D_PAD = 12;
 	
 	private final static double CUBE_FLIP_SPEED = 1.0;
 	private final static double INTAKE_SPEED = 0.9;
@@ -153,11 +156,7 @@ public class OI {
 		configureIntakeDownButton(driverJoystick);
 		configureCubeFlipRightButton(driverJoystick);
 		configureCubeFlipLeftButton(driverJoystick);
-		
-		JoystickButton b = new JoystickButton(driverJoystick, 7);
-		b.whenPressed(new IntakeLift(true));
-		JoystickButton c = new JoystickButton(driverJoystick, 8);
-		c.whenPressed(new IntakeRelease());
+		configureRotateSwitchButton(driverJoystick);
 		
 		driverJoystickConfigured = true;
 	}
@@ -175,7 +174,7 @@ public class OI {
 		configureIntakeDownButton(operatorJoystick);
 		configureCubeFlipRightButton(operatorJoystick);
 		configureCubeFlipLeftButton(operatorJoystick);
-		
+
 		operatorJoystickConfigured = true;
 	}
 	
@@ -215,5 +214,10 @@ public class OI {
 	private static void configureCubeFlipLeftButton(Joystick joystick) {
 		JoystickButton cubeFlipLeftButton = new JoystickButton(joystick, LEFT_BUMPER);
 		cubeFlipLeftButton.whileHeld(new FlippyCube(-CUBE_FLIP_SPEED));
+	}
+	
+	private static void configureRotateSwitchButton(Joystick joystick) {
+		JoystickButton rotateSwitchButton = new JoystickButton(joystick, LEFT_D_PAD);
+		rotateSwitchButton.whenPressed(new SwitchRotate);
 	}
 }

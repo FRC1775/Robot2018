@@ -31,6 +31,7 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	private PIDController straightDrivePidController;
 	
 	boolean shouldSetPoint = true;
+	boolean canRotateInPlace = true;
 	
 	private double firstTimeWithinTarget = -1;
 	
@@ -77,6 +78,10 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		setDefaultCommand(new Drive());
 	}
 	
+	public void switchRotate() {
+		canRotateInPlace = !canRotateInPlace;
+	}
+	
 	public void drive(double moveValue, double rotateValue) {
 		rotateToAnglePidController.disable();
 		driveToDistancePidController.disable();
@@ -86,7 +91,7 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 			realRotateValue = realMoveValue * rotateValue;
 		} else {
 			// before, the deadband was -.15 to .15
-			if (rotateValue < 0.10 && rotateValue > -0.10) {
+			if (rotateValue < 0.10 && rotateValue > -0.10 && canRotateInPlace) {
 
 				rotateInPlaceCurrentRampFactor = 0;
 				rotateInPlaceStartTime = System.currentTimeMillis();
@@ -98,7 +103,7 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 
 			// TODO handle ramp of rotate
 			rotateInPlaceCurrentRampFactor = Math.min(1, (System.currentTimeMillis() - rotateInPlaceStartTime) / (double) DEFAULT_ROTATE_RAMP_TIME);
-			realRotateValue = 0.8* rotateValue * rotateInPlaceCurrentRampFactor;
+			realRotateValue = 0.8 * rotateValue * rotateInPlaceCurrentRampFactor;
 		}
 		SmartDashboard.putNumber("Distance", getDistance());
 		SmartDashboard.putNumber("Angle", RobotMap.gyro.getAngle());
