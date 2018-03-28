@@ -50,16 +50,15 @@ public class BlinkyLights extends Command{
 	}
 	
 	private void checkElevator() {
-		if(Robot.liftSubsystem.checkBottomLimitSwitch()) {
+		if(RobotMap.liftEncoder.getDistance() <= 1) {
 			// elevator is at lowest point
 			setPinConfiguration(true, false, false);
 		}else if(Robot.liftSubsystem.checkTopLimitSwitch()) {
 			// elevator is at highest point
 			setPinConfiguration(true, true, false);
 		}else if(RobotMap.liftEncoder.getDistance() >= SWITCH_FENCE_HEIGHT) {
-			// elevator is at halfway point
-			// probably this will change to height of switch and/or scale
-			setPinConfiguration(true, false, true );
+			// elevator is at switch height
+			setPinConfiguration(true, false, true);
 		}
 	}
 	

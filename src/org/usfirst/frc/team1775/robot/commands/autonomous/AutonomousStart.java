@@ -4,6 +4,7 @@ import org.usfirst.frc.team1775.robot.commands.IntakeIn;
 import org.usfirst.frc.team1775.robot.commands.IntakeLift;
 import org.usfirst.frc.team1775.robot.commands.IntakeRelease;
 import org.usfirst.frc.team1775.robot.commands.IntakeStop;
+import org.usfirst.frc.team1775.robot.commands.LiftHeight;
 import org.usfirst.frc.team1775.robot.commands.LiftOffLimitSwitch;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -18,5 +19,6 @@ public class AutonomousStart extends CommandGroup {
     	addSequential(new WaitCommand(0.5));
     	addSequential(new IntakeStop());
     	addSequential(new LiftOffLimitSwitch());
+    	addSequential(new LiftHeight(4));
     }
 }

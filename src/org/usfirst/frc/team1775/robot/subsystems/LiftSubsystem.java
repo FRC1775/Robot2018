@@ -26,7 +26,7 @@ public class LiftSubsystem extends Subsystem {
 	private static final double MAX_HEIGHT_START_RAMP = 70.0;
 	private static final double MAX_HEIGHT = 84.0;
 	
-	private static final double TARGET_TOLERANCE = 1;
+	private static final double TARGET_TOLERANCE = 2;
 	private static final double ON_TARGET_MIN_TIME = 500;
 	
 	private static final double START_RAMP_TIME_MS = 500.0;
