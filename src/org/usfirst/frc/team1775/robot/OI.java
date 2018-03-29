@@ -8,9 +8,6 @@ import org.usfirst.frc.team1775.robot.commands.FlippyCube;
 import org.usfirst.frc.team1775.robot.commands.IntakeIn;
 import org.usfirst.frc.team1775.robot.commands.IntakeLift;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
-import org.usfirst.frc.team1775.robot.commands.IntakeRelease;
-import org.usfirst.frc.team1775.robot.commands.LiftHeight;
-import org.usfirst.frc.team1775.robot.commands.SwitchRotate;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -32,10 +29,8 @@ public class OI {
 	private final static int LEFT_TRIGGER = 2;
 	private final static int RIGHT_TRIGGER = 3;
 	
-	private final static int BACK_BUTTON = 7;
-	
 	private final static double CUBE_FLIP_SPEED = 1.0;
-	private final static double INTAKE_SPEED = 0.9;
+	public final static double INTAKE_SPEED = 0.9;
 	
 	private static Joystick driverJoystick;
 	private static Joystick operatorJoystick;

@@ -7,5 +7,4 @@ public class DoNothing extends CommandGroup {
 	public DoNothing() {
 		addSequential(new AutonomousStart());
 	}
-
 }

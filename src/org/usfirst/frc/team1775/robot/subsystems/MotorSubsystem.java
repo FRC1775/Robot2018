@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class MotorSubsystem extends Subsystem implements PIDSource {
 	private static final double DEFAULT_ROTATE_RAMP_TIME = 400;
 	private static final double ON_TARGET_MIN_TIME = 500;
-//	private static final boolean ROTATE_IN_PLACE_WITH_D_PAD = OI.getPOVDirection() == -1;
 	
 	private enum DriveMode {
 		Regular, RotateToAngle, DriveToDistance
@@ -46,10 +45,8 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 				(value) -> {
 					if(driveToDistancePidController.isEnabled()) {
 						RobotMap.drive.arcadeDrive(value, -straightDriveRotateCompensationValue);
-//						setSpeedForDrivePid(value);
 					}
 				}, 0.02);
-		
 		driveToDistancePidController.setInputRange(-AutonomousConstants.BACK_WALL_TO_SCALE, AutonomousConstants.BACK_WALL_TO_SCALE);
 		driveToDistancePidController.setContinuous(true);
 		driveToDistancePidController.setOutputRange(-0.8, 0.8);
@@ -65,7 +62,6 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		rotateToAnglePidController.setOutputRange(-0.75, 0.75);
 		rotateToAnglePidController.setAbsoluteTolerance(2);
 		rotateToAnglePidController.setContinuous();
-//		addChild(rotateToAnglePidController);
 		
 		straightDrivePidController = new PIDController(-0.2, 0.0, 0.0, (PIDSource) RobotMap.gyro, (value) -> {
 			straightDriveRotateCompensationValue = value;
@@ -91,6 +87,8 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		double realRotateValue = rotateValue;
 		double realMoveValue = -moveValue;
 		
+		// the first line enables control of the rotate in place using the d pad
+		// the second line makes it so that you don't have to use the d pad to rotate in place
 		if(OI.getPOVDirection() == -1) {
 //		if(moveValue < -0.15 || moveValue > 0.15) {
 			realRotateValue = realMoveValue * rotateValue;
@@ -106,7 +104,6 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 			//SmartDashboard.putNumber("DriveTrain.rotateValue", rotateValue);
 			//SmartDashboard.putBoolean("DriveTrain.squaredInputs", squaredInputs);
 
-			// TODO handle ramp of rotate
 			rotateInPlaceCurrentRampFactor = Math.min(1, (System.currentTimeMillis() - rotateInPlaceStartTime) / (double) DEFAULT_ROTATE_RAMP_TIME);
 			realRotateValue = 0.8 * rotateValue * rotateInPlaceCurrentRampFactor;
 		}

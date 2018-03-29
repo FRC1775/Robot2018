@@ -8,10 +8,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class DropBlock extends CommandGroup {
 
     public DropBlock(double height, double speed) {
-    	//LiftToHeight(19)
-    	//Push block using the conveyor belt
-    	//Reset the lift
-    	
     	addSequential(new LiftHeight(height));
     	addSequential(new FlippyCube(speed), 1.5);
     	addSequential(new LiftHeight(0));
