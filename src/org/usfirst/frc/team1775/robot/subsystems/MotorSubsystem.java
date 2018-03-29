@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1775.robot.subsystems;
 
+import org.usfirst.frc.team1775.robot.OI;
 import org.usfirst.frc.team1775.robot.RobotMap;
 import org.usfirst.frc.team1775.robot.commands.Drive;
 import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousConstants;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class MotorSubsystem extends Subsystem implements PIDSource {
 	private static final double DEFAULT_ROTATE_RAMP_TIME = 400;
 	private static final double ON_TARGET_MIN_TIME = 500;
+	private static final boolean ROTATE_IN_PLACE_WITH_D_PAD = OI.getPOVDirection() == -1;
 	
 	private enum DriveMode {
 		Regular, RotateToAngle, DriveToDistance
@@ -80,6 +82,7 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	
 	public void switchRotate() {
 		canRotateInPlace = !canRotateInPlace;
+		System.out.println("switching the can rotate in place value");
 	}
 	
 	public void drive(double moveValue, double rotateValue) {
@@ -87,11 +90,13 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		driveToDistancePidController.disable();
 		double realRotateValue = rotateValue;
 		double realMoveValue = -moveValue;
-		if(moveValue > 0.15 || moveValue < -0.15) {
+		
+		if(ROTATE_IN_PLACE_WITH_D_PAD) {
+//		if(moveValue < -0.15 || moveValue > 0.15) {
 			realRotateValue = realMoveValue * rotateValue;
 		} else {
 			// before, the deadband was -.15 to .15
-			if (rotateValue < 0.10 && rotateValue > -0.10 && canRotateInPlace) {
+			if (rotateValue < 0.10 && rotateValue > -0.10) {
 
 				rotateInPlaceCurrentRampFactor = 0;
 				rotateInPlaceStartTime = System.currentTimeMillis();

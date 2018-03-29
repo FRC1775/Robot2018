@@ -10,6 +10,7 @@ import org.usfirst.frc.team1775.robot.commands.IntakeLift;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
 import org.usfirst.frc.team1775.robot.commands.IntakeRelease;
 import org.usfirst.frc.team1775.robot.commands.LiftHeight;
+import org.usfirst.frc.team1775.robot.commands.SwitchRotate;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -31,7 +32,7 @@ public class OI {
 	private final static int LEFT_TRIGGER = 2;
 	private final static int RIGHT_TRIGGER = 3;
 	
-	private final static int LEFT_D_PAD = 12;
+	private final static int BACK_BUTTON = 7;
 	
 	private final static double CUBE_FLIP_SPEED = 1.0;
 	private final static double INTAKE_SPEED = 0.9;
@@ -112,6 +113,15 @@ public class OI {
 		return 0;
 	}
 	
+	public static int getPOVDirection() {
+		if (driverJoystickConnected) {
+			return driverJoystick.getPOV(0);
+		}else if (operatorJoystickConnected) {
+			return operatorJoystick.getPOV(0);
+		}
+		return 0;
+	}
+	
 	private static boolean checkDriverJoystickConnected() {
 		try {
 			if (DriverStation.getInstance().getJoystickType(DRIVER_JOYSTICK_PORT) >= 0) {
@@ -156,7 +166,6 @@ public class OI {
 		configureIntakeDownButton(driverJoystick);
 		configureCubeFlipRightButton(driverJoystick);
 		configureCubeFlipLeftButton(driverJoystick);
-		configureRotateSwitchButton(driverJoystick);
 		
 		driverJoystickConfigured = true;
 	}
@@ -197,7 +206,8 @@ public class OI {
 	}
 	
 	private static void configureIntakeDownButton(Joystick joystick) {
-		JoystickButton intakeDownButton = new JoystickButton(joystick, X_BUTTON);
+		JoystickButton
+		intakeDownButton = new JoystickButton(joystick, X_BUTTON);
 		intakeDownButton.whenPressed(new IntakeLift(false));
 	}
 	
@@ -214,10 +224,5 @@ public class OI {
 	private static void configureCubeFlipLeftButton(Joystick joystick) {
 		JoystickButton cubeFlipLeftButton = new JoystickButton(joystick, LEFT_BUMPER);
 		cubeFlipLeftButton.whileHeld(new FlippyCube(-CUBE_FLIP_SPEED));
-	}
-	
-	private static void configureRotateSwitchButton(Joystick joystick) {
-		JoystickButton rotateSwitchButton = new JoystickButton(joystick, LEFT_D_PAD);
-		rotateSwitchButton.whenPressed(new SwitchRotate);
 	}
 }
