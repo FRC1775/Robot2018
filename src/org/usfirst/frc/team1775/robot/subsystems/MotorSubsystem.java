@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class MotorSubsystem extends Subsystem implements PIDSource {
 	private static final double DEFAULT_ROTATE_RAMP_TIME = 400;
 	private static final double ON_TARGET_MIN_TIME = 500;
-	private static final boolean ROTATE_IN_PLACE_WITH_D_PAD = OI.getPOVDirection() == -1;
+//	private static final boolean ROTATE_IN_PLACE_WITH_D_PAD = OI.getPOVDirection() == -1;
 	
 	private enum DriveMode {
 		Regular, RotateToAngle, DriveToDistance
@@ -91,7 +91,7 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		double realRotateValue = rotateValue;
 		double realMoveValue = -moveValue;
 		
-		if(ROTATE_IN_PLACE_WITH_D_PAD) {
+		if(OI.getPOVDirection() == -1) {
 //		if(moveValue < -0.15 || moveValue > 0.15) {
 			realRotateValue = realMoveValue * rotateValue;
 		} else {
