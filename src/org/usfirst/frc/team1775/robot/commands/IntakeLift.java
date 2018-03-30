@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1775.robot.commands;
+/*package org.usfirst.frc.team1775.robot.commands;
 
 import org.usfirst.frc.team1775.robot.RobotMap;
 
@@ -21,3 +21,4 @@ public class IntakeLift extends InstantCommand {
     	}
     }
 }
+*/

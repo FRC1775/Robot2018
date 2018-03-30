@@ -33,8 +33,7 @@ public class RobotMap {
 	public static Talon cubeFlip; 
 	public static AHRS gyro;
 	public static Compressor compressor;
-	public static Solenoid intakeLiftUp;
-	public static Solenoid intakeLiftDown;
+	public static Solenoid intakeOpen;
 	public static Servo leftIntakeRelease;
 	public static Servo rightIntakeRelease;
 	public static Solenoid liftBrake;
@@ -63,8 +62,7 @@ public class RobotMap {
 		gyro.reset();
 		
 		compressor = new Compressor();
-		intakeLiftUp = new Solenoid(0);
-		intakeLiftDown = new Solenoid(1);
+		intakeOpen = new Solenoid(0);
 		
 		leftIntakeRelease = new Servo(8);
 		rightIntakeRelease = new Servo(9);

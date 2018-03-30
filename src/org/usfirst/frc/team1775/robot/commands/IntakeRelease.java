@@ -11,10 +11,10 @@ public class IntakeRelease extends TimedCommand {
     }
 
     protected void execute() {
-    	if (RobotMap.intakeLiftUp.get()) {
+    	//if (RobotMap.intakeLiftUp.get()) {
 	    	RobotMap.leftIntakeRelease.setAngle(0);
 	    	RobotMap.rightIntakeRelease.setAngle(0);
-    	}
+    	//}
     }
 
     protected void end() {
