@@ -88,11 +88,12 @@ public class RobotMap {
 	    liftBrake = new Solenoid(2);
 	    liftUnbrake = new Solenoid(3);
 	    
-	    cubeInRobot = new DigitalInput(8); 
+	    cubeInRobot = new DigitalInput(9);
 	    
 	    pinZero = new DigitalOutput(10);
 	    pinOne = new DigitalOutput(11);
 	    pinTwo = new DigitalOutput(12);
-	    pinThree = new DigitalOutput(13); //sends information about cube in robot
+	    pinThree = new DigitalOutput(13)
+	    		; //sends information about cube in robot
 	}
 }

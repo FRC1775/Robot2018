@@ -36,12 +36,12 @@ public class BlinkyLights extends Command{
 	}
 	
 	private void checkIntake() {
-		if(RobotMap.intakeMotorController1.get() <= -0.1 || RobotMap.intakeMotorController2.get() >= 0.1) {
+		if(RobotMap.intakeMotorController1.get() <= -0.1) {
 			// left motor is turning counter-clockwise and right is turning clockwise
 			// the robot is releasing a cube
 			setPinConfiguration(false, true, true);
 			return;
-		}else if(RobotMap.intakeMotorController1.get() >= 0.1 || RobotMap.intakeMotorController2.get() <= -0.1) {
+		}else if(RobotMap.intakeMotorController1.get() >= 0.1) {
 			// right motor is turning counter-clockwise and left is turning clockwise
 			// robot is intaking a cube
 			setPinConfiguration(false, true, false);
@@ -65,13 +65,7 @@ public class BlinkyLights extends Command{
 	// if sensor sees a cube, then pin value is high. if it doesn't see a cube the 
 	// pin value is low. this toggles independently of the other pins
 	public void checkCubeInRobot() {
-		if(RobotMap.cubeInRobot.get()) {
-			// there is a cube in the robot
-			RobotMap.pinThree.set(false);
-		}else {
-			// there is no cube in the robot
-			RobotMap.pinThree.set(true);
-		}
+		RobotMap.pinThree.set(!RobotMap.cubeInRobot.get());
 	}
 	
 	private void checkEndMatchOrAuton() {

@@ -89,8 +89,8 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		
 		// the first line enables control of the rotate in place using the d pad
 		// the second line makes it so that you don't have to use the d pad to rotate in place
-		if(OI.getPOVDirection() == -1) {
-//		if(moveValue < -0.15 || moveValue > 0.15) {
+//		if(OI.getPOVDirection() == -1) {
+		if(moveValue < -0.15 || moveValue > 0.15) {
 			realRotateValue = realMoveValue * rotateValue;
 		} else {
 			// before, the deadband was -.15 to .15
