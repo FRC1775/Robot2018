@@ -9,6 +9,7 @@ import org.usfirst.frc.team1775.robot.commands.IntakeIn;
 //import org.usfirst.frc.team1775.robot.commands.IntakeLift;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
 import org.usfirst.frc.team1775.robot.commands.LiftHeight;
+import org.usfirst.frc.team1775.robot.commands.LiftUsingButton;
 import org.usfirst.frc.team1775.robot.commands.OpenIntakeArms;
 
 /**
@@ -237,11 +238,11 @@ public class OI {
 	
 	private static void configureLiftToBottomButton(Joystick joystick) {
 		JoystickButton liftToBottomButton = new JoystickButton(joystick, BACK_BUTTON);
-		liftToBottomButton.whenPressed(new LiftHeight(0));
+		liftToBottomButton.whenPressed(new LiftUsingButton(0));
 	}
 	
 	private static void configureLiftToLowHeightButton(Joystick joystick) {
 		JoystickButton liftToLowHeightButton = new JoystickButton(joystick, START_BUTTON);
-		liftToLowHeightButton.whenPressed(new LiftHeight(6));
+		liftToLowHeightButton.whenPressed(new LiftUsingButton(6));
 	}
 }
