@@ -6,9 +6,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team1775.robot.commands.FlippyCube;
 import org.usfirst.frc.team1775.robot.commands.IntakeIn;
-//import org.usfirst.frc.team1775.robot.commands.IntakeLift;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
-import org.usfirst.frc.team1775.robot.commands.LiftHeight;
+import org.usfirst.frc.team1775.robot.commands.LiftToHerdHeight;
 import org.usfirst.frc.team1775.robot.commands.OpenIntakeArms;
 
 /**
@@ -163,8 +162,6 @@ public class OI {
 		
 		//configureIntakeInButton(driverJoystick);
 		configureIntakeOutButton(driverJoystick, true);
-//		configureIntakeUpButton(driverJoystick);
-//		configureIntakeDownButton(driverJoystick);
 		configureCubeFlipRightButton(driverJoystick);
 		configureCubeFlipLeftButton(driverJoystick);
 		
@@ -180,13 +177,10 @@ public class OI {
 		configureIntakeInButton(operatorJoystick);
 		// this was set as a fallback command, but we need it to fall back to the driver joystick
 		configureIntakeOutButton(operatorJoystick);
-//		configureIntakeUpButton(operatorJoystick);
-//		configureIntakeDownButton(operatorJoystick);
 		configureIntakeOpenButton(operatorJoystick);
 		configureCubeFlipRightButton(operatorJoystick);
 		configureCubeFlipLeftButton(operatorJoystick);
-		configureLiftToBottomButton(operatorJoystick);
-		configureLiftToLowHeightButton(operatorJoystick);
+//		configureLiftToLowHeightButton(operatorJoystick);
 
 		operatorJoystickConfigured = true;
 	}
@@ -225,8 +219,8 @@ public class OI {
 		cubeFlipLeftButton.whileHeld(new FlippyCube(-CUBE_FLIP_SPEED));
 	}
 	
-	private static void configureLiftToLowHeightButton(Joystick joystick) {
-		JoystickButton liftToLowHeightButton = new JoystickButton(joystick, START_BUTTON);
-		liftToLowHeightButton.whenPressed(new LiftToHerdHeight(6));
-	}
+//	private static void configureLiftToLowHeightButton(Joystick joystick) {
+//		JoystickButton liftToLowHeightButton = new JoystickButton(joystick, START_BUTTON);
+//		liftToLowHeightButton.whenPressed(new LiftToHerdHeight(6));
+//	}
 }
