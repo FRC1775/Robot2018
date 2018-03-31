@@ -59,6 +59,10 @@ public class LiftSubsystem extends Subsystem {
 		liftToHeightPidController.enable();
 	}
 	
+	public void liftSlow() {
+		liftToHeightPidController.setOutputRange(-DOWN_MIN_SPEED, UP_MAX_SPEED);
+	}
+	
 	public void liftHeight() {
 		// Nothing to do here at the moment
 	}

@@ -225,13 +225,8 @@ public class OI {
 		cubeFlipLeftButton.whileHeld(new FlippyCube(-CUBE_FLIP_SPEED));
 	}
 	
-	private static void configureLiftToBottomButton(Joystick joystick) {
-		JoystickButton liftToBottomButton = new JoystickButton(joystick, BACK_BUTTON);
-		liftToBottomButton.whenPressed(new LiftHeight(1));
-	}
-	
 	private static void configureLiftToLowHeightButton(Joystick joystick) {
 		JoystickButton liftToLowHeightButton = new JoystickButton(joystick, START_BUTTON);
-		liftToLowHeightButton.whenPressed(new LiftHeight(6));
+		liftToLowHeightButton.whenPressed(new LiftToHerdHeight(6));
 	}
 }
