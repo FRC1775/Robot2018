@@ -9,7 +9,6 @@ import org.usfirst.frc.team1775.robot.commands.IntakeIn;
 //import org.usfirst.frc.team1775.robot.commands.IntakeLift;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
 import org.usfirst.frc.team1775.robot.commands.LiftHeight;
-import org.usfirst.frc.team1775.robot.commands.LiftUsingButton;
 import org.usfirst.frc.team1775.robot.commands.OpenIntakeArms;
 
 /**
@@ -216,16 +215,6 @@ public class OI {
 		intakeOpenButton.whenReleased(new OpenIntakeArms(false));
 	}
 	
-//	private static void configureIntakeDownButton(Joystick joystick) {
-//		JoystickButton intakeDownButton = new JoystickButton(joystick, X_BUTTON);
-//		intakeDownButton.whenPressed(new IntakeLift(false));
-//	}
-//	
-//	private static void configureIntakeUpButton(Joystick joystick) {
-//		JoystickButton intakeUpButton = new JoystickButton(joystick, Y_BUTTON);
-//		intakeUpButton.whenPressed(new IntakeLift(true));
-//	}
-	
 	private static void configureCubeFlipRightButton(Joystick joystick) {
 		JoystickButton cubeFlipRightButton = new JoystickButton(joystick, RIGHT_BUMPER);
 		cubeFlipRightButton.whileHeld(new FlippyCube(CUBE_FLIP_SPEED));
@@ -238,11 +227,11 @@ public class OI {
 	
 	private static void configureLiftToBottomButton(Joystick joystick) {
 		JoystickButton liftToBottomButton = new JoystickButton(joystick, BACK_BUTTON);
-		liftToBottomButton.whenPressed(new LiftUsingButton(0));
+		liftToBottomButton.whenPressed(new LiftHeight(1));
 	}
 	
 	private static void configureLiftToLowHeightButton(Joystick joystick) {
 		JoystickButton liftToLowHeightButton = new JoystickButton(joystick, START_BUTTON);
-		liftToLowHeightButton.whenPressed(new LiftUsingButton(6));
+		liftToLowHeightButton.whenPressed(new LiftHeight(6));
 	}
 }
