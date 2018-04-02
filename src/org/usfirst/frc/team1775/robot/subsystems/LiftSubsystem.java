@@ -32,6 +32,7 @@ public class LiftSubsystem extends Subsystem {
 	private static final double START_RAMP_TIME_MS = 500.0;
 	
 	private static final double LOWER_TO_SET_HEIGHT = 0;
+	private static final int MIN_HEIGHT_FOR_CUBE_FLIP = 16;
 
 	private double startTime = System.currentTimeMillis();
 	private double firstTimeWithinTarget = -1;
@@ -107,9 +108,9 @@ public class LiftSubsystem extends Subsystem {
 	}
 	
 	public void flipCube(double speed) {
-		//if (RobotMap.liftEncoder.getDistance() > 20) {
+		if (RobotMap.liftEncoder.getDistance() >= MIN_HEIGHT_FOR_CUBE_FLIP) {
 			RobotMap.cubeFlip.set(speed);
-		//}
+		}
 	}
 
 	public void setSpeed(double speed) {
