@@ -6,8 +6,6 @@ public class IdealAutonomous extends CommandGroup {
 
     public IdealAutonomous(int direction) {
 		addSequential(new AutonomousStart());
-		addSequential(new BlockOnSwitchFromSides(direction));
-		addSequential(new PickUpBlockFromSwitch(direction));
-		addSequential(new PickUpToScale(direction));
+		addSequential(new BlockOnScaleFromSides(direction));
     }
 }

@@ -7,6 +7,6 @@ public class JustSwitchAutonomous extends CommandGroup {
     public JustSwitchAutonomous(int direction) {
     	addSequential(new AutonomousStart());
 		addSequential(new BlockOnSwitchFromSides(direction));
-		addSequential(new PickUpBlockFromSwitch(direction));
+		//addSequential(new PickUpBlockFromSwitch(direction));
     }
 }
