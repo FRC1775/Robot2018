@@ -18,6 +18,7 @@ import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromSides;
 import org.usfirst.frc.team1775.robot.subsystems.BlinkyLightSubsystem;
+import org.usfirst.frc.team1775.robot.subsystems.IntakeOpenSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.IntakeSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.MotorSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.LiftSubsystem;
@@ -35,6 +36,7 @@ public class Robot extends IterativeRobot {
 	public static IntakeSubsystem intakeSubsystem;
 	public static LiftSubsystem liftSubsystem;
 	public static BlinkyLightSubsystem blinkyLightSubsystem;
+	public static IntakeOpenSubsystem intakeOpenSubsystem;
     
 	public static UsbCamera driverCamera;
 	
@@ -53,6 +55,7 @@ public class Robot extends IterativeRobot {
 		motorSubsystem = new MotorSubsystem();
 		intakeSubsystem = new IntakeSubsystem();
 		blinkyLightSubsystem = new BlinkyLightSubsystem();
+		intakeOpenSubsystem = new IntakeOpenSubsystem();
 		OI.init();
 		
 		LiveWindow.add(liftSubsystem);
@@ -61,11 +64,11 @@ public class Robot extends IterativeRobot {
 	}
 	
 	private void initDashboard() {
-		chooser.addDefault("Do Nothing", new DoNothing());
-		chooser.addObject("Cross Auto Line From Center", new DriveToAutoLineFromCenter());
+		chooser.addDefault("Cross AUto line", new DriveToAutoLineFromCenter());
 		chooser.addObject("Pick Best Way to Go from a Side", new DetermineAuto());
-		chooser.addObject("Drive to Auto Line From Sides", new DriveToAutoLineFromSides());
 		chooser.addObject("Pick Best Way from Center", new DetermineAutoCenter());
+		chooser.addObject("Cross Auto Line From Center", new DriveToAutoLineFromCenter());
+		chooser.addObject("Drive to Auto Line From Sides", new DriveToAutoLineFromSides());
 		SmartDashboard.putData("Auto mode", chooser);
 		
 		positionChooser.addDefault("Center", RobotStartingPosition.CENTER);
@@ -80,6 +83,7 @@ public class Robot extends IterativeRobot {
 		//driverCamera.setResolution(320, 180);
 		driverCamera.setFPS(30);
 		//driverCamera.getProperty("focus_auto").set(1);
+		
 	}
 	
 
@@ -114,6 +118,9 @@ public class Robot extends IterativeRobot {
 	public final static String checkFMS() {
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		if(gameData == null) {
+			return "";
+		}
 		return gameData;
 	}
 	
@@ -123,14 +130,19 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void autonomousInit() {
+		
+		// can put NULL in the FMS to test
+//		gameData = ("NULL".equalsIgnoreCase(gameData)) ? null : gameData;
 		autonomousCommand = chooser.getSelected();
+		
+		
 		
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
 			autonomousCommand.start();
-
+		System.out.println(autonomousCommand.getName());
 		checkFMS();
-		RobotMap.gyro.reset();
+//		RobotMap.gyro.reset();
 	}
 
 	/**

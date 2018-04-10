@@ -15,8 +15,7 @@ public class BlockOnSwitchFromCenter extends CommandGroup {
     	addSequential(new AutonomousStart());
     	addSequential(new DriveDistance((AutonomousConstants.AUTO_LINE - AutonomousConstants.ROBOT_LENGTH) 
     			+ AutonomousConstants.BLOCK_TO_CENTER_BUFFER));
-    	addSequential(new LiftHeight(AutonomousConstants.SWITCH_HEIGHT));
-    	addSequential(new RotateToAngle(90));
-    	addSequential(new FlippyCube(-1));
+    	addSequential(new RotateToAngle(90), 1.5);
+    	addSequential(new DropBlock(AutonomousConstants.SWITCH_HEIGHT, -1));
     }
 }

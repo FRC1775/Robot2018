@@ -11,7 +11,11 @@ import edu.wpi.first.wpilibj.command.ConditionalCommand;
 public class DetermineAuto extends ConditionalCommand {
 	private BooleanSupplier supplier;
 	
+<<<<<<< HEAD
+    public DetermineAuto() {
+=======
     /*public DetermineAuto() {
+>>>>>>> 4d0cfa3f3296f6dbda19fb6a12938d353ced99e3
     	this(
     		DetermineAuto::ifBothSwitchAndScaleOnOurSide,
     		new ChooseByRobotPosition(
@@ -27,13 +31,21 @@ public class DetermineAuto extends ConditionalCommand {
 					new DriveToAutoLineFromSides(),
 					new DriveToAutoLineFromCenter()
 				)
+<<<<<<< HEAD
+			/*	comment starts here new DetermineAuto(
+=======
 				new DetermineAuto(
+>>>>>>> 4d0cfa3f3296f6dbda19fb6a12938d353ced99e3
 					DetermineAuto::ifScaleOnlyOnOurSide,
 					new ChooseByRobotPosition(
 						new JustScaleAutonomous(AutonomousConstants.LEFT),
 						new JustScaleAutonomous(AutonomousConstants.RIGHT)),
 					new DriveToAutoLineFromSides()
+<<<<<<< HEAD
+				) comment ends here */
+=======
 				) comment ends here 
+>>>>>>> 4d0cfa3f3296f6dbda19fb6a12938d353ced99e3
 			)
 		);
     } 
