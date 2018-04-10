@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.ConditionalCommand;
 public class DetermineAuto extends ConditionalCommand {
 	private BooleanSupplier supplier;
 	
-   /* public DetermineAuto() {
+    public DetermineAuto() {
     	this(
     		DetermineAuto::ifBothSwitchAndScaleOnOurSide,
     		new ChooseByRobotPosition(
@@ -27,20 +27,20 @@ public class DetermineAuto extends ConditionalCommand {
 					new DriveToAutoLineFromSides(),
 					new DriveToAutoLineFromCenter()
 				)
-				comment starts here new DetermineAuto(
+				/*comment starts here new DetermineAuto(
 					DetermineAuto::ifScaleOnlyOnOurSide,
 					new ChooseByRobotPosition(
 						new JustScaleAutonomous(AutonomousConstants.LEFT),
 						new JustScaleAutonomous(AutonomousConstants.RIGHT)),
 					new DriveToAutoLineFromSides()
-				) comment ends here
+				) comment ends here */
 			)
 		);
-    } */
+    } 
     
 	// this will hopefully drive the robot to the scale and then lift the lift to scale height
 	// if the scale is on our side. otherwise, it will just drive to the auto line
-    public DetermineAuto() {
+  /*  public DetermineAuto() {
     	this(
     		DetermineAuto::ifBothSwitchAndScaleOnOurSide,
     		new ChooseByRobotPosition(
@@ -66,7 +66,7 @@ public class DetermineAuto extends ConditionalCommand {
 			)
 		);
     }
-    
+    */
     public DetermineAuto(BooleanSupplier supplier, Command a, Command b)
     {
     	super(a, b);
