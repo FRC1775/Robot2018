@@ -16,9 +16,4 @@ public class IntakeRelease extends TimedCommand {
 	    	RobotMap.rightIntakeRelease.setAngle(0);
     	//}
     }
-
-    protected void end() {
-    	RobotMap.leftIntakeRelease.setAngle(180);
-    	RobotMap.rightIntakeRelease.setAngle(180);
-    }
 }

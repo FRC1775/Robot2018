@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+import org.usfirst.frc.team1775.robot.commands.CloseIntakeArms;
 import org.usfirst.frc.team1775.robot.commands.FlippyCube;
 import org.usfirst.frc.team1775.robot.commands.IntakeIn;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
@@ -114,10 +115,10 @@ public class OI {
 	}
 	
 	public static int getPOVDirection() {
-		if (driverJoystickConnected) {
-			return driverJoystick.getPOV(0);
-		}else if (operatorJoystickConnected) {
+		if (operatorJoystickConnected) {
 			return operatorJoystick.getPOV(0);
+		}else if (driverJoystickConnected) {
+			return driverJoystick.getPOV(0);
 		}
 		return 0;
 	}
@@ -177,10 +178,9 @@ public class OI {
 		configureIntakeInButton(operatorJoystick);
 		// this was set as a fallback command, but we need it to fall back to the driver joystick
 		configureIntakeOutButton(operatorJoystick);
-		configureIntakeOpenButton(operatorJoystick);
+//		configureIntakeOpenButton(operatorJoystick);
 		configureCubeFlipRightButton(operatorJoystick);
-		configureCubeFlipLeftButton(operatorJoystick);
-//		configureLiftToLowHeightButton(operatorJoystick);
+		configureCubeFlipLeftButton(operatorJoystick); 
 
 		operatorJoystickConfigured = true;
 	}
@@ -203,11 +203,14 @@ public class OI {
 		intakeOutButton.whileHeld(command);
 	}
 	
-	private static void configureIntakeOpenButton(Joystick joystick) {
-		JoystickButton intakeOpenButton = new JoystickButton(joystick, X_BUTTON);
-		intakeOpenButton.whileHeld(new OpenIntakeArms(true));
-		intakeOpenButton.whenReleased(new OpenIntakeArms(false));
-	}
+	
+	// to open the intake arms with the X button; the command OpenIntakeArms will have to be changed
+	
+//	private static void configureIntakeOpenButton(Joystick joystick) {
+//		JoystickButton intakeOpenButton = new JoystickButton(joystick, X_BUTTON);
+//		intakeOpenButton.whileHeld(new OpenIntakeArms(true));
+//		intakeOpenButton.whenReleased(new OpenIntakeArms(false));
+//	}
 	
 	private static void configureCubeFlipRightButton(Joystick joystick) {
 		JoystickButton cubeFlipRightButton = new JoystickButton(joystick, RIGHT_BUMPER);
@@ -218,9 +221,4 @@ public class OI {
 		JoystickButton cubeFlipLeftButton = new JoystickButton(joystick, LEFT_BUMPER);
 		cubeFlipLeftButton.whileHeld(new FlippyCube(-CUBE_FLIP_SPEED));
 	}
-	
-//	private static void configureLiftToLowHeightButton(Joystick joystick) {
-//		JoystickButton liftToLowHeightButton = new JoystickButton(joystick, START_BUTTON);
-//		liftToLowHeightButton.whenPressed(new LiftToHerdHeight(6));
-//	}
 }

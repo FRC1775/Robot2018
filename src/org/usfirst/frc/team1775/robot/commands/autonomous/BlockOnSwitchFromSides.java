@@ -16,6 +16,6 @@ public class BlockOnSwitchFromSides extends CommandGroup {
     	addSequential(new DriveDistance(AutonomousConstants.BACK_WALL_TO_SWITCH));
     	
     	// The switch has a height of 18.75 in
-    	addSequential(new DropBlock(AutonomousConstants.SWITCH_HEIGHT, direction));
+//    	addSequential(new DropBlock(AutonomousConstants.SWITCH_HEIGHT, direction));
     }
 }

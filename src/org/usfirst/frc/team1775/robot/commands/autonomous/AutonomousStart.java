@@ -19,6 +19,7 @@ public class AutonomousStart extends CommandGroup {
     	addSequential(new WaitCommand(0.5));
     	addSequential(new IntakeStop());
     	addSequential(new LiftOffLimitSwitch());
-    	addSequential(new LiftHeight(4));
+//    	addSequential(new LiftHeight(4));
+    	addSequential(new LiftHeight(4), 1);
     }
 }

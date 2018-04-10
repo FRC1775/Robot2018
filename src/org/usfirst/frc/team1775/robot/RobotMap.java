@@ -34,6 +34,7 @@ public class RobotMap {
 	public static AHRS gyro;
 	public static Compressor compressor;
 	public static Solenoid intakeOpen;
+	public static Solenoid intakeClose;
 	public static Servo leftIntakeRelease;
 	public static Servo rightIntakeRelease;
 	public static Solenoid liftBrake;
@@ -63,6 +64,7 @@ public class RobotMap {
 		
 		compressor = new Compressor();
 		intakeOpen = new Solenoid(0);
+		intakeClose = new Solenoid(1);
 		
 		leftIntakeRelease = new Servo(8);
 		rightIntakeRelease = new Servo(9);
@@ -71,10 +73,10 @@ public class RobotMap {
 	    rightDriveMotorController = new Talon(1);
 	    // left intake
 	    intakeMotorController1 = new Talon(3);
-	    intakeMotorController1.setInverted(false);
+	    intakeMotorController1.setInverted(true);
 	    // right intake
 	    intakeMotorController2 = new Talon(4);
-	    intakeMotorController2.setInverted(false);
+	    intakeMotorController2.setInverted(true);
 	    liftMotorController1 = new Talon(2);
 	    liftMotorController1.setInverted(false);
 	    liftBottomLimitSwitch = new DigitalInput(0);

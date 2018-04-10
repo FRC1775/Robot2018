@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.ConditionalCommand;
 public class DetermineAuto extends ConditionalCommand {
 	private BooleanSupplier supplier;
 	
-   /* public DetermineAuto() {
+    /*public DetermineAuto() {
     	this(
     		DetermineAuto::ifBothSwitchAndScaleOnOurSide,
     		new ChooseByRobotPosition(
@@ -27,13 +27,13 @@ public class DetermineAuto extends ConditionalCommand {
 					new DriveToAutoLineFromSides(),
 					new DriveToAutoLineFromCenter()
 				)
-				comment starts here new DetermineAuto(
+				new DetermineAuto(
 					DetermineAuto::ifScaleOnlyOnOurSide,
 					new ChooseByRobotPosition(
 						new JustScaleAutonomous(AutonomousConstants.LEFT),
 						new JustScaleAutonomous(AutonomousConstants.RIGHT)),
 					new DriveToAutoLineFromSides()
-				) comment ends here
+				) comment ends here 
 			)
 		);
     } */
@@ -80,8 +80,8 @@ public class DetermineAuto extends ConditionalCommand {
     }
     
     private static boolean ifBothSwitchAndScaleOnOurSide() {
-    	return (isSwitchLeft() && Robot.checkFMS().charAt(1) == 'L' && Robot.getRobotStartingPosition() == RobotStartingPosition.LEFT) ||
-				(isSwitchRight() && Robot.checkFMS().charAt(1) == 'R' && Robot.getRobotStartingPosition() == RobotStartingPosition.RIGHT);
+    	return (isSwitchLeft() && isScaleLeft() && Robot.getRobotStartingPosition() == RobotStartingPosition.LEFT) ||
+				(isSwitchRight() && isScaleRight() && Robot.getRobotStartingPosition() == RobotStartingPosition.RIGHT);
     }
     
     private static boolean ifSwitchOnlyOnOurSide() {
