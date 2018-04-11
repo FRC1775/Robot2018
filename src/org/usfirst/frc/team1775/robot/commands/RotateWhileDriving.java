@@ -6,16 +6,16 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
-public class RotateWhileDriving extends InstantCommand {
+public class RotateWhileDriving extends WaitCommand {
 	
 	double angle;
 	
-	public RotateWhileDriving(double angle) {
-		requires(Robot.motorSubsystem);
+	public RotateWhileDriving(double wait, double angle) {
+		super(wait);
 		this.angle = angle;
 	}
 	
-	public void execute() {
+	public void end() {
 		Robot.motorSubsystem.setRotateAngleForAuto(angle);
 	}
 }

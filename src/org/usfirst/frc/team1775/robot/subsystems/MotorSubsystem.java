@@ -44,9 +44,7 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		driveToDistancePidController = new PIDController(0.175, 0, 1.1, this,
 				(value) -> {
 					if(driveToDistancePidController.isEnabled()) {
-						RobotMap.drive.arcadeDrive(value, -straightDriveRotateCompensationValue);
-						System.out.println("Straight Drive Compensation: " + straightDriveRotateCompensationValue);
-						System.out.println("Angle: " + RobotMap.gyro.getAngle());
+						RobotMap.drive.arcadeDrive(value, straightDriveRotateCompensationValue);
 					}
 				}, 0.02);
 		driveToDistancePidController.setInputRange(-AutonomousConstants.BACK_WALL_TO_SCALE, AutonomousConstants.BACK_WALL_TO_SCALE);
@@ -65,7 +63,7 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		rotateToAnglePidController.setAbsoluteTolerance(2);
 		rotateToAnglePidController.setContinuous();
 		
-		straightDrivePidController = new PIDController(-0.2, 0.0, 0.0, (PIDSource) RobotMap.gyro, (value) -> {
+		straightDrivePidController = new PIDController(0.2, 0.0, 0.0, (PIDSource) RobotMap.gyro, (value) -> {
 			straightDriveRotateCompensationValue = value;
 		}, 0.01);
 		straightDrivePidController.setOutputRange(-0.5, 0.5);
@@ -122,7 +120,7 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 				RobotMap.gyro.reset();
 				shouldSetPoint = false;
 			}
-			return -straightDriveRotateCompensationValue;
+			return straightDriveRotateCompensationValue;
 		} else {
 			shouldSetPoint = true;
 			return rotateValue;
