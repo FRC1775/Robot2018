@@ -45,6 +45,8 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 				(value) -> {
 					if(driveToDistancePidController.isEnabled()) {
 						RobotMap.drive.arcadeDrive(value, -straightDriveRotateCompensationValue);
+						System.out.println("Straight Drive Compensation: " + straightDriveRotateCompensationValue);
+						System.out.println("Angle: " + RobotMap.gyro.getAngle());
 					}
 				}, 0.02);
 		driveToDistancePidController.setInputRange(-AutonomousConstants.BACK_WALL_TO_SCALE, AutonomousConstants.BACK_WALL_TO_SCALE);
@@ -223,6 +225,10 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	public double pidGet() {
 		// This is for the drive train encoders
 		return getDistance();
+	}
+	
+	public void setRotateAngleForAuto(double angle) {
+		straightDrivePidController.setSetpoint(angle);
 	}
 	
 	private double getDistance() {

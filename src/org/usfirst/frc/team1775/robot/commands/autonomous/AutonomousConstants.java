@@ -13,8 +13,10 @@ public final class AutonomousConstants{
 	public static final int SWITCH_HEIGHT = 40;
 	
 	public static final int FOOT = 12;
-	public static final int BACK_WALL_TO_SCALE = 304;
+	public static final int BACK_WALL_TO_SCALE = 300;
 	public static final int BACK_WALL_TO_SWITCH = 150;
+	public static final int LENGTH_OF_SCALE = 180;
+
 	public static final int AUTO_LINE = 120;
 	public static final int BACK_WALL_TO_FAR_SIDE_SWITCH = 196;
 	// SWITCH_BUFFER is for picking up a block from the back side of the switch

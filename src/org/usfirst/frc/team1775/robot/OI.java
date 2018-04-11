@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team1775.robot.commands.CloseIntakeArms;
+import org.usfirst.frc.team1775.robot.commands.DriveAndTurn;
 import org.usfirst.frc.team1775.robot.commands.FlippyCube;
 import org.usfirst.frc.team1775.robot.commands.IntakeIn;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
@@ -165,6 +166,7 @@ public class OI {
 		configureIntakeOutButton(driverJoystick, true);
 		configureCubeFlipRightButton(driverJoystick);
 		configureCubeFlipLeftButton(driverJoystick);
+		configureDriveAndTurnTestButton(driverJoystick);
 		
 		driverJoystickConfigured = true;
 	}
@@ -220,5 +222,10 @@ public class OI {
 	private static void configureCubeFlipLeftButton(Joystick joystick) {
 		JoystickButton cubeFlipLeftButton = new JoystickButton(joystick, LEFT_BUMPER);
 		cubeFlipLeftButton.whileHeld(new FlippyCube(-CUBE_FLIP_SPEED));
+	}
+	
+	private static void configureDriveAndTurnTestButton(Joystick joystick) {
+		JoystickButton driveAndTurnTestButton = new JoystickButton(joystick, START_BUTTON);
+		driveAndTurnTestButton.whenPressed(new DriveAndTurn());
 	}
 }

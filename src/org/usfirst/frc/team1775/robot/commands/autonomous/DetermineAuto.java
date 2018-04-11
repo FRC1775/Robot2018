@@ -36,11 +36,11 @@ public class DetermineAuto extends ConditionalCommand {
 				) comment ends here 
 			)
 		);
-    } 
+    } */
     
 	// this will hopefully drive the robot to the scale and then lift the lift to scale height
 	// if the scale is on our side. otherwise, it will just drive to the auto line
-   /* public DetermineAuto() {
+    public DetermineAuto() {
     	this(
     		DetermineAuto::ifBothSwitchAndScaleOnOurSide,
     		new ChooseByRobotPosition(
@@ -51,11 +51,6 @@ public class DetermineAuto extends ConditionalCommand {
 				new ChooseByRobotPosition(
 					new JustSwitchAutonomous(AutonomousConstants.RIGHT),
 					new JustSwitchAutonomous(AutonomousConstants.LEFT)),
-//				new DetermineAuto(
-//					DetermineAuto::ifNotInCenter,
-//					new DriveToAutoLineFromSides(),
-//					new DriveToAutoLineFromCenter()
-//				)
 				new DetermineAuto(
 					DetermineAuto::ifScaleOnlyOnOurSide,
 					new ChooseByRobotPosition(
@@ -66,7 +61,7 @@ public class DetermineAuto extends ConditionalCommand {
 			)
 		);
     }
-    */
+    
     public DetermineAuto(BooleanSupplier supplier, Command a, Command b)
     {
     	super(a, b);
