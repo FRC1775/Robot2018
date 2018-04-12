@@ -76,11 +76,6 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		setDefaultCommand(new Drive());
 	}
 	
-	public void switchRotate() {
-		canRotateInPlace = !canRotateInPlace;
-		System.out.println("switching the can rotate in place value");
-	}
-	
 	public void drive(double moveValue, double rotateValue) {
 		rotateToAnglePidController.disable();
 		driveToDistancePidController.disable();

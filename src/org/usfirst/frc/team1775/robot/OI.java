@@ -5,12 +5,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team1775.robot.commands.CloseIntakeArms;
-import org.usfirst.frc.team1775.robot.commands.DriveAndTurn;
 import org.usfirst.frc.team1775.robot.commands.FlippyCube;
 import org.usfirst.frc.team1775.robot.commands.IntakeIn;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
 import org.usfirst.frc.team1775.robot.commands.LiftToHerdHeight;
 import org.usfirst.frc.team1775.robot.commands.OpenIntakeArms;
+import org.usfirst.frc.team1775.robot.commands.autonomous.DriveAndTurn;
 
 /**
  * This class is the glue that binds the controls on the physical operator

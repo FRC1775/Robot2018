@@ -1,4 +1,7 @@
-package org.usfirst.frc.team1775.robot.commands;
+package org.usfirst.frc.team1775.robot.commands.autonomous;
+
+import org.usfirst.frc.team1775.robot.commands.DriveDistance;
+import org.usfirst.frc.team1775.robot.commands.RotateWhileDriving;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
