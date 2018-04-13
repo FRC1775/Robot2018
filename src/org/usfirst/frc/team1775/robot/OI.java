@@ -10,6 +10,7 @@ import org.usfirst.frc.team1775.robot.commands.IntakeIn;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
 import org.usfirst.frc.team1775.robot.commands.LiftToHerdHeight;
 import org.usfirst.frc.team1775.robot.commands.OpenIntakeArms;
+import org.usfirst.frc.team1775.robot.commands.autonomous.BlockOnLeftSwitchFromCenter;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveAndTurn;
 
 /**
@@ -226,6 +227,6 @@ public class OI {
 	
 	private static void configureDriveAndTurnTestButton(Joystick joystick) {
 		JoystickButton driveAndTurnTestButton = new JoystickButton(joystick, START_BUTTON);
-		driveAndTurnTestButton.whenPressed(new DriveAndTurn());
+		driveAndTurnTestButton.whenPressed(new BlockOnLeftSwitchFromCenter());
 	}
 }

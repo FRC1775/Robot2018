@@ -13,8 +13,8 @@ public final class AutonomousConstants{
 	public static final int SWITCH_HEIGHT = 40;
 	
 	public static final int FOOT = 12;
-	public static final int BACK_WALL_TO_SCALE = 300;
-	public static final int BACK_WALL_TO_SWITCH = 150;
+	public static final int BACK_WALL_TO_SCALE = 294;
+	public static final int BACK_WALL_TO_SWITCH = 146;
 	public static final int LENGTH_OF_SCALE = 180;
 
 	public static final int AUTO_LINE = 120;
@@ -29,4 +29,7 @@ public final class AutonomousConstants{
 	
 	public static final double AUTO_START_INTAKE_SPEED = 0.7;
 	public static final double INTAKE_SPEED = 0.9;
+	
+	public static final double ANGLE_ROTATE_TO = 8.8;
+	// 10.2
 }

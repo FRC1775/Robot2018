@@ -165,7 +165,7 @@ public class Robot extends IterativeRobot {
 		
 		OI.checkJoysticks();
 		RobotMap.driveEncoderLeft.reset();
-		RobotMap.driveEncoderLeft.reset();
+		RobotMap.driveEncoderRight.reset();
 		RobotMap.gyro.reset();
 		RobotMap.gyro.zeroYaw();
 		

@@ -1,18 +1,14 @@
 package org.usfirst.frc.team1775.robot.commands.autonomous;
 
 import org.usfirst.frc.team1775.robot.commands.DriveDistance;
-import org.usfirst.frc.team1775.robot.commands.RotateWhileDriving;
-
+import org.usfirst.frc.team1775.robot.commands.RotateWhileDrivingDistance;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class DriveAndTurn extends CommandGroup {
-
-	public DriveAndTurn() {
-		addParallel(new RotateWhileDriving(0.5, 8.8));
-		addSequential(new DriveDistance(140));
-		addSequential(new RotateWhileDriving(0, 0)); // Return the straight drive setpoint to 0
-	}
 	
+	public DriveAndTurn(double direction) {
+		addParallel(new RotateWhileDrivingDistance(10, -direction * AutonomousConstants.ANGLE_ROTATE_TO, false));
+		addSequential(new DriveDistance(AutonomousConstants.BACK_WALL_TO_SWITCH));
+		addSequential(new RotateWhileDrivingDistance(0, 0, false)); // Return the straight drive setpoint to 0
+	}
 }
-
-//8.8 degrees after 10 inches 
