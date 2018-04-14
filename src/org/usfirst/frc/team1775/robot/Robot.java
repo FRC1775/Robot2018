@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team1775.robot.commands.autonomous.BlockOnLeftSwitchFromCenter;
+import org.usfirst.frc.team1775.robot.commands.autonomous.BlockOnSwitchFromCenterCurve;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAuto;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAutoCenter;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
@@ -64,10 +66,10 @@ public class Robot extends IterativeRobot {
 	}
 	
 	private void initDashboard() {
-		chooser.addDefault("Cross AUto line", new DriveToAutoLineFromCenter());
+		chooser.addDefault("Cross Auto line", new DriveToAutoLineFromCenter());
 		chooser.addObject("Pick Best Way to Go from a Side", new DetermineAuto());
-		chooser.addObject("Pick Best Way from Center", new DetermineAutoCenter());
-		chooser.addObject("Cross Auto Line From Center", new DriveToAutoLineFromCenter());
+		chooser.addObject("Put a Block on the Switch From Center", new BlockOnLeftSwitchFromCenter());
+		chooser.addObject("Cross Auto Line From Center (Drive Straight Forward)", new DriveToAutoLineFromCenter());
 		chooser.addObject("Drive to Auto Line From Sides", new DriveToAutoLineFromSides());
 		SmartDashboard.putData("Auto mode", chooser);
 		

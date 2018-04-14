@@ -167,7 +167,7 @@ public class OI {
 		configureIntakeOutButton(driverJoystick, true);
 		configureCubeFlipRightButton(driverJoystick);
 		configureCubeFlipLeftButton(driverJoystick);
-		configureDriveAndTurnTestButton(driverJoystick);
+//		configureDriveAndTurnTestButton(driverJoystick);
 		
 		driverJoystickConfigured = true;
 	}
@@ -225,8 +225,8 @@ public class OI {
 		cubeFlipLeftButton.whileHeld(new FlippyCube(-CUBE_FLIP_SPEED));
 	}
 	
-	private static void configureDriveAndTurnTestButton(Joystick joystick) {
+	/*private static void configureDriveAndTurnTestButton(Joystick joystick) {
 		JoystickButton driveAndTurnTestButton = new JoystickButton(joystick, START_BUTTON);
 		driveAndTurnTestButton.whenPressed(new BlockOnLeftSwitchFromCenter());
-	}
+	}*/
 }

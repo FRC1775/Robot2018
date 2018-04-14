@@ -21,10 +21,8 @@ public class RotateWhileDrivingDistance extends Command {
 	protected void initialize() {
 		// TODO Auto-generated method stub
 		super.initialize();
-		if(reduceSpeed) {
-			Robot.motorSubsystem.setMaxSpeed();
-		}
 		initDistance = Robot.motorSubsystem.getDistance();
+		Robot.motorSubsystem.reduceMotorSpeed(reduceSpeed);
 	}
 	
 	@Override
@@ -36,5 +34,3 @@ public class RotateWhileDrivingDistance extends Command {
 		Robot.motorSubsystem.setRotateAngleForAuto(angle);
 	}
 }
-
-// 8.8 degrees after 10 inches

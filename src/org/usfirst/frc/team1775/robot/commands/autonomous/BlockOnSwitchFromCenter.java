@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class BlockOnSwitchFromCenter extends CommandGroup {
 
+	// For this command, we line the robot up so that it could drive straight forward to the switch 
+	// without hitting the pyramid of cubes
     public BlockOnSwitchFromCenter() {
     	addSequential(new AutonomousStart());
     	addSequential(new DriveDistance((AutonomousConstants.AUTO_LINE - AutonomousConstants.ROBOT_LENGTH) 

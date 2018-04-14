@@ -21,5 +21,3 @@ public class RotateWhileDrivingTimed extends WaitCommand {
 		Robot.motorSubsystem.setRotateAngleForAuto(angle);
 	}
 }
-
-// 8.8 degrees after 10 inches

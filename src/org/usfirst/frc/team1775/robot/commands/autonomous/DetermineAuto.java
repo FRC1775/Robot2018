@@ -49,8 +49,10 @@ public class DetermineAuto extends ConditionalCommand {
     		new DetermineAuto(
 				DetermineAuto::ifSwitchOnlyOnOurSide,
 				new ChooseByRobotPosition(
-					new JustSwitchAutonomous(AutonomousConstants.RIGHT),
-					new JustSwitchAutonomous(AutonomousConstants.LEFT)),
+//					new JustSwitchAutonomous(AutonomousConstants.RIGHT),
+//					new JustSwitchAutonomous(AutonomousConstants.LEFT)),
+					new DriveAndTurn(AutonomousConstants.RIGHT),
+					new DriveAndTurn(AutonomousConstants.LEFT)),
 				new DetermineAuto(
 					DetermineAuto::ifScaleOnlyOnOurSide,
 					new ChooseByRobotPosition(
