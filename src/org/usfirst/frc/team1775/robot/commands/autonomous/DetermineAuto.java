@@ -49,8 +49,6 @@ public class DetermineAuto extends ConditionalCommand {
     		new DetermineAuto(
 				DetermineAuto::ifSwitchOnlyOnOurSide,
 				new ChooseByRobotPosition(
-//					new JustSwitchAutonomous(AutonomousConstants.RIGHT),
-//					new JustSwitchAutonomous(AutonomousConstants.LEFT)),
 					new DriveAndTurn(AutonomousConstants.RIGHT),
 					new DriveAndTurn(AutonomousConstants.LEFT)),
 				new DetermineAuto(
@@ -58,7 +56,10 @@ public class DetermineAuto extends ConditionalCommand {
 					new ChooseByRobotPosition(
 						new JustScaleAutonomous(AutonomousConstants.RIGHT),
 						new JustScaleAutonomous(AutonomousConstants.LEFT)),
-					new DriveToAutoLineFromSides()
+					new ChooseByRobotPosition(
+						new BlockOnScaleFromSidesIfScaleIsOnOtherSide(AutonomousConstants.RIGHT),
+						new BlockOnScaleFromSidesIfScaleIsOnOtherSide(AutonomousConstants.LEFT)
+					)
 				)
 			)
 		);

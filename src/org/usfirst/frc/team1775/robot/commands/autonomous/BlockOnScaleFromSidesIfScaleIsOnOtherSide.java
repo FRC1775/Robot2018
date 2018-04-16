@@ -12,10 +12,10 @@ public class BlockOnScaleFromSidesIfScaleIsOnOtherSide extends CommandGroup {
     	
     	// Left or right starting position, with outside edge of robot
     	// aligned with the slanted corner
-    	addSequential(new DriveDistance(AutonomousConstants.BACK_WALL_TO_SCALE - AutonomousConstants.ROBOT_LENGTH));
-    	addSequential(new RotateToAngle(direction*90));
-    	addSequential(new DriveDistance(AutonomousConstants.LENGTH_OF_SCALE));
-    	addSequential(new DropBlock(AutonomousConstants.SCALE_HEIGHT, -direction));
+    	addSequential(new DriveDistance(AutonomousConstants.BACK_WALL_TO_SCALE - (AutonomousConstants.ROBOT_LENGTH + 6)));
+    	addSequential(new RotateToAngle(-direction*90));
+    	addSequential(new DriveDistance(AutonomousConstants.LENGTH_OF_SCALE - AutonomousConstants.ROBOT_LENGTH));
+    	addSequential(new DropBlock(AutonomousConstants.SCALE_HEIGHT, direction));
 
     }
 }
