@@ -2,77 +2,49 @@ package org.usfirst.frc.team1775.robot.commands.autonomous;
 
 import java.util.function.BooleanSupplier;
 
-import org.usfirst.frc.team1775.robot.PrioritizeSwitchScale;
 import org.usfirst.frc.team1775.robot.Robot;
 import org.usfirst.frc.team1775.robot.RobotStartingPosition;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.ConditionalCommand;
 
-public class DetermineAuto extends ConditionalCommand {
+public class DetermineAutoOppositeSwitch extends ConditionalCommand {
 	private BooleanSupplier supplier;
     
 	// this will hopefully drive the robot to the scale and then lift the lift to scale height
 	// if the scale is on our side. otherwise, it will just drive to the auto line
-//    public DetermineAuto() {
-//    	this(
-//    		DetermineAuto::ifBothSwitchAndScaleOnOurSide,
-//    		new ChooseByRobotPosition(
-//				new IdealAutonomous(AutonomousConstants.RIGHT),
-//				new IdealAutonomous(AutonomousConstants.LEFT)),
-//    		new DetermineAuto(
-//				DetermineAuto::ifSwitchOnlyOnOurSide,
-//				new ChooseByRobotPosition(
-//					new DriveAndTurn(AutonomousConstants.RIGHT),
-//					new DriveAndTurn(AutonomousConstants.LEFT)),
-//				new DetermineAuto(
-//					DetermineAuto::ifScaleOnlyOnOurSide,
-//					new ChooseByRobotPosition(
-//						new JustScaleAutonomous(AutonomousConstants.RIGHT),
-//						new JustScaleAutonomous(AutonomousConstants.LEFT)),
-//					new DriveToAutoLineFromSides()
-//				)
-//			)
-//		);
-//    }
-	
-	 public DetermineAuto() {
-	    	this(
-	    		DetermineAuto::ifBothSwitchAndScaleOnOurSide,
-	    		new DetermineAuto(
-	    				DetermineAuto::ifPrioritizeSwitch,
-	    			new ChooseByRobotPosition(
-	    				new BlockOnSwitchFromSides(AutonomousConstants.RIGHT),
-	    				new BlockOnSwitchFromSides(AutonomousConstants.LEFT)
-	    				),
-	    			new ChooseByRobotPosition(
-	    				new BlockOnScaleFromSides(AutonomousConstants.RIGHT),
-	    				new BlockOnScaleFromSides(AutonomousConstants.LEFT)
-	    				)	    		
-					),
-	    		new DetermineAuto(
-					DetermineAuto::ifSwitchOnlyOnOurSide,
+    public DetermineAutoOppositeSwitch() {
+    	this(
+    		DetermineAutoOppositeSwitch::ifBothSwitchAndScaleOnOurSide,
+    		new ChooseByRobotPosition(
+				new IdealAutonomous(AutonomousConstants.RIGHT),
+				new IdealAutonomous(AutonomousConstants.LEFT)),
+    		new DetermineAutoOppositeSwitch(
+				DetermineAutoOppositeSwitch::ifSwitchOnlyOnOurSide,
+				new ChooseByRobotPosition(
+					new DriveAndTurn(AutonomousConstants.RIGHT),
+					new DriveAndTurn(AutonomousConstants.LEFT)),
+				new DetermineAutoOppositeSwitch(
+					DetermineAutoOppositeSwitch::ifScaleOnlyOnOurSide,
 					new ChooseByRobotPosition(
-						new DriveAndTurn(AutonomousConstants.RIGHT),
-						new DriveAndTurn(AutonomousConstants.LEFT)),
-					new DetermineAuto(
-						DetermineAuto::ifScaleOnlyOnOurSide,
-						new ChooseByRobotPosition(
-							new JustScaleAutonomous(AutonomousConstants.RIGHT),
-							new JustScaleAutonomous(AutonomousConstants.LEFT)),
-						new DriveToAutoLineFromSides()
+						new JustScaleAutonomous(AutonomousConstants.RIGHT),
+						new JustScaleAutonomous(AutonomousConstants.LEFT)),
+					new ChooseByRobotPosition(
+						new BlockOnScaleFromSidesIfScaleIsOnOtherSide(AutonomousConstants.RIGHT),
+						new BlockOnScaleFromSidesIfScaleIsOnOtherSide(AutonomousConstants.LEFT)
 					)
 				)
-			);
-	    }
+			)
+		);
+    }
     
-    public DetermineAuto(BooleanSupplier supplier, Command a, Command b)
+    public DetermineAutoOppositeSwitch(BooleanSupplier supplier, Command a, Command b)
     {
     	super(a, b);
     	this.supplier = supplier;
     }
     
-    public DetermineAuto(BooleanSupplier supplier, Command a)
+    public DetermineAutoOppositeSwitch(BooleanSupplier supplier, Command a)
     {
     	super(a);
     	this.supplier = supplier;
@@ -95,10 +67,6 @@ public class DetermineAuto extends ConditionalCommand {
     private static boolean ifScaleOnlyOnOurSide() {
     	return (isScaleLeft() && Robot.getRobotStartingPosition() == RobotStartingPosition.LEFT) ||
 				(isScaleRight() && Robot.getRobotStartingPosition() == RobotStartingPosition.RIGHT);
-    }
-    
-    private static boolean ifPrioritizeSwitch() {
-    	return (Robot.getPriority() == PrioritizeSwitchScale.SWITCH);
     }
     
     private static boolean isSwitchLeft()

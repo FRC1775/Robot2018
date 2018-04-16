@@ -16,6 +16,7 @@ import org.usfirst.frc.team1775.robot.commands.autonomous.BlockOnLeftSwitchFromC
 import org.usfirst.frc.team1775.robot.commands.autonomous.BlockOnSwitchFromCenterCurve;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAuto;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAutoCenter;
+import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAutoOppositeSwitch;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromSides;
@@ -45,6 +46,7 @@ public class Robot extends IterativeRobot {
     Command autonomousCommand;
 	private static SendableChooser<Command> chooser = new SendableChooser<>();
 	private static SendableChooser<RobotStartingPosition> positionChooser = new SendableChooser<>();
+	private static SendableChooser<PrioritizeSwitchScale> priorityChooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -68,6 +70,7 @@ public class Robot extends IterativeRobot {
 	private void initDashboard() {
 		chooser.addDefault("Cross Auto line", new DriveToAutoLineFromCenter());
 		chooser.addObject("Pick Best Way to Go from a Side", new DetermineAuto());
+		chooser.addObject("Pick Best Way from a Side with Opposite Scale Potential", new DetermineAutoOppositeSwitch());
 		chooser.addObject("Put a Block on the Switch From Center", new BlockOnLeftSwitchFromCenter());
 		chooser.addObject("Cross Auto Line From Center (Drive Straight Forward)", new DriveToAutoLineFromCenter());
 		chooser.addObject("Drive to Auto Line From Sides", new DriveToAutoLineFromSides());
@@ -77,6 +80,10 @@ public class Robot extends IterativeRobot {
 		positionChooser.addDefault("Left", RobotStartingPosition.LEFT);
 		positionChooser.addDefault("Right", RobotStartingPosition.RIGHT);
 		SmartDashboard.putData("Robot starting position", positionChooser);
+		
+		priorityChooser.addDefault("Switch", PrioritizeSwitchScale.SWITCH);
+		priorityChooser.addDefault("Scale", PrioritizeSwitchScale.SCALE);
+		SmartDashboard.putData("Prioritize", priorityChooser);
 	}
 	
 	
@@ -129,6 +136,11 @@ public class Robot extends IterativeRobot {
 	public static RobotStartingPosition getRobotStartingPosition() {
 		return positionChooser.getSelected();
 	}
+	
+	public static PrioritizeSwitchScale getPriority() {
+		return priorityChooser.getSelected();
+	}
+	
 	
 	@Override
 	public void autonomousInit() {

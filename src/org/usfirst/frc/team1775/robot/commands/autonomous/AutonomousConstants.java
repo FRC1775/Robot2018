@@ -36,5 +36,6 @@ public final class AutonomousConstants{
 	public static final double CENTER_SWITCH_SECOND_LEG_LEFT = 110;
 	public static final double CENTER_SWITCH_SECOND_LEG_RIGHT = 113;
 	public static final double CENTER_SWITCH_TOTAL_DISTANCE = 128;
-	
+	public static final double SWITCH_TO_SCALE_MINUS_A_FOOT = 84;
+
 }
