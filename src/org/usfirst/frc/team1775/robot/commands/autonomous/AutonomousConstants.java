@@ -30,7 +30,7 @@ public final class AutonomousConstants{
 	public static final double AUTO_START_INTAKE_SPEED = 0.7;
 	public static final double INTAKE_SPEED = 0.9;
 	
-	public static final double ANGLE_ROTATE_TO_SWITCH = 8.8;
+	public static final double ANGLE_ROTATE_TO_SWITCH = 7.1;
 	public static final double CENTER_SWITCH_FIRST_LEG = 14;
 	// 116 for right side
 	public static final double CENTER_SWITCH_SECOND_LEG_LEFT = 110;

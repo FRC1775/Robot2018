@@ -9,3 +9,4 @@ public class JustScaleAutonomous extends CommandGroup {
 		addSequential(new BlockOnScaleFromSides(direction));
     }
 }
+

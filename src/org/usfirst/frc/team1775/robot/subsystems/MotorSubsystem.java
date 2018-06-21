@@ -80,6 +80,7 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 	}
 	
 	public void drive(double moveValue, double rotateValue) {
+//		System.out.println(straightDrivePidController.getSetpoint());
 		rotateToAnglePidController.disable();
 		driveToDistancePidController.disable();
 		double realRotateValue = rotateValue;

@@ -11,16 +11,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LiftSubsystem extends Subsystem {
 //	practice bot values
-	public static final double UP_MIN_SPEED = 0.6;
-	public static final double DOWN_MIN_SPEED = 0.15;
-	public static final double DOWN_MAX_SPEED = 0.5;
-	public static final double UP_MAX_SPEED = 0.8;
+//	public static final double UP_MIN_SPEED = 0.6;
+//	public static final double DOWN_MIN_SPEED = 0.15;
+//	public static final double DOWN_MAX_SPEED = 0.5;
+//	public static final double UP_MAX_SPEED = 0.8;
 	
 //	competition bot values
-//	public static final double UP_MIN_SPEED = 0.55;
-//	public static final double DOWN_MIN_SPEED = 0.25;
-//	public static final double DOWN_MAX_SPEED = 0.4;
-//	public static final double UP_MAX_SPEED = 0.75;
+	public static final double UP_MIN_SPEED = 0.55;
+	public static final double DOWN_MIN_SPEED = 0.25;
+	//public static final double DOWN_MAX_SPEED = 0.4;
+	//public static final double UP_MAX_SPEED = 0.75;
+	public static final double DOWN_MAX_SPEED = 0.5;
+	public static final double UP_MAX_SPEED = 0.8;
 	
 	private static final double MIN_HEIGHT_START_RAMP = 30.0;
 	private static final double MAX_HEIGHT_START_RAMP = 70.0;

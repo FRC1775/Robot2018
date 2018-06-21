@@ -14,8 +14,8 @@ public class DetermineAutoCenter extends ConditionalCommand {
     public DetermineAutoCenter() {
     	this(
 			DetermineAutoCenter::ifSwitchOnRightSide,
-			new BlockOnSwitchFromCenter(),
-    		new DriveToAutoLineFromCenter()
+			new BlockOnRightSwitchFromCenter(),
+    		new BlockOnLeftSwitchFromCenter()
 		);
     }
     
