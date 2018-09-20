@@ -17,7 +17,6 @@ import org.usfirst.frc.team1775.robot.commands.autonomous.BlockOnLeftSwitchFromC
 import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAuto;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAutoCenter;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAutoOppositeSwitch;
-import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAutoScaleOnly;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromSides;
@@ -75,7 +74,6 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Put a Block on the Switch From Center", new DetermineAutoCenter());
 		chooser.addObject("Cross Auto Line From Center", new DriveToAutoLineFromCenter());
 		chooser.addObject("Cross Auto Line From Sides", new DriveToAutoLineFromSides());
-		chooser.addObject("Go to Scale if it's on our side (special for SCREAM :))", new DetermineAutoScaleOnly());
 		chooser.addObject("Do Nothing", new AutonomousStart());
 		SmartDashboard.putData("Auto mode", chooser);
 		
