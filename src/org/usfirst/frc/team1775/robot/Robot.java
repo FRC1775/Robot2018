@@ -74,6 +74,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Put a Block on the Switch From Center", new BlockOnLeftSwitchFromCenter());
 		chooser.addObject("Cross Auto Line From Center (Drive Straight Forward)", new DriveToAutoLineFromCenter());
 		chooser.addObject("Drive to Auto Line From Sides", new DriveToAutoLineFromSides());
+		chooser.addObject("Forward 180", new ForwardOneEighty());
 		SmartDashboard.putData("Auto mode", chooser);
 		
 		positionChooser.addDefault("Center", RobotStartingPosition.CENTER);
