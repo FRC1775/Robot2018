@@ -33,7 +33,7 @@ public class LiftSubsystem extends Subsystem {
 	
 	private static final double START_RAMP_TIME_MS = 500.0;
 	
-	private static final double MIN_HEIGHT = 1.5;
+	private static final double MIN_HEIGHT = 1;
 	private static final int MIN_HEIGHT_FOR_CUBE_FLIP = 16;
 
 	private double startTime = System.currentTimeMillis();
