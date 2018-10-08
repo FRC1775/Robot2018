@@ -21,9 +21,12 @@ import org.usfirst.frc.team1775.robot.commands.autonomous.DropBlock;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+	//the following initializes relevant OI constants ie where the inputs are located
+	
+	//joystick OI constants
 	public final static int DRIVER_JOYSTICK_PORT = 0;
 	public final static int OPERATOR_JOYSTICK_PORT = 1;
-	
+	//button OI constants
 	private final static int A_BUTTON = 1;
 	private final static int B_BUTTON = 2;
 	private final static int X_BUTTON = 3;
@@ -34,23 +37,28 @@ public class OI {
 	private final static int START_BUTTON = 8;
 	private final static int LEFT_JOYSTICK_CLICK = 9;
 	private final static int RIGHT_JOYSTICK_CLICK = 10;
-	
+	//analog inputs constants, namely the joystick axes and triggers
 	private final static int LEFT_ANALOG_Y_AXIS = 1;
 	private final static int RIGHT_ANALOG_X_AXIS = 4;
 	private final static int LEFT_TRIGGER = 2;
 	private final static int RIGHT_TRIGGER = 3;
-	
+	//speed constants for motor speed of mechanism. Note that 1.0 is 100% speed
+	//outtake motor speed constant
 	private final static double CUBE_FLIP_SPEED = 1.0;
+	//intake motor speed constant
 	public final static double INTAKE_SPEED = 0.9;
 	
+	//declares Joystick objects, namely the one the first driver uses, "driverJoystick" and the one the second
+	//driver uses, "operatorJoystick"
 	private static Joystick driverJoystick;
 	private static Joystick operatorJoystick;
 	
+	//holder values declared until the program can check for OI connectivity below
 	private static boolean driverJoystickConfigured = false;
 	private static boolean operatorJoystickConfigured = false;
 	private static boolean driverJoystickConnected = false;
 	private static boolean operatorJoystickConnected = false;
-
+	//init method initializes OI objects and runs connectivity checks
 	public static void init() {
 		checkJoysticks();
 	}

@@ -20,6 +20,7 @@ import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAutoOppositeS
 import org.usfirst.frc.team1775.robot.commands.autonomous.DoNothing;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromCenter;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveToAutoLineFromSides;
+import org.usfirst.frc.team1775.robot.commands.autonomous.ForwardOneEighty;
 import org.usfirst.frc.team1775.robot.subsystems.BlinkyLightSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.IntakeOpenSubsystem;
 import org.usfirst.frc.team1775.robot.subsystems.IntakeSubsystem;
