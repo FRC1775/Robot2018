@@ -16,7 +16,7 @@ public class AutonomousStart extends CommandGroup {
     	addSequential(new WaitCommand(0.5));
     	addParallel(new IntakeIn(AutonomousConstants.AUTO_START_INTAKE_SPEED));
     	addSequential(new IntakeRelease());
-    	addSequential(new WaitCommand(0.5));
+    	addSequential(new WaitCommand(1.5));
     	addSequential(new IntakeStop());
     	addSequential(new LiftOffLimitSwitch());
 //    	addSequential(new LiftHeight(4));

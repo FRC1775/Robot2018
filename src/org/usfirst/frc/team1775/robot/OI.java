@@ -8,10 +8,13 @@ import org.usfirst.frc.team1775.robot.commands.CloseIntakeArms;
 import org.usfirst.frc.team1775.robot.commands.FlippyCube;
 import org.usfirst.frc.team1775.robot.commands.IntakeIn;
 import org.usfirst.frc.team1775.robot.commands.IntakeOut;
+import org.usfirst.frc.team1775.robot.commands.IntakeRelease;
 import org.usfirst.frc.team1775.robot.commands.LiftToHerdHeight;
 import org.usfirst.frc.team1775.robot.commands.OpenIntakeArms;
+import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousConstants;
 import org.usfirst.frc.team1775.robot.commands.autonomous.BlockOnLeftSwitchFromCenter;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveAndTurn;
+import org.usfirst.frc.team1775.robot.commands.autonomous.DropBlock;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -167,7 +170,6 @@ public class OI {
 		configureIntakeOutButton(driverJoystick, true);
 		configureCubeFlipRightButton(driverJoystick);
 		configureCubeFlipLeftButton(driverJoystick);
-//		configureDriveAndTurnTestButton(driverJoystick);
 		
 		driverJoystickConfigured = true;
 	}
@@ -184,6 +186,7 @@ public class OI {
 //		configureIntakeOpenButton(operatorJoystick);
 		configureCubeFlipRightButton(operatorJoystick);
 		configureCubeFlipLeftButton(operatorJoystick); 
+		configureIntakeReleaseButton(operatorJoystick);
 
 		operatorJoystickConfigured = true;
 	}
@@ -225,8 +228,8 @@ public class OI {
 		cubeFlipLeftButton.whileHeld(new FlippyCube(-CUBE_FLIP_SPEED));
 	}
 	
-	/*private static void configureDriveAndTurnTestButton(Joystick joystick) {
-		JoystickButton driveAndTurnTestButton = new JoystickButton(joystick, START_BUTTON);
-		driveAndTurnTestButton.whenPressed(new BlockOnLeftSwitchFromCenter());
-	}*/
+	private static void configureIntakeReleaseButton(Joystick joystick) {
+		JoystickButton intakeReleaseButton = new JoystickButton(joystick, BACK_BUTTON);
+		intakeReleaseButton.whenPressed(new IntakeRelease());
+	}
 }

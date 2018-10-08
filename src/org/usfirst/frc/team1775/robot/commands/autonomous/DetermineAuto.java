@@ -46,8 +46,8 @@ public class DetermineAuto extends ConditionalCommand {
 	    				new BlockOnSwitchFromSides(AutonomousConstants.LEFT)
 	    				),
 	    			new ChooseByRobotPosition(
-	    				new BlockOnScaleFromSides(AutonomousConstants.RIGHT),
-	    				new BlockOnScaleFromSides(AutonomousConstants.LEFT)
+	    				new JustScaleAutonomous(AutonomousConstants.RIGHT),
+	    				new JustScaleAutonomous(AutonomousConstants.LEFT)
 	    				)	    		
 					),
 	    		new DetermineAuto(

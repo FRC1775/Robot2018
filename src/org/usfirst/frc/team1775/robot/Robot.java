@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousStart;
 import org.usfirst.frc.team1775.robot.commands.autonomous.BlockOnLeftSwitchFromCenter;
-import org.usfirst.frc.team1775.robot.commands.autonomous.BlockOnSwitchFromCenterCurve;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAuto;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAutoCenter;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DetermineAutoOppositeSwitch;
@@ -68,12 +68,12 @@ public class Robot extends IterativeRobot {
 	}
 	
 	private void initDashboard() {
-		chooser.addDefault("Cross Auto line", new DriveToAutoLineFromCenter());
+		chooser.addDefault("Cross Auto Line (From any Position)", new DriveToAutoLineFromCenter());
 		chooser.addObject("Pick Best Way to Go from a Side", new DetermineAuto());
 		chooser.addObject("Pick Best Way from a Side with Opposite Scale Potential", new DetermineAutoOppositeSwitch());
-		chooser.addObject("Put a Block on the Switch From Center", new BlockOnLeftSwitchFromCenter());
-		chooser.addObject("Cross Auto Line From Center (Drive Straight Forward)", new DriveToAutoLineFromCenter());
-		chooser.addObject("Drive to Auto Line From Sides", new DriveToAutoLineFromSides());
+		chooser.addObject("Put a Block on the Switch From Center", new DetermineAutoCenter());
+		chooser.addObject("Cross Auto Line From Center", new DriveToAutoLineFromCenter());
+		chooser.addObject("Cross Auto Line From Sides", new DriveToAutoLineFromSides());
 		chooser.addObject("Forward 180", new ForwardOneEighty());
 		SmartDashboard.putData("Auto mode", chooser);
 		
@@ -129,7 +129,7 @@ public class Robot extends IterativeRobot {
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		if(gameData == null) {
-			return "";
+			return "   ";
 		}
 		return gameData;
 	}
@@ -183,6 +183,7 @@ public class Robot extends IterativeRobot {
 		RobotMap.driveEncoderRight.reset();
 		RobotMap.gyro.reset();
 		RobotMap.gyro.zeroYaw();
+		Robot.motorSubsystem.setRotateAngleForAuto(0);
 		
 		// Scheduler.getInstance().add(new LiftOffLimitSwitch());
 	}
