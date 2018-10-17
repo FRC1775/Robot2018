@@ -18,8 +18,6 @@ import org.usfirst.frc.team1775.robot.commands.autonomous.BlockOnLeftSwitchFromC
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveAndTurn;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DropBlock;
 
-// CHECK IF IT'S ACTUALLY COMMITTING lol
-
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
