@@ -2,6 +2,7 @@ package org.usfirst.frc.team1775.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team1775.robot.commands.CloseIntakeArms;
@@ -11,11 +12,12 @@ import org.usfirst.frc.team1775.robot.commands.IntakeOut;
 import org.usfirst.frc.team1775.robot.commands.IntakeRelease;
 import org.usfirst.frc.team1775.robot.commands.LiftToHerdHeight;
 import org.usfirst.frc.team1775.robot.commands.OpenIntakeArms;
+import org.usfirst.frc.team1775.robot.commands.TurnInCircles;
 import org.usfirst.frc.team1775.robot.commands.autonomous.AutonomousConstants;
 import org.usfirst.frc.team1775.robot.commands.autonomous.BlockOnLeftSwitchFromCenter;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DriveAndTurn;
 import org.usfirst.frc.team1775.robot.commands.autonomous.DropBlock;
-
+// yet another test last one
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -52,6 +54,7 @@ public class OI {
 	//driver uses, "operatorJoystick"
 	private static Joystick driverJoystick;
 	private static Joystick operatorJoystick;
+	public static JoystickButton turnButton;
 	
 	//holder values declared until the program can check for OI connectivity below
 	private static boolean driverJoystickConfigured = false;
@@ -178,6 +181,7 @@ public class OI {
 		configureIntakeOutButton(driverJoystick, true);
 		configureCubeFlipRightButton(driverJoystick);
 		configureCubeFlipLeftButton(driverJoystick);
+		configureTurnButton(driverJoystick);
 		
 		driverJoystickConfigured = true;
 	}
@@ -239,5 +243,9 @@ public class OI {
 	private static void configureIntakeReleaseButton(Joystick joystick) {
 		JoystickButton intakeReleaseButton = new JoystickButton(joystick, BACK_BUTTON);
 		intakeReleaseButton.whenPressed(new IntakeRelease());
+	}
+	public static void configureTurnButton(Joystick joystick) {
+		turnButton = new JoystickButton(joystick, LEFT_JOYSTICK_CLICK);
+		turnButton.whileHeld(new TurnInCircles());
 	}
 }

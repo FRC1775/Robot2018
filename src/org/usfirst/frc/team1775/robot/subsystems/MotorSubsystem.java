@@ -109,7 +109,9 @@ public class MotorSubsystem extends Subsystem implements PIDSource {
 		realRotateValue = driveStraightCorrection(moveValue, realRotateValue);
 		RobotMap.drive.arcadeDrive(realMoveValue, realRotateValue, true);
 	}
-	
+	public double getRotateAngle () {
+		return rotateToAnglePidController.getSetpoint();
+	}
 	private double driveStraightCorrection(double moveValue, double rotateValue) {
 		if (rotateValue < 0.2 && rotateValue > -0.2) {
 			if (shouldSetPoint || (moveValue < 0.1 && moveValue > -0.1)) {
