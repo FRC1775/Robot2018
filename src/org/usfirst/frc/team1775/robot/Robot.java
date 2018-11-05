@@ -75,7 +75,8 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Put a Block on the Switch From Center", new DetermineAutoCenter());
 		chooser.addObject("Cross Auto Line From Center", new DriveToAutoLineFromCenter());
 		chooser.addObject("Cross Auto Line From Sides", new DriveToAutoLineFromSides());
-		chooser.addObject("Forward 180", new ForwardOneEighty());
+		//chooser.addObject("Forward 180", new ForwardOneEighty());
+		chooser.addObject("Do Nothing", new AutonomousStart());
 		SmartDashboard.putData("Auto mode", chooser);
 		
 		positionChooser.addDefault("Center", RobotStartingPosition.CENTER);
@@ -196,5 +197,6 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		OI.checkJoysticks();
 		Scheduler.getInstance().run();
+		SmartDashboard.putBoolean("driver connected", driverCamera.isConnected());
 	}
 }
